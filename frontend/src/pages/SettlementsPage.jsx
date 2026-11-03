@@ -33,7 +33,8 @@ export default function SettlementsPage() {
     groupService
       .getAll()
       .then((res) => {
-        const g = res.data.data.groups || res.data.data || [];
+        const raw = res.data?.data?.groups || res.data?.groups || res.data?.data || [];
+        const g = Array.isArray(raw) ? raw : [];
         setGroups(g);
         if (!selectedGroup && g.length > 0) {
           // Don't auto-select, let user choose
@@ -59,10 +60,9 @@ export default function SettlementsPage() {
         settlementService.getOptimized(selectedGroup),
         settlementService.getByGroup(selectedGroup),
       ]);
-      setOptimized(optRes.data.data || optRes.data);
-      setHistory(
-        histRes.data.data.settlements || histRes.data.data || histRes.data || []
-      );
+      setOptimized(optRes.data?.data || optRes.data);
+      const hist = histRes.data?.data?.settlements || histRes.data?.settlements || [];
+      setHistory(Array.isArray(hist) ? hist : []);
     } catch (err) {
       toast.error('Failed to load settlements');
     } finally {

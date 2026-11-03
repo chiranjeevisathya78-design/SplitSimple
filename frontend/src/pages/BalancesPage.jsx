@@ -28,7 +28,8 @@ export default function BalancesPage() {
     setLoading(true);
     try {
       const res = await groupService.getAll();
-      const groupList = res.data.data.groups || res.data.data || [];
+      const rawGroups = res.data?.data?.groups || res.data?.groups || res.data?.data || [];
+      const groupList = Array.isArray(rawGroups) ? rawGroups : [];
       setGroups(groupList);
 
       // Fetch balances for each group

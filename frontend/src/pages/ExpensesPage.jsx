@@ -38,7 +38,10 @@ export default function ExpensesPage() {
   useEffect(() => {
     groupService
       .getAll()
-      .then((res) => setGroups(res.data.data.groups || res.data.data || []))
+      .then((res) => {
+        const raw = res.data?.data?.groups || res.data?.groups || [];
+        setGroups(Array.isArray(raw) ? raw : []);
+      })
       .catch(() => {});
   }, []);
 
@@ -55,9 +58,10 @@ export default function ExpensesPage() {
       if (groupId) params.groupId = groupId;
       if (page) params.page = page;
       const res = await expenseService.getAll(params);
-      const data = res.data.data;
-      setExpenses(data.expenses || data || []);
-      setTotalPages(data.totalPages || 1);
+      const data = res.data?.data || res.data || {};
+      const expList = data.expenses || (Array.isArray(data) ? data : []);
+      setExpenses(expList);
+      setTotalPages(data.pagination?.pages || data.totalPages || 1);
     } catch (err) {
       toast.error('Failed to load expenses');
     } finally {

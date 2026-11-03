@@ -49,7 +49,7 @@ export default function AnalyticsPage() {
     setLoading(true);
     try {
       const res = await dashboardService.get();
-      const data = res.data.data;
+      const data = res.data?.data || res.data || {};
       setAnalytics(data.analytics || data);
     } catch (err) {
       toast.error('Failed to load analytics');

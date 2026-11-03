@@ -46,8 +46,8 @@ export default function CreateExpensePage() {
     groupService
       .getAll()
       .then((res) => {
-        const g = res.data.data.groups || res.data.data || [];
-        setGroups(g);
+        const raw = res.data?.data?.groups || res.data?.groups || [];
+        setGroups(Array.isArray(raw) ? raw : []);
       })
       .catch(() => toast.error('Failed to load groups'))
       .finally(() => setLoadingGroups(false));
@@ -66,7 +66,7 @@ export default function CreateExpensePage() {
     groupService
       .getById(selectedGroup)
       .then((res) => {
-        const group = res.data.data.group || res.data.data;
+        const group = res.data?.data?.group || res.data?.group || res.data?.data || {};
         const m = group.members || [];
         setMembers(m);
         // Select all members by default

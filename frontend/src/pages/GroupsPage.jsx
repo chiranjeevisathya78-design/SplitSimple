@@ -13,7 +13,8 @@ export default function GroupsPage() {
     const fetchGroups = async () => {
       try {
         const res = await groupService.getAll();
-        setGroups(res.data.groups || res.data || []);
+        const groupList = res.data?.data?.groups || res.data?.groups || res.data?.data || [];
+        setGroups(Array.isArray(groupList) ? groupList : []);
       } catch (err) {
         console.error('Failed to load groups:', err);
       } finally {

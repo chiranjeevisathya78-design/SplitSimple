@@ -129,3 +129,4 @@ All 11 unit test suites cover:
 - **Web Application**: [http://localhost:5173](http://localhost:5173)
 - **Backend API**: [http://localhost:5000/api](http://localhost:5000/api)
 - **Health Endpoint**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
+

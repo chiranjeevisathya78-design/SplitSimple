@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import ErrorBoundary from './components/ErrorBoundary';
 import AppLayout from './layouts/AppLayout';
 
 import LandingPage from './pages/LandingPage';
@@ -20,37 +21,39 @@ import AnalyticsPage from './pages/AnalyticsPage';
 export default function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Toaster position="top-right" toastOptions={{ duration: 3500 }} />
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+      <ErrorBoundary>
+        <AuthProvider>
+          <Toaster position="top-right" toastOptions={{ duration: 3500 }} />
+          <Routes>
+            {/* Public routes */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
 
-          {/* Protected routes */}
-          <Route
-            element={
-              <ProtectedRoute>
-                <AppLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/groups" element={<GroupsPage />} />
-            <Route path="/groups/new" element={<CreateGroupPage />} />
-            <Route path="/groups/:id" element={<GroupDetailPage />} />
-            <Route path="/expenses" element={<ExpensesPage />} />
-            <Route path="/expenses/new" element={<CreateExpensePage />} />
-            <Route path="/balances" element={<BalancesPage />} />
-            <Route path="/settlements" element={<SettlementsPage />} />
-            <Route path="/analytics" element={<AnalyticsPage />} />
-          </Route>
+            {/* Protected routes */}
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/groups" element={<GroupsPage />} />
+              <Route path="/groups/new" element={<CreateGroupPage />} />
+              <Route path="/groups/:id" element={<GroupDetailPage />} />
+              <Route path="/expenses" element={<ExpensesPage />} />
+              <Route path="/expenses/new" element={<CreateExpensePage />} />
+              <Route path="/balances" element={<BalancesPage />} />
+              <Route path="/settlements" element={<SettlementsPage />} />
+              <Route path="/analytics" element={<AnalyticsPage />} />
+            </Route>
 
-          {/* Catch-all */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </AuthProvider>
+            {/* Catch-all */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </AuthProvider>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 }

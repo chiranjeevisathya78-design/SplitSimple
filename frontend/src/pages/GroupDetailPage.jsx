@@ -63,10 +63,12 @@ export default function GroupDetailPage() {
         expenseService.getAll({ groupId: id }),
         groupService.getBalances(id),
       ]);
-      const g = groupRes.data.group || groupRes.data;
+      const g = groupRes.data.data?.group || groupRes.data.group || groupRes.data;
       setGroup(g);
-      setExpenses(expensesRes.data.expenses || expensesRes.data || []);
-      setBalances(balancesRes.data.balances || balancesRes.data || []);
+      const expList = expensesRes.data.data?.expenses || expensesRes.data.expenses || [];
+      setExpenses(Array.isArray(expList) ? expList : []);
+      const balList = balancesRes.data.data?.balances || balancesRes.data.balances || [];
+      setBalances(Array.isArray(balList) ? balList : []);
       setEditName(g.name || '');
       setEditDescription(g.description || '');
     } catch (err) {

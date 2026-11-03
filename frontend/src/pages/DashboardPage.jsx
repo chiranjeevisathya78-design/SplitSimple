@@ -45,7 +45,7 @@ export default function DashboardPage() {
     const fetchDashboard = async () => {
       try {
         const res = await dashboardService.get();
-        setData(res.data);
+        setData(res.data.data || res.data);
       } catch (err) {
         console.error('Failed to load dashboard:', err);
       } finally {
@@ -71,7 +71,10 @@ export default function DashboardPage() {
     );
   }
 
-  const { summary, recentExpenses, groups, analytics } = data;
+  const summary = data?.summary || { totalExpenses: 0, youOwe: 0, youAreOwed: 0, activeGroups: 0 };
+  const recentExpenses = data?.recentExpenses || [];
+  const groups = data?.groups || [];
+  const analytics = data?.analytics || {};
 
   const monthlyChartData = analytics?.monthlySpending
     ? Object.entries(analytics.monthlySpending)
@@ -170,7 +173,9 @@ export default function DashboardPage() {
                       <div>
                         <p className="text-sm font-medium text-gray-900">{expense.title || expense.description}</p>
                         <p className="text-xs text-gray-500">
-                          {expense.group?.name && <span>{expense.group.name} · </span>}
+                          {(expense.groupId?.name || expense.group?.name) && (
+                            <span>{expense.groupId?.name || expense.group?.name} · </span>
+                          )}
                           {formatDate(expense.date || expense.createdAt)}
                         </p>
                       </div>

@@ -25,7 +25,7 @@ export default function CreateGroupPage() {
     setSearching(true);
     try {
       const res = await authService.searchUsers(query.trim());
-      const users = res.data.users || res.data || [];
+      const users = res.data?.data?.users || res.data?.users || [];
       // Filter out already-added members
       const addedEmails = new Set(members.map((m) => m.email));
       setSearchResults(users.filter((u) => !addedEmails.has(u.email)));
@@ -61,7 +61,7 @@ export default function CreateGroupPage() {
         description: description.trim(),
         memberEmails: members.map((m) => m.email),
       });
-      const newGroupId = res.data.group?._id || res.data._id;
+      const newGroupId = res.data?.data?.group?._id || res.data?.group?._id || res.data?._id;
       toast.success('Group created successfully!');
       navigate(`/groups/${newGroupId}`);
     } catch (err) {
