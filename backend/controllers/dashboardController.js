@@ -80,6 +80,23 @@ exports.getDashboard = async (req, res, next) => {
       }
     }
 
+    // Group spending comparison
+    const groupSpending = {};
+    for (const g of groups) {
+      groupSpending[g.name] = 0;
+    }
+    for (const expense of expenses) {
+      const gName = expense.groupId?.name || 'Other';
+      groupSpending[gName] = (groupSpending[gName] || 0) + expense.amount;
+    }
+
+    // Individual member contribution
+    const memberContributions = {};
+    for (const expense of expenses) {
+      const pName = expense.paidBy?.name || 'Member';
+      memberContributions[pName] = (memberContributions[pName] || 0) + expense.amount;
+    }
+
     res.json({
       success: true,
       data: {
@@ -102,6 +119,8 @@ exports.getDashboard = async (req, res, next) => {
         analytics: {
           categoryBreakdown,
           monthlySpending,
+          groupSpending,
+          memberContributions,
         },
       },
     });

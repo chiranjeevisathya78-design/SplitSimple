@@ -58,14 +58,14 @@ export default function AppLayout() {
   return (
     <div className="min-h-screen bg-[#fafafb] text-[#17191c]">
       {/* Mobile Top Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#f2f2f3] px-4 py-3 flex items-center justify-between">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-30 bg-[#17191c] text-white px-4 py-3.5 flex items-center justify-between border-b border-white/10">
         <button
           onClick={() => setSidebarOpen(true)}
-          className="p-1.5 rounded-full hover:bg-[#f2f2f3] text-[#17191c]"
+          className="p-1.5 rounded-full hover:bg-white/10 text-white transition"
         >
           <Menu size={20} />
         </button>
-        <span className="font-editorial text-xl font-semibold text-[#17191c]">
+        <span className="font-editorial text-xl font-semibold tracking-tight text-white">
           SplitSimple
         </span>
         <div className="w-8" />
@@ -74,55 +74,62 @@ export default function AppLayout() {
       {/* Sidebar Backdrop Overlay */}
       {sidebarOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-40 bg-black/20 backdrop-blur-xs"
+          className="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-xs transition-opacity"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      {/* Editorial Sidebar */}
+      {/* Sophisticated Dark Charcoal Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-68 bg-white border-r border-[#f2f2f3] flex flex-col justify-between transform transition-transform duration-200 ease-in-out
+        className={`fixed top-0 left-0 z-50 h-full w-70 bg-[#17191c] text-white border-r border-[#26282d] flex flex-col justify-between transform transition-transform duration-200 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
         {/* Brand Header */}
         <div>
-          <div className="p-6 flex items-center justify-between border-b border-[#f2f2f3]">
-            <NavLink to="/dashboard" className="flex items-center gap-3">
-              <div className="w-7 h-7 rounded-full bg-[#17191c] text-white flex items-center justify-center font-bold text-xs tracking-tight">
+          <div className="p-6 flex items-center justify-between border-b border-white/10">
+            <NavLink to="/dashboard" className="flex items-center gap-3 group">
+              <div className="w-8 h-8 rounded-full bg-[#fbe1d1] text-[#5d2a1a] flex items-center justify-center font-bold text-sm tracking-tight shadow-sm transition-transform group-hover:scale-105">
                 S
               </div>
-              <span className="font-editorial text-xl font-semibold text-[#17191c]">
-                SplitSimple
-              </span>
+              <div className="flex flex-col">
+                <span className="font-editorial text-xl font-semibold text-white tracking-tight">
+                  SplitSimple
+                </span>
+                <span className="text-[10px] uppercase font-semibold tracking-widest text-[#a3a6af]">
+                  Financial SaaS
+                </span>
+              </div>
             </NavLink>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden text-[#777b86] hover:text-[#17191c]"
+              className="lg:hidden text-[#a3a6af] hover:text-white"
             >
               <X size={18} />
             </button>
           </div>
 
           {/* Navigation Links */}
-          <nav className="p-4 space-y-1">
+          <nav className="p-4 space-y-1.5">
             {navItems.map(({ to, label, icon: Icon }) => {
-              const active = location.pathname === to || (to !== '/dashboard' && location.pathname.startsWith(to));
+              const active =
+                location.pathname === to ||
+                (to !== '/dashboard' && location.pathname.startsWith(to));
               return (
                 <NavLink
                   key={to}
                   to={to}
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-[16px] text-sm font-medium transition-all ${
+                  className={`flex items-center justify-between px-4 py-2.5 rounded-[16px] text-sm font-medium transition-all duration-150 ${
                     active
-                      ? 'bg-[#17191c] text-white shadow-xs'
-                      : 'text-[#777b86] hover:bg-[#fafafb] hover:text-[#17191c]'
+                      ? 'bg-[#fbe1d1] text-[#5d2a1a] font-semibold shadow-sm'
+                      : 'text-[#979799] hover:bg-white/5 hover:text-white'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon size={17} />
+                    <Icon size={18} className={active ? 'text-[#5d2a1a]' : 'text-[#777b86]'} />
                     <span>{label}</span>
                   </div>
-                  {active && <ChevronRight size={14} className="text-white/60" />}
+                  {active && <ChevronRight size={14} className="text-[#5d2a1a]" />}
                 </NavLink>
               );
             })}
@@ -130,18 +137,18 @@ export default function AppLayout() {
         </div>
 
         {/* Demo Controller & User Footer */}
-        <div className="p-4 border-t border-[#f2f2f3] space-y-4">
+        <div className="p-4 border-t border-white/10 space-y-3.5">
           {/* Quick Demo Re-seed Helper */}
-          <div className="bg-[#fafafb] rounded-[16px] border border-[#f2f2f3] p-3 flex items-center justify-between">
+          <div className="bg-[#202327] rounded-[16px] border border-white/10 p-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#5d2a1a]" />
-              <span className="text-xs font-semibold text-[#5d2a1a]">Demo Mode</span>
+              <span className="w-2 h-2 rounded-full bg-[#fbe1d1] animate-pulse" />
+              <span className="text-xs font-semibold text-[#fbe1d1]">Demo Mode</span>
             </div>
             <button
               onClick={handleResetDemo}
               disabled={resettingDemo}
               title="Reset sample data"
-              className="text-xs text-[#777b86] hover:text-[#17191c] flex items-center gap-1 transition"
+              className="text-[11px] text-[#a3a6af] hover:text-white flex items-center gap-1.5 transition disabled:opacity-50"
             >
               <RotateCcw size={12} className={resettingDemo ? 'animate-spin' : ''} />
               <span>{resettingDemo ? 'Resetting…' : 'Reset'}</span>
@@ -149,16 +156,16 @@ export default function AppLayout() {
           </div>
 
           {/* User Profile Pill */}
-          <div className="flex items-center justify-between pt-1">
+          <div className="bg-[#202327] rounded-[16px] border border-white/10 p-3 flex items-center justify-between">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-8 h-8 rounded-full bg-[#f2f2f3] text-[#17191c] flex items-center justify-center text-xs font-bold shrink-0">
+              <div className="w-8 h-8 rounded-full bg-[#fbe1d1] text-[#5d2a1a] flex items-center justify-center text-xs font-bold shrink-0">
                 {user?.name?.charAt(0)?.toUpperCase() || 'U'}
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-semibold text-[#17191c] truncate">
-                  {user?.name || 'Chiranjeevi'}
+                <p className="text-xs font-semibold text-white truncate">
+                  {user?.name || 'Chiranjeevi S'}
                 </p>
-                <p className="text-[11px] text-[#777b86] truncate">
+                <p className="text-[11px] text-[#979799] truncate">
                   {user?.email || 'chiranjeevi@example.com'}
                 </p>
               </div>
@@ -166,7 +173,7 @@ export default function AppLayout() {
             <button
               onClick={handleLogout}
               title="Sign out"
-              className="p-1.5 text-[#777b86] hover:text-red-600 rounded-full hover:bg-red-50 transition"
+              className="p-1.5 text-[#979799] hover:text-white rounded-full hover:bg-white/10 transition"
             >
               <LogOut size={16} />
             </button>
@@ -174,8 +181,8 @@ export default function AppLayout() {
         </div>
       </aside>
 
-      {/* Main Content Area (Max 1200px centered) */}
-      <main className="lg:ml-68 min-h-screen pt-16 lg:pt-0">
+      {/* Main Content Area (offset by sidebar width, max 1200px centered) */}
+      <main className="lg:ml-70 min-h-screen pt-16 lg:pt-0">
         <div className="max-w-[1200px] mx-auto p-6 sm:p-8 lg:p-10">
           <Outlet />
         </div>

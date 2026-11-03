@@ -4,7 +4,7 @@
  * @returns {string} Formatted amount like "₹1,200.00"
  */
 export function formatCurrency(paise) {
-  const rupees = paise / 100;
+  const rupees = (paise || 0) / 100;
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
@@ -18,10 +18,24 @@ export function formatCurrency(paise) {
  * @returns {string}
  */
 export function formatDate(date) {
+  if (!date) return '';
   return new Date(date).toLocaleDateString('en-IN', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
+  });
+}
+
+/**
+ * Format a human readable full date for header
+ * @returns {string}
+ */
+export function formatHeaderDate() {
+  return new Date().toLocaleDateString('en-IN', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
   });
 }
 
@@ -34,6 +48,7 @@ export function getInitials(name) {
   if (!name) return '?';
   return name
     .split(' ')
+    .filter(Boolean)
     .map((n) => n[0])
     .join('')
     .toUpperCase()
@@ -41,20 +56,19 @@ export function getInitials(name) {
 }
 
 /**
- * Category labels and colors
+ * Steep-inspired category configurations
  */
 export const CATEGORIES = {
-  food: { label: 'Food & Dining', color: '#f97316' },
-  transport: { label: 'Transport', color: '#3b82f6' },
-  entertainment: { label: 'Entertainment', color: '#a855f7' },
-  shopping: { label: 'Shopping', color: '#ec4899' },
-  rent: { label: 'Rent', color: '#6366f1' },
-  utilities: { label: 'Utilities', color: '#14b8a6' },
-  groceries: { label: 'Groceries', color: '#22c55e' },
-  travel: { label: 'Travel', color: '#eab308' },
-  subscriptions: { label: 'Subscriptions', color: '#f43f5e' },
-  health: { label: 'Health', color: '#06b6d4' },
-  education: { label: 'Education', color: '#8b5cf6' },
-  other: { label: 'Other', color: '#64748b' },
+  groceries: { label: 'Groceries', bg: '#edf3ec', text: '#254422' },
+  food: { label: 'Food & Dining', bg: '#fbe1d1', text: '#5d2a1a' },
+  rent: { label: 'House Rent', bg: '#17191c', text: '#ffffff' },
+  utilities: { label: 'Utilities', bg: '#e9eef5', text: '#223854' },
+  travel: { label: 'Travel & Trips', bg: '#f4ede6', text: '#5c381c' },
+  transport: { label: 'Transport', bg: '#f2f2f3', text: '#3c4046' },
+  entertainment: { label: 'Entertainment', bg: '#f7eaf0', text: '#5e253a' },
+  shopping: { label: 'Shopping', bg: '#f4ede4', text: '#54361e' },
+  subscriptions: { label: 'Subscriptions', bg: '#f2f2f3', text: '#777b86' },
+  health: { label: 'Health', bg: '#ebf4ee', text: '#204f32' },
+  education: { label: 'Education', bg: '#eceef6', text: '#272f54' },
+  other: { label: 'General / Other', bg: '#f2f2f3', text: '#777b86' },
 };
-

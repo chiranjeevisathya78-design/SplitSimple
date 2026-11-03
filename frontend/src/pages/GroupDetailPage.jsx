@@ -248,38 +248,38 @@ export default function GroupDetailPage() {
       {/* Tab Contents */}
       {activeTab === 'overview' && (
         <div className="space-y-6">
-          {/* Overview Snapshot */}
+          {/* Overview Snapshot with Varied Tokens */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
+            <div className="bg-[#17191c] text-white rounded-[24px] border border-white/10 p-6 shadow-[0_4px_20px_rgba(23,25,28,0.1)]">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#a3a6af]">
                 Total Group Spending
               </span>
-              <p className="font-editorial text-3xl font-semibold text-[#17191c] mt-2">
+              <p className="font-editorial text-3xl font-semibold text-white mt-2">
                 {formatCurrency(totalSpent)}
               </p>
-              <p className="text-xs text-[#777b86] mt-1">{expenses.length} expenses recorded</p>
+              <p className="text-xs text-[#a3a6af] mt-1.5">{expenses.length} shared receipts logged</p>
             </div>
 
             <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
-                Participants
+                Roster Size
               </span>
               <p className="font-editorial text-3xl font-semibold text-[#17191c] mt-2">
                 {group.members?.length || 0} Members
               </p>
-              <p className="text-xs text-[#777b86] mt-1">Shared evenly or by custom rules</p>
+              <p className="text-xs text-[#777b86] mt-1.5">Shared evenly or by custom allocation</p>
             </div>
 
-            <div className="bg-[#fbe1d1]/30 rounded-[24px] border border-[#f6d0bb] p-6">
+            <div className="bg-[#fbe1d1]/50 rounded-[24px] border border-[#f6d0bb] p-6 text-[#5d2a1a]">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#5d2a1a]">
-                Settlement Shortcut
+                Settlement Engine
               </span>
               <p className="font-editorial text-3xl font-semibold text-[#5d2a1a] mt-2">
                 Greedy Plan
               </p>
               <Link
                 to={`/settlements?groupId=${group._id}`}
-                className="text-xs font-semibold text-[#5d2a1a] underline mt-1 block"
+                className="text-xs font-bold text-[#5d2a1a] underline mt-1.5 block hover:opacity-80"
               >
                 Inspect Optimized Repayments ➔
               </Link>

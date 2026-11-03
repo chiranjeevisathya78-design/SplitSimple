@@ -163,40 +163,40 @@ export default function SettlementsPage() {
         </div>
       ) : (
         <>
-          {/* Optimization Summary Bar */}
+          {/* Optimization Summary Bar (Varied Token Styles) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
+            <div className="bg-[#17191c] text-white rounded-[24px] border border-white/10 p-6 shadow-[0_4px_20px_rgba(23,25,28,0.1)]">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#a3a6af]">
                 Total Outstanding Debt
               </span>
-              <p className="font-editorial text-3xl font-semibold text-[#17191c] mt-2">
+              <p className="font-editorial text-3xl sm:text-4xl font-semibold text-white mt-2">
                 {formatCurrency(totalOutstanding)}
               </p>
-              <p className="text-xs text-[#777b86] mt-1">Across all debtor members</p>
+              <p className="text-xs text-[#a3a6af] mt-1.5">Across all debtor members in this group</p>
             </div>
 
-            <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
+            <div className="bg-[#fbe1d1]/50 text-[#5d2a1a] rounded-[24px] border border-[#f6d0bb] p-6 shadow-xs">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#5d2a1a]">
                 Optimized Transactions
               </span>
-              <p className="font-editorial text-3xl font-semibold text-[#17191c] mt-2">
+              <p className="font-editorial text-3xl sm:text-4xl font-semibold text-[#5d2a1a] mt-2">
                 {transactions.length} Payment{transactions.length === 1 ? '' : 's'}
               </p>
-              <p className="text-xs text-[#777b86] mt-1">
+              <p className="text-xs text-[#5d2a1a]/80 mt-1.5">
                 {transactions.length === 0
-                  ? 'Group is already fully settled'
+                  ? 'All accounts are balanced'
                   : 'Minimal transfers calculated by greedy algorithm'}
               </p>
             </div>
 
-            <div className="bg-[#fbe1d1]/30 rounded-[24px] border border-[#f6d0bb] p-6">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#5d2a1a]">
+            <div className="bg-[#f2f2f3] rounded-[24px] border border-[#e3e4e7] p-6">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
                 Balance Conservation
               </span>
-              <p className="font-editorial text-3xl font-semibold text-[#5d2a1a] mt-2">
+              <p className="font-editorial text-3xl sm:text-4xl font-semibold text-[#17191c] mt-2">
                 Exact Paise
               </p>
-              <p className="text-xs text-[#5d2a1a] mt-1">Sum of credits equals sum of debits</p>
+              <p className="text-xs text-[#777b86] mt-1.5">Zero floating-point arithmetic drift</p>
             </div>
           </div>
 

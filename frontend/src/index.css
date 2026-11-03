@@ -45,6 +45,15 @@ body {
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
+/* Card elevation & micro-interaction styles */
+.card-hover-lift {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+.card-hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -8px rgba(23, 25, 28, 0.08);
+}
+
 /* Subtle editorial borders and soft shadows */
 .card-steep {
   background-color: #ffffff;

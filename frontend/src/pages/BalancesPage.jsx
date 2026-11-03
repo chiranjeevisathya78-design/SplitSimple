@@ -8,12 +8,14 @@ import {
   TrendingDown,
   Users,
   Handshake,
+  CheckCircle2,
+  AlertCircle,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { groupService } from '../services';
 import { useAuth } from '../context/AuthContext';
 import { formatCurrency } from '../utils/helpers';
-import { MemberAvatar } from '../components/StatCard';
+import { MemberAvatar, StatCard } from '../components/StatCard';
 import { Button } from '../components/Button';
 
 export default function BalancesPage() {
@@ -102,44 +104,46 @@ export default function BalancesPage() {
         </Link>
       </div>
 
-      {/* Summary Stat Cards */}
+      {/* Varied Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
-            Total Amount You Are Owed
-          </span>
-          <p className="font-editorial text-3xl font-semibold text-[#17191c] mt-2">
-            {formatCurrency(totalYouAreOwed)}
-          </p>
-          <p className="text-xs text-[#777b86] mt-1">Pending receivables from group mates</p>
-        </div>
+        {/* Featured Net Card in Dark Charcoal */}
+        <StatCard
+          variant="dark"
+          label="Your Combined Net Balance"
+          value={`${netOverall >= 0 ? '+' : ''}${formatCurrency(Math.abs(netOverall))}`}
+          subtext={
+            netOverall > 0
+              ? 'You are net positive across all groups'
+              : netOverall < 0
+              ? 'You have pending repayment obligations'
+              : 'All groups completely balanced at ₹0.00'
+          }
+          badge={
+            netOverall > 0
+              ? 'Net Receivable'
+              : netOverall < 0
+              ? 'Net Payable'
+              : 'Settled'
+          }
+        />
 
-        <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
-            Total Amount You Owe
-          </span>
-          <p className="font-editorial text-3xl font-semibold text-[#5d2a1a] mt-2">
-            {formatCurrency(totalYouOwe)}
-          </p>
-          <p className="text-xs text-[#777b86] mt-1">Your pending repayment share</p>
-        </div>
+        {/* Paper White: Total You Are Owed */}
+        <StatCard
+          variant="white"
+          label="Total You Are Owed"
+          value={formatCurrency(totalYouAreOwed)}
+          subtext="Pending receivables from group mates"
+          icon={TrendingUp}
+        />
 
-        <div className="bg-[#fafafb] rounded-[24px] border border-[#f2f2f3] p-6 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
-            Net Combined Balance
-          </span>
-          <p
-            className={`font-editorial text-3xl font-semibold mt-2 ${
-              netOverall >= 0 ? 'text-[#17191c]' : 'text-[#5d2a1a]'
-            }`}
-          >
-            {netOverall >= 0 ? '+' : ''}
-            {formatCurrency(Math.abs(netOverall))}
-          </p>
-          <p className="text-xs text-[#777b86] mt-1">
-            {netOverall >= 0 ? 'Net positive position' : 'Net negative position'}
-          </p>
-        </div>
+        {/* Peach Accent: Total You Owe */}
+        <StatCard
+          variant="peach"
+          label="Total You Owe"
+          value={formatCurrency(totalYouOwe)}
+          subtext="Your pending repayment share across groups"
+          icon={TrendingDown}
+        />
       </div>
 
       {/* Group-by-Group Balances */}
@@ -149,7 +153,7 @@ export default function BalancesPage() {
           return (
             <div
               key={group._id}
-              className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)]"
+              className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)] transition-all hover:border-[#17191c]"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-5 border-b border-[#f2f2f3] gap-4">
                 <div>
@@ -180,15 +184,29 @@ export default function BalancesPage() {
                     return (
                       <div
                         key={idx}
-                        className="p-4 rounded-[16px] bg-[#fafafb] border border-[#f2f2f3] flex items-center justify-between"
+                        className={`p-4 rounded-[16px] border flex items-center justify-between transition-all ${
+                          isDebtor
+                            ? 'bg-[#fbe1d1]/20 border-[#f6d0bb]'
+                            : isCreditor
+                            ? 'bg-[#fafafb] border-[#f2f2f3]'
+                            : 'bg-white border-[#f2f2f3]'
+                        }`}
                       >
                         <div className="flex items-center gap-3">
                           <MemberAvatar name={name} size="sm" />
                           <div>
                             <p className="text-sm font-semibold text-[#17191c]">{name}</p>
-                            <p className="text-[11px] text-[#777b86]">
+                            <span
+                              className={`inline-block text-[10px] font-bold uppercase tracking-wider ${
+                                isCreditor
+                                  ? 'text-green-800'
+                                  : isDebtor
+                                  ? 'text-[#5d2a1a]'
+                                  : 'text-[#777b86]'
+                              }`}
+                            >
                               {isCreditor ? 'Receives' : isDebtor ? 'Owes' : 'Settled'}
-                            </p>
+                            </span>
                           </div>
                         </div>
 

@@ -87,7 +87,7 @@ export default function GroupsPage() {
               <Link
                 key={group._id}
                 to={`/groups/${group._id}`}
-                className="bg-white rounded-[24px] border border-[#f2f2f3] p-7 shadow-[0_1px_3px_rgba(23,25,28,0.03)] flex flex-col justify-between transition-all hover:border-[#17191c] hover:shadow-[0_4px_20px_rgba(23,25,28,0.04)]"
+                className="bg-white rounded-[24px] border border-[#f2f2f3] p-7 shadow-[0_1px_3px_rgba(23,25,28,0.03)] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:border-[#17191c] hover:shadow-[0_8px_30px_rgba(23,25,28,0.06)]"
               >
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-3">
