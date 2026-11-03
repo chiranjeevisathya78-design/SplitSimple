@@ -11,6 +11,7 @@ const groupRoutes = require('./routes/groups');
 const expenseRoutes = require('./routes/expenses');
 const settlementRoutes = require('./routes/settlements');
 const dashboardRoutes = require('./routes/dashboard');
+const demoRoutes = require('./routes/demo');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/api/groups', groupRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/settlements', settlementRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/demo', demoRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

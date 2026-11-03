@@ -36,3 +36,8 @@ export const dashboardService = {
   get: () => api.get('/dashboard'),
 };
 
+export const demoService = {
+  getInfo: () => api.get('/demo/info'),
+  reset: () => api.post('/demo/reset'),
+};
+

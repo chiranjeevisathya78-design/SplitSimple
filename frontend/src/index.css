@@ -1,1 +1,91 @@
 @import "tailwindcss";
+
+@theme {
+  --color-ink: #17191c;
+  --color-paper: #ffffff;
+  --color-mist: #f2f2f3;
+  --color-fog: #fafafb;
+  --color-slate: #777b86;
+  --color-ash: #979799;
+  --color-smoke: #a3a6af;
+  --color-peach: #fbe1d1;
+  --color-sienna: #5d2a1a;
+
+  --font-serif: "Source Serif 4", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --radius-card: 24px;
+  --radius-elevated: 20px;
+  --radius-card-sm: 16px;
+  --radius-input: 16px;
+  --radius-btn: 9999px;
+  --radius-img: 12px;
+}
+
+:root {
+  --color-ink: #17191c;
+  --color-paper: #ffffff;
+  --color-mist: #f2f2f3;
+  --color-fog: #fafafb;
+  --color-slate: #777b86;
+  --color-ash: #979799;
+  --color-smoke: #a3a6af;
+  --color-peach: #fbe1d1;
+  --color-sienna: #5d2a1a;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #fafafb;
+  color: #17191c;
+}
+
+.font-editorial {
+  font-family: var(--font-serif);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Subtle editorial borders and soft shadows */
+.card-steep {
+  background-color: #ffffff;
+  border: 1px solid #f2f2f3;
+  border-radius: 24px;
+  box-shadow: 0 1px 3px rgba(23, 25, 28, 0.03), 0 4px 12px rgba(23, 25, 28, 0.02);
+}
+
+.card-elevated {
+  background-color: #ffffff;
+  border: 1px solid #f2f2f3;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(23, 25, 28, 0.04), 0 1px 3px rgba(23, 25, 28, 0.02);
+}
+
+.btn-primary {
+  background-color: #17191c;
+  color: #ffffff;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.15s ease-in-out;
+}
+.btn-primary:hover {
+  background-color: #2b2e34;
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: #17191c;
+  border: 1px solid #f2f2f3;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.15s ease-in-out;
+}
+.btn-secondary:hover {
+  background-color: #fafafb;
+  border-color: #e3e4e7;
+}
+
+.badge-peach {
+  background-color: #fbe1d1;
+  color: #5d2a1a;
+  border-radius: 9999px;
+}
