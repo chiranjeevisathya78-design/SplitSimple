@@ -166,11 +166,14 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f2f0] text-[#0c0a08] overflow-x-hidden selection:bg-[#e4f222] selection:text-[#0c0a08]">
-      {/* 1. Top Announcement Bar */}
-      <div className="h-9 bg-[#0c0a08] text-white px-4 flex items-center justify-between text-xs font-normal">
-        <div className="max-w-[1240px] mx-auto w-full flex items-center justify-between">
-          <div className="flex items-center gap-2 mx-auto sm:mx-0">
+    <div className="min-h-screen bg-[#f4f2f0] text-[#0c0a08] overflow-x-hidden selection:bg-[#e4f222] selection:text-[#0c0a08] antialiased">
+      {/* 
+        1. Top Announcement Bar
+        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+      */}
+      <div className="h-9 bg-[#0c0a08] text-white border-b border-white/10 text-xs font-normal">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+          <div className="flex items-center gap-2">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e4f222] opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e4f222]" />
@@ -192,12 +195,15 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* 2. Sticky Glass Header */}
+      {/* 
+        2. Sticky Glass Header
+        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+      */}
       <header className="sticky top-0 z-50 bg-[#ffffff]/90 backdrop-blur-md border-b border-[#e5e7eb] transition-all">
-        <div className="max-w-[1240px] mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-semibold text-sm shadow-sm group-hover:scale-105 transition-transform">
+            <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-bold text-sm shadow-xs group-hover:scale-105 transition-transform">
               S
             </div>
             <div className="flex flex-col">
@@ -237,7 +243,7 @@ export default function LandingPage() {
             <button
               onClick={handleExploreDemo}
               disabled={loadingDemo}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-[#e4f222] text-[#0c0a08] rounded-[6px] hover:bg-[#d6e41b] active:scale-[0.98] transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-[#e4f222] text-[#0c0a08] rounded-[6px] hover:bg-[#d6e41b] active:scale-[0.98] transition-all shadow-xs"
             >
               {loadingDemo ? (
                 <>Connecting...</>
@@ -266,7 +272,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white border-b border-[#e5e7eb] px-6 py-4 space-y-3"
+              className="md:hidden bg-white border-b border-[#e5e7eb] px-4 sm:px-6 py-4 space-y-3"
             >
               <a
                 href="#simulator"
@@ -312,8 +318,11 @@ export default function LandingPage() {
         </AnimatePresence>
       </header>
 
-      {/* 3. Hero Section (Centered, Commanding, High-Impact) */}
-      <section className="relative pt-16 pb-16 sm:pt-24 sm:pb-24 px-6 overflow-hidden">
+      {/* 
+        3. Hero Section
+        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+      */}
+      <section className="relative pt-16 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
         {/* Subtle grid pattern background */}
         <div
           className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -323,323 +332,331 @@ export default function LandingPage() {
           }}
         />
 
-        <div className="relative max-w-[960px] mx-auto text-center">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] bg-white border border-[#e5e7eb] text-xs text-[#0c0a08] shadow-sm mb-6"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#e4f222]" />
-            <span className="text-[11px] uppercase tracking-wider font-medium text-[#6d6c6b]">
-              Editorial Group Expense Desk
-            </span>
-            <span className="text-xs text-[#e5e7eb]">|</span>
-            <span className="text-[11px] font-medium text-[#0c0a08] flex items-center gap-1">
-              Zero paise rounding error <Sparkles className="w-3 h-3 text-[#0c0a08]" />
-            </span>
-          </motion.div>
-
-          {/* Main Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-6xl lg:text-[70px] font-medium tracking-tight text-[#0c0a08] leading-[1.08]"
-          >
-            Shared expenses. <br />
-            <span className="relative inline-block mt-1">
-              <span className="relative z-10">Zero awkward math.</span>
-              <span className="absolute bottom-1 left-0 right-0 h-3 sm:h-4 bg-[#e4f222] -z-0 rounded-sm" />
-            </span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 text-base sm:text-xl text-[#6d6c6b] max-w-2xl mx-auto leading-relaxed"
-          >
-            Track roommates, travel tabs, and group dinners with integer precision.
-            Our greedy settlement engine calculates global net balances and collapses
-            circular debt into minimal single-hop payments.
-          </motion.p>
-
-          {/* Dual Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5"
-          >
-            <button
-              onClick={handleExploreDemo}
-              disabled={loadingDemo}
-              className="w-full sm:w-auto px-7 py-3.5 bg-[#e4f222] hover:bg-[#d9e81b] active:scale-[0.98] text-[#0c0a08] font-semibold text-sm uppercase tracking-wider rounded-[6px] transition-all flex items-center justify-center gap-2 shadow-sm"
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Centered Hero Content */}
+          <div className="max-w-3xl mx-auto text-center">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] bg-white border border-[#e5e7eb] text-xs text-[#0c0a08] shadow-xs mb-6"
             >
-              {loadingDemo ? (
-                <>Opening Workspace...</>
-              ) : (
-                <>
-                  Explore Live Demo Workspace <ArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
+              <span className="w-2 h-2 rounded-full bg-[#e4f222]" />
+              <span className="text-[11px] uppercase tracking-wider font-medium text-[#6d6c6b]">
+                Editorial Group Expense Desk
+              </span>
+              <span className="text-xs text-[#e5e7eb]">|</span>
+              <span className="text-[11px] font-medium text-[#0c0a08] flex items-center gap-1">
+                Zero paise rounding error <Sparkles className="w-3 h-3 text-[#0c0a08]" />
+              </span>
+            </motion.div>
 
-            <Link to="/register" className="w-full sm:w-auto">
-              <button className="w-full px-6 py-3.5 bg-white hover:bg-[#f9f8f6] text-[#0c0a08] border border-[#e5e7eb] font-medium text-sm rounded-[6px] transition-all flex items-center justify-center gap-2 shadow-sm">
-                Create Free Account
+            {/* Main Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-4xl sm:text-6xl lg:text-[68px] font-medium tracking-tight text-[#0c0a08] leading-[1.08]"
+            >
+              Shared expenses. <br />
+              <span className="relative inline-block mt-1">
+                <span className="relative z-10">Zero awkward math.</span>
+                <span className="absolute bottom-1 left-0 right-0 h-3 sm:h-4 bg-[#e4f222] -z-0 rounded-xs" />
+              </span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-6 text-base sm:text-xl text-[#6d6c6b] max-w-2xl mx-auto leading-relaxed"
+            >
+              Track roommates, travel tabs, and group dinners with integer precision.
+              Our greedy settlement engine calculates global net balances and collapses
+              circular debt into minimal single-hop payments.
+            </motion.p>
+
+            {/* Dual Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5"
+            >
+              <button
+                onClick={handleExploreDemo}
+                disabled={loadingDemo}
+                className="w-full sm:w-auto px-7 py-3.5 bg-[#e4f222] hover:bg-[#d9e81b] active:scale-[0.98] text-[#0c0a08] font-semibold text-xs sm:text-sm uppercase tracking-wider rounded-[6px] transition-all flex items-center justify-center gap-2 shadow-xs"
+              >
+                {loadingDemo ? (
+                  <>Opening Workspace...</>
+                ) : (
+                  <>
+                    Explore Live Demo Workspace <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
-            </Link>
-          </motion.div>
 
-          {/* Trust points */}
+              <Link to="/register" className="w-full sm:w-auto">
+                <button className="w-full px-6 py-3.5 bg-white hover:bg-[#f9f8f6] text-[#0c0a08] border border-[#e5e7eb] font-medium text-xs sm:text-sm rounded-[6px] transition-all flex items-center justify-center gap-2 shadow-xs">
+                  Create Free Account
+                </button>
+              </Link>
+            </motion.div>
+
+            {/* Trust points */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#6d6c6b]"
+            >
+              <span className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-[#0c0a08]" /> Preloaded with 3 demo groups
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-[#0c0a08]" /> 22 realistic expenses
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-[#0c0a08]" /> Instant UPI mark & settle
+              </span>
+            </motion.div>
+          </div>
+
+          {/* 
+            Interactive Live Simulator Mockup 
+            Fills the 7xl container with exact alignment
+          */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#6d6c6b]"
+            id="simulator"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="w-full mt-14"
           >
-            <span className="flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-[#0c0a08]" /> Preloaded with 3 demo groups
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-[#0c0a08]" /> 22 realistic expenses
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-[#0c0a08]" /> Instant UPI mark & settle
-            </span>
-          </motion.div>
-        </div>
+            <div className="bg-white rounded-[16px] border border-[#e5e7eb] shadow-xs overflow-hidden">
+              {/* Top Chrome Header */}
+              <div className="bg-[#ffffff] border-b border-[#e5e7eb] px-5 py-3.5 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
+                  <span className="text-[11px] font-mono text-[#6d6c6b] ml-2">
+                    splitsimple.app/workspace/{activeTab}
+                  </span>
+                </div>
 
-        {/* 4. Interactive Live Simulator Mockup */}
-        <motion.div
-          id="simulator"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="relative max-w-[1200px] mx-auto mt-14"
-        >
-          {/* Main Card with Subtle Hairline Border */}
-          <div className="bg-white rounded-[16px] border border-[#e5e7eb] shadow-sm overflow-hidden">
-            {/* Top Chrome Header */}
-            <div className="bg-[#ffffff] border-b border-[#e5e7eb] px-5 py-3.5 flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
-                <span className="text-[11px] font-mono text-[#6d6c6b] ml-2">
-                  splitsimple.app/workspace/{activeTab}
-                </span>
+                {/* Tab Switcher */}
+                <div className="flex items-center gap-1 bg-[#f4f2f0] p-1 rounded-[6px]">
+                  {Object.values(PREVIEW_DATA).map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`relative px-3 py-1.5 text-xs rounded-[5px] transition-all font-medium ${
+                        activeTab === tab.id
+                          ? 'bg-white text-[#0c0a08] shadow-xs'
+                          : 'text-[#6d6c6b] hover:text-[#0c0a08]'
+                      }`}
+                    >
+                      {tab.name}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              {/* Tab Switcher */}
-              <div className="flex items-center gap-1 bg-[#f4f2f0] p-1 rounded-[6px]">
-                {Object.values(PREVIEW_DATA).map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`relative px-3 py-1.5 text-xs rounded-[5px] transition-all font-medium ${
-                      activeTab === tab.id
-                        ? 'bg-white text-[#0c0a08] shadow-xs'
-                        : 'text-[#6d6c6b] hover:text-[#0c0a08]'
-                    }`}
+              {/* Interactive Workspace Body */}
+              <div className="p-6 sm:p-8">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.25 }}
+                    className="grid grid-cols-1 lg:grid-cols-12 gap-8"
                   >
-                    {tab.name}
-                  </button>
-                ))}
-              </div>
-            </div>
+                    {/* Left Column: Group Expenses Ledger (7 cols) */}
+                    <div className="lg:col-span-7 space-y-6">
+                      <div>
+                        <div className="flex items-center gap-3">
+                          <h2 className="text-2xl font-medium text-[#0c0a08] tracking-tight">
+                            {preview.name}
+                          </h2>
+                          <span className="px-2.5 py-0.5 rounded-[4px] bg-[#e4f222] text-[#0c0a08] text-[10px] font-semibold uppercase tracking-wider">
+                            Active Ledger
+                          </span>
+                        </div>
+                        <p className="text-xs text-[#6d6c6b] mt-1">{preview.desc}</p>
+                      </div>
 
-            {/* Interactive Workspace Body */}
-            <div className="p-6 sm:p-8">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.25 }}
-                  className="grid grid-cols-1 lg:grid-cols-12 gap-8"
-                >
-                  {/* Left Column: Group Expenses Ledger (7 cols) */}
-                  <div className="lg:col-span-7 space-y-6">
-                    <div>
-                      <div className="flex items-center gap-3">
-                        <h2 className="text-2xl font-medium text-[#0c0a08] tracking-tight">
-                          {preview.name}
-                        </h2>
-                        <span className="px-2.5 py-0.5 rounded-[4px] bg-[#e4f222] text-[#0c0a08] text-[10px] font-semibold uppercase tracking-wider">
-                          Active Ledger
+                      {/* Member chips */}
+                      <div>
+                        <span className="text-[10px] uppercase tracking-wider text-[#6d6c6b] block mb-2 font-medium">
+                          Active Members ({preview.members.length})
                         </span>
-                      </div>
-                      <p className="text-xs text-[#6d6c6b] mt-1">{preview.desc}</p>
-                    </div>
-
-                    {/* Member chips */}
-                    <div>
-                      <span className="text-[10px] uppercase tracking-wider text-[#6d6c6b] block mb-2 font-medium">
-                        Active Members ({preview.members.length})
-                      </span>
-                      <div className="flex flex-wrap gap-2">
-                        {preview.members.map((m) => (
-                          <div
-                            key={m.name}
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[6px] bg-[#f4f2f0] border border-[#e5e7eb] text-xs text-[#0c0a08]"
-                          >
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#0c0a08]" />
-                            <span className="font-medium">{m.name}</span>
-                            <span className="text-[10px] text-[#6d6c6b]">({m.role})</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Recent Expense Entries */}
-                    <div className="border border-[#e5e7eb] rounded-[10px] overflow-hidden bg-white">
-                      <div className="bg-[#fafaf9] px-4 py-2 border-b border-[#e5e7eb] flex items-center justify-between text-[11px] text-[#6d6c6b] font-medium">
-                        <span>Recent Group Transactions</span>
-                        <span>Total: {formatCurrency(preview.totalSpent)}</span>
-                      </div>
-                      <div className="divide-y divide-[#e5e7eb]">
-                        {preview.expenses.map((item, idx) => (
-                          <div
-                            key={idx}
-                            className="p-3.5 hover:bg-[#fafaf9] transition-colors flex items-center justify-between"
-                          >
-                            <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 rounded-[6px] bg-[#f4f2f0] text-[#0c0a08] flex items-center justify-center">
-                                <Receipt className="w-4 h-4" />
-                              </div>
-                              <div>
-                                <p className="text-xs sm:text-sm font-medium text-[#0c0a08]">
-                                  {item.title}
-                                </p>
-                                <p className="text-[11px] text-[#6d6c6b]">
-                                  Paid by <strong className="font-medium text-[#0c0a08]">{item.paidBy}</strong> · {item.category} · {item.date}
-                                </p>
-                              </div>
+                        <div className="flex flex-wrap gap-2">
+                          {preview.members.map((m) => (
+                            <div
+                              key={m.name}
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[6px] bg-[#f4f2f0] border border-[#e5e7eb] text-xs text-[#0c0a08]"
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#0c0a08]" />
+                              <span className="font-medium">{m.name}</span>
+                              <span className="text-[10px] text-[#6d6c6b]">({m.role})</span>
                             </div>
-                            <span className="text-xs sm:text-sm font-medium text-[#0c0a08]">
-                              {formatCurrency(item.amount)}
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Recent Expense Entries */}
+                      <div className="border border-[#e5e7eb] rounded-[10px] overflow-hidden bg-white">
+                        <div className="bg-[#fafaf9] px-4 py-2 border-b border-[#e5e7eb] flex items-center justify-between text-[11px] text-[#6d6c6b] font-medium">
+                          <span>Recent Group Transactions</span>
+                          <span>Total: {formatCurrency(preview.totalSpent)}</span>
+                        </div>
+                        <div className="divide-y divide-[#e5e7eb]">
+                          {preview.expenses.map((item, idx) => (
+                            <div
+                              key={idx}
+                              className="p-3.5 hover:bg-[#fafaf9] transition-colors flex items-center justify-between"
+                            >
+                              <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-[6px] bg-[#f4f2f0] text-[#0c0a08] flex items-center justify-center">
+                                  <Receipt className="w-4 h-4" />
+                                </div>
+                                <div>
+                                  <p className="text-xs sm:text-sm font-medium text-[#0c0a08]">
+                                    {item.title}
+                                  </p>
+                                  <p className="text-[11px] text-[#6d6c6b]">
+                                    Paid by <strong className="font-medium text-[#0c0a08]">{item.paidBy}</strong> · {item.category} · {item.date}
+                                  </p>
+                                </div>
+                              </div>
+                              <span className="text-xs sm:text-sm font-medium text-[#0c0a08]">
+                                {formatCurrency(item.amount)}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right Column: Greedy Settlement Engine (5 cols) */}
+                    <div className="lg:col-span-5 bg-[#1a1919] text-white rounded-[14px] p-6 flex flex-col justify-between border border-white/10 shadow-lg">
+                      <div>
+                        {/* Box Header */}
+                        <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                          <div>
+                            <span className="text-[10px] uppercase tracking-wider text-[#e4f222] font-semibold">
+                              Greedy Debt Engine
+                            </span>
+                            <h3 className="text-lg font-medium text-white tracking-tight">
+                              Optimized Repayments
+                            </h3>
+                          </div>
+                          <div className="text-right">
+                            <span className="inline-block px-2 py-0.5 rounded-[4px] bg-[#e4f222] text-[#0c0a08] text-[10px] font-bold uppercase tracking-wider">
+                              -{preview.reductionPercent} Transfers
                             </span>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right Column: Greedy Settlement Engine (5 cols) */}
-                  <div className="lg:col-span-5 bg-[#1a1919] text-white rounded-[14px] p-6 flex flex-col justify-between border border-white/10 shadow-lg">
-                    <div>
-                      {/* Box Header */}
-                      <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                        <div>
-                          <span className="text-[10px] uppercase tracking-wider text-[#e4f222] font-semibold">
-                            Greedy Debt Engine
-                          </span>
-                          <h3 className="text-lg font-medium text-white tracking-tight">
-                            Optimized Repayments
-                          </h3>
                         </div>
-                        <div className="text-right">
-                          <span className="inline-block px-2 py-0.5 rounded-[4px] bg-[#e4f222] text-[#0c0a08] text-[10px] font-bold uppercase tracking-wider">
-                            -{preview.reductionPercent} Transfers
-                          </span>
-                        </div>
-                      </div>
 
-                      {/* Explanation */}
-                      <p className="text-xs text-white/70 mt-3 mb-5 leading-relaxed">
-                        Instead of <strong className="text-white font-medium">{preview.iouCount} messy peer-to-peer IOUs</strong>, 
-                        the greedy algorithm finds maximum debtors and creditors to settle all balances in just{' '}
-                        <strong className="text-[#e4f222] font-medium">{preview.optimizedCount} direct transfers</strong>.
-                      </p>
+                        {/* Explanation */}
+                        <p className="text-xs text-white/70 mt-3 mb-5 leading-relaxed">
+                          Instead of <strong className="text-white font-medium">{preview.iouCount} messy peer-to-peer IOUs</strong>, 
+                          the greedy algorithm finds maximum debtors and creditors to settle all balances in just{' '}
+                          <strong className="text-[#e4f222] font-medium">{preview.optimizedCount} direct transfers</strong>.
+                        </p>
 
-                      {/* Repayment Action List */}
-                      <div className="space-y-2.5">
-                        {preview.settlementPlan.map((step, idx) => {
-                          const isSettled = settledRows[`${activeTab}-${idx}`];
-                          return (
-                            <motion.div
-                              key={idx}
-                              layout
-                              className={`p-3.5 rounded-[8px] border transition-all ${
-                                isSettled
-                                  ? 'bg-white/5 border-emerald-500/40 opacity-75'
-                                  : 'bg-white/10 border-white/10 hover:border-white/20'
-                              }`}
-                            >
-                              <div className="flex items-center justify-between text-xs">
-                                <div className="flex items-center gap-1.5 flex-wrap">
-                                  <span className="font-medium text-white">{step.from}</span>
-                                  <span className="text-[#e4f222] font-bold">→ pays →</span>
-                                  <span className="font-medium text-white">{step.to}</span>
+                        {/* Repayment Action List */}
+                        <div className="space-y-2.5">
+                          {preview.settlementPlan.map((step, idx) => {
+                            const isSettled = settledRows[`${activeTab}-${idx}`];
+                            return (
+                              <motion.div
+                                key={idx}
+                                layout
+                                className={`p-3.5 rounded-[8px] border transition-all ${
+                                  isSettled
+                                    ? 'bg-white/5 border-emerald-500/40 opacity-75'
+                                    : 'bg-white/10 border-white/10 hover:border-white/20'
+                                }`}
+                              >
+                                <div className="flex items-center justify-between text-xs">
+                                  <div className="flex items-center gap-1.5 flex-wrap">
+                                    <span className="font-medium text-white">{step.from}</span>
+                                    <span className="text-[#e4f222] font-bold">→ pays →</span>
+                                    <span className="font-medium text-white">{step.to}</span>
+                                  </div>
+                                  <span className="font-semibold text-[#e4f222] text-sm ml-2">
+                                    {formatCurrency(step.amount)}
+                                  </span>
                                 </div>
-                                <span className="font-semibold text-[#e4f222] text-sm ml-2">
-                                  {formatCurrency(step.amount)}
-                                </span>
-                              </div>
 
-                              <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between">
-                                <span className="text-[10px] text-white/50">
-                                  {isSettled ? '✓ Confirmed on UPI' : 'Pending repayment'}
-                                </span>
-                                <button
-                                  onClick={() => handleToggleSettle(idx)}
-                                  className={`text-[11px] px-2.5 py-1 rounded-[4px] transition-colors font-medium flex items-center gap-1 ${
-                                    isSettled
-                                      ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30'
-                                      : 'bg-white/15 hover:bg-white/25 text-white'
-                                  }`}
-                                >
-                                  {isSettled ? (
-                                    <>
-                                      <Check className="w-3 h-3" /> Settled
-                                    </>
-                                  ) : (
-                                    <>
-                                      Mark Settled <ArrowRight className="w-3 h-3" />
-                                    </>
-                                  )}
-                                </button>
-                              </div>
-                            </motion.div>
-                          );
-                        })}
+                                <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between">
+                                  <span className="text-[10px] text-white/50">
+                                    {isSettled ? '✓ Confirmed on UPI' : 'Pending repayment'}
+                                  </span>
+                                  <button
+                                    onClick={() => handleToggleSettle(idx)}
+                                    className={`text-[11px] px-2.5 py-1 rounded-[4px] transition-colors font-medium flex items-center gap-1 ${
+                                      isSettled
+                                        ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30'
+                                        : 'bg-white/15 hover:bg-white/25 text-white'
+                                    }`}
+                                  >
+                                    {isSettled ? (
+                                      <>
+                                        <Check className="w-3 h-3" /> Settled
+                                      </>
+                                    ) : (
+                                      <>
+                                        Mark Settled <ArrowRight className="w-3 h-3" />
+                                      </>
+                                    )}
+                                  </button>
+                                </div>
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Bottom CTA in Preview */}
+                      <div className="pt-6 mt-6 border-t border-white/10">
+                        <div className="flex items-center justify-between mb-3 text-xs">
+                          <span className="text-white/60">Net Group Volume:</span>
+                          <span className="text-base font-semibold text-white">
+                            {formatCurrency(preview.totalSpent)}
+                          </span>
+                        </div>
+                        <button
+                          onClick={handleExploreDemo}
+                          disabled={loadingDemo}
+                          className="w-full py-2.5 bg-[#e4f222] hover:bg-[#d9e81b] text-[#0c0a08] font-semibold text-xs uppercase tracking-wider rounded-[6px] transition-all flex items-center justify-center gap-1.5"
+                        >
+                          Launch Interactive Workspace <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     </div>
-
-                    {/* Bottom CTA in Preview */}
-                    <div className="pt-6 mt-6 border-t border-white/10">
-                      <div className="flex items-center justify-between mb-3 text-xs">
-                        <span className="text-white/60">Net Group Volume:</span>
-                        <span className="text-base font-semibold text-white">
-                          {formatCurrency(preview.totalSpent)}
-                        </span>
-                      </div>
-                      <button
-                        onClick={handleExploreDemo}
-                        disabled={loadingDemo}
-                        className="w-full py-2.5 bg-[#e4f222] hover:bg-[#d9e81b] text-[#0c0a08] font-semibold text-xs uppercase tracking-wider rounded-[6px] transition-all flex items-center justify-center gap-1.5"
-                      >
-                        Launch Interactive Workspace <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </section>
 
-      {/* 5. Live Stats Strip (#1a1919 Obsidian Band) */}
-      <section className="bg-[#1a1919] text-white py-14 px-6 border-y border-white/10">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
+      {/* 
+        4. Live Stats Strip (#1a1919 Obsidian Band)
+        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+      */}
+      <section className="bg-[#1a1919] text-white py-14 border-y border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -702,9 +719,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 6. Settlement Algorithm Deep-Dive */}
-      <section id="algorithm" className="py-20 md:py-28 px-6 bg-white border-b border-[#e5e7eb]">
-        <div className="max-w-[1200px] mx-auto">
+      {/* 
+        5. Settlement Algorithm Deep-Dive
+        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+      */}
+      <section id="algorithm" className="py-20 md:py-24 bg-white border-b border-[#e5e7eb]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Content */}
             <motion.div
@@ -848,9 +868,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. Key Features Grid */}
-      <section id="features" className="py-20 md:py-28 px-6 bg-[#f4f2f0]">
-        <div className="max-w-[1200px] mx-auto">
+      {/* 
+        6. Key Features Grid
+        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+      */}
+      <section id="features" className="py-20 md:py-24 bg-[#f4f2f0]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="text-[10px] uppercase tracking-wider text-[#6d6c6b] font-medium">
               Enterprise Ledger Standards
@@ -936,9 +959,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 8. Frequently Asked Questions (Accordion) */}
-      <section id="faq" className="py-20 px-6 bg-white border-t border-[#e5e7eb]">
-        <div className="max-w-[800px] mx-auto">
+      {/* 
+        7. Frequently Asked Questions
+        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+      */}
+      <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-[#e5e7eb]">
+        <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-[10px] uppercase tracking-wider text-[#6d6c6b] font-medium">
               Questions & Answers
@@ -1001,9 +1027,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 9. Final High-Contrast CTA Banner */}
-      <section className="py-20 px-6 bg-[#0c0a08] text-white">
-        <div className="max-w-[960px] mx-auto text-center space-y-6">
+      {/* 
+        8. Final High-Contrast CTA Banner
+        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+      */}
+      <section className="py-20 bg-[#0c0a08] text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           <span className="inline-block px-3 py-1 rounded-[4px] bg-[#e4f222] text-[#0c0a08] text-xs font-semibold uppercase tracking-wider">
             Ready to simplify group tabs?
           </span>
@@ -1032,9 +1061,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 10. Footer */}
-      <footer className="bg-[#1a1919] text-white py-12 px-6 border-t border-white/10">
-        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8 text-xs text-[#6d6c6b]">
+      {/* 
+        9. Footer
+        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+      */}
+      <footer className="bg-[#1a1919] text-white py-12 border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 text-xs text-[#6d6c6b]">
           <div className="flex items-center gap-3">
             <div className="w-6 h-6 rounded-[5px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-bold text-xs">
               S

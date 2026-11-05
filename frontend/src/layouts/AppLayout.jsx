@@ -11,7 +11,6 @@ import {
   Menu,
   X,
   RotateCcw,
-  User,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -55,99 +54,106 @@ export default function AppLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f2f0] text-[#0c0a08] flex flex-col">
-      {/* Top Navigation Bar (#1a1919 Obsidian) */}
+    <div className="min-h-screen bg-[#f4f2f0] text-[#0c0a08] flex flex-col antialiased">
+      {/* 
+        TOP NAVIGATION BAR 
+        Standardized container: max-w-7xl (1280px) mx-auto px-4 sm:px-6 lg:px-8
+        Guarantees 100% pixel-perfect vertical alignment with the main page content
+      */}
       <header className="sticky top-0 z-50 bg-[#1a1919] text-white border-b border-white/10 shadow-sm">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          {/* Brand Logo & Title */}
-          <div className="flex items-center gap-6">
-            <NavLink to="/dashboard" className="flex items-center gap-2.5 group">
-              <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-semibold text-xs tracking-tight shadow-xs group-hover:scale-105 transition-transform">
-                S
-              </div>
-              <div className="flex flex-col">
-                <span className="text-base text-white font-medium tracking-tight leading-none">
-                  SplitSimple
-                </span>
-                <span className="text-[9px] uppercase tracking-wider text-[#6d6c6b] mt-0.5 leading-none font-normal">
-                  Expense Desk
-                </span>
-              </div>
-            </NavLink>
+        {/* Tier 1: Main Header Bar (Brand, Global Nav, User Controls) */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-16 flex items-center justify-between gap-4">
+            {/* Left: Brand Logo */}
+            <div className="flex items-center gap-8 shrink-0">
+              <NavLink to="/dashboard" className="flex items-center gap-2.5 group">
+                <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-bold text-xs tracking-tight shadow-xs group-hover:scale-105 transition-transform">
+                  S
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-base text-white font-medium tracking-tight leading-none">
+                    SplitSimple
+                  </span>
+                  <span className="text-[9px] uppercase tracking-wider text-[#6d6c6b] mt-0.5 leading-none font-normal">
+                    Expense Desk
+                  </span>
+                </div>
+              </NavLink>
 
-            {/* Desktop Horizontal Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-1.5 ml-2">
-              {navItems.map(({ to, label, icon: Icon }) => {
-                const active =
-                  location.pathname === to ||
-                  (to !== '/dashboard' && location.pathname.startsWith(to));
-                return (
-                  <NavLink
-                    key={to}
-                    to={to}
-                    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] text-xs font-medium transition-all duration-150 ${
-                      active
-                        ? 'bg-[#e4f222] text-[#0c0a08] font-semibold'
-                        : 'text-[#6d6c6b] hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    <Icon size={14} className={active ? 'text-[#0c0a08]' : 'text-[#6d6c6b]'} />
-                    <span>{label}</span>
-                  </NavLink>
-                );
-              })}
-            </nav>
-          </div>
-
-          {/* Right Header Actions: Reset Demo + Profile + Logout */}
-          <div className="hidden sm:flex items-center gap-3">
-            {/* Demo Reset Button */}
-            <button
-              onClick={handleResetDemo}
-              disabled={resettingDemo}
-              title="Reset demo data to default sample state"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-[6px] bg-white/5 border border-white/10 text-[11px] text-[#e4f222] hover:bg-white/10 transition-colors disabled:opacity-50"
-            >
-              <RotateCcw size={12} className={resettingDemo ? 'animate-spin' : ''} />
-              <span>{resettingDemo ? 'Resetting…' : 'Reset Demo'}</span>
-            </button>
-
-            {/* User Profile Pill */}
-            <div className="flex items-center gap-2 pl-3 border-l border-white/10">
-              <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs font-semibold shrink-0">
-                {user?.name?.charAt(0)?.toUpperCase() || 'U'}
-              </div>
-              <div className="hidden md:flex flex-col text-left">
-                <span className="text-xs text-white font-medium leading-tight truncate max-w-[120px]">
-                  {user?.name || 'Chiranjeevi S'}
-                </span>
-                <span className="text-[10px] text-[#6d6c6b] leading-tight truncate max-w-[120px]">
-                  {user?.email || 'chiranjeevi@example.com'}
-                </span>
-              </div>
-              <button
-                onClick={handleLogout}
-                title="Sign out"
-                className="p-1.5 text-[#6d6c6b] hover:text-white rounded-[6px] hover:bg-white/10 transition ml-1"
-              >
-                <LogOut size={15} />
-              </button>
+              {/* Desktop Main Navigation Links */}
+              <nav className="hidden md:flex items-center gap-1">
+                {navItems.map(({ to, label, icon: Icon }) => {
+                  const active =
+                    location.pathname === to ||
+                    (to !== '/dashboard' && location.pathname.startsWith(to));
+                  return (
+                    <NavLink
+                      key={to}
+                      to={to}
+                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] text-xs font-medium transition-all ${
+                        active
+                          ? 'bg-[#e4f222] text-[#0c0a08] font-semibold'
+                          : 'text-white/70 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      <Icon size={14} className={active ? 'text-[#0c0a08]' : 'text-white/60'} />
+                      <span>{label}</span>
+                    </NavLink>
+                  );
+                })}
+              </nav>
             </div>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-white hover:bg-white/10 rounded-[6px] transition"
-            aria-label="Toggle navigation"
-          >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+            {/* Right: Demo Reset & Profile Controls */}
+            <div className="hidden sm:flex items-center gap-3 shrink-0">
+              {/* Reset Demo State Button */}
+              <button
+                onClick={handleResetDemo}
+                disabled={resettingDemo}
+                title="Reset sample data to initial state"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-[6px] bg-white/5 border border-white/10 text-[11px] text-[#e4f222] hover:bg-white/10 transition-colors disabled:opacity-50"
+              >
+                <RotateCcw size={12} className={resettingDemo ? 'animate-spin' : ''} />
+                <span>{resettingDemo ? 'Resetting…' : 'Reset Demo'}</span>
+              </button>
+
+              {/* User Avatar & Logout */}
+              <div className="flex items-center gap-2 pl-3 border-l border-white/10">
+                <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs font-semibold shrink-0">
+                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                </div>
+                <div className="hidden lg:flex flex-col text-left">
+                  <span className="text-xs text-white font-medium leading-tight truncate max-w-[110px]">
+                    {user?.name || 'Chiranjeevi S'}
+                  </span>
+                  <span className="text-[10px] text-[#6d6c6b] leading-tight truncate max-w-[110px]">
+                    {user?.email || 'chiranjeevi@example.com'}
+                  </span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  title="Sign out"
+                  className="p-1.5 text-[#6d6c6b] hover:text-white rounded-[6px] hover:bg-white/10 transition ml-0.5"
+                >
+                  <LogOut size={15} />
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-white hover:bg-white/10 rounded-[6px] transition"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-[#1a1919] border-t border-white/10 px-4 py-3 space-y-1">
+          <div className="md:hidden bg-[#1a1919] border-t border-white/10 px-4 py-3 space-y-1">
             {navItems.map(({ to, label, icon: Icon }) => {
               const active =
                 location.pathname === to ||
@@ -193,8 +199,12 @@ export default function AppLayout() {
         )}
       </header>
 
-      {/* Main Content Area (Clean, perfectly centered editorial canvas) */}
-      <main className="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      {/* 
+        MAIN CONTENT CONTAINER
+        Uses the exact same max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+        Guarantees exact horizontal alignment with header
+      */}
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <Outlet />
       </main>
     </div>
