@@ -25,14 +25,13 @@ import { dashboardService } from '../services';
 import { formatCurrency, CATEGORIES } from '../utils/helpers';
 import { StatCard } from '../components/StatCard';
 
-const STEEP_CHART_COLORS = [
-  '#17191c', // Ink Black
-  '#5d2a1a', // Sienna Brown
-  '#777b86', // Slate Gray
-  '#fbe1d1', // Blush Peach
-  '#979799', // Ash Gray
-  '#3f434a', // Charcoal
-  '#a3a6af', // Smoke Gray
+const RAMP_PALETTE = [
+  '#0c0a08', // Ink Black
+  '#e4f222', // Highlighter Yellow
+  '#6d6c6b', // Ash
+  '#1a1919', // Obsidian
+  '#a3a3a3', // Neutral gray
+  '#d4d4d4', // Smoke
 ];
 
 export default function AnalyticsPage() {
@@ -58,7 +57,7 @@ export default function AnalyticsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-7 h-7 animate-spin text-[#17191c]" />
+        <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
       </div>
     );
   }
@@ -119,22 +118,22 @@ export default function AnalyticsPage() {
     : [];
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       {/* Editorial Header */}
-      <div className="pb-6 border-b border-[#f2f2f3]">
-        <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
-          Data Insights
+      <div className="pb-5 border-b border-[#e5e7eb]">
+        <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] block mb-1 font-normal">
+          Portfolio Analytics
         </span>
-        <h1 className="font-editorial text-4xl sm:text-5xl font-normal text-[#17191c] mt-1">
+        <h1 className="text-3xl sm:text-4xl font-normal text-[#0c0a08] tracking-tight">
           Financial Analytics
         </h1>
-        <p className="text-sm text-[#777b86] mt-1 max-w-xl">
-          Visual breakdowns of monthly trajectories, category shares, group spending, and individual member outlays.
+        <p className="text-xs sm:text-sm text-[#6d6c6b] mt-1 max-w-xl">
+          Visual breakdowns of monthly trajectories, category shares, group spending, and individual member contributions.
         </p>
       </div>
 
       {/* Top Stat Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <StatCard
           variant="dark"
           label="Total Spending Monitored"
@@ -143,15 +142,15 @@ export default function AnalyticsPage() {
           icon={TrendingUp}
         />
         <StatCard
-          variant="peach"
+          variant="highlight"
           label="Active Groups"
           value={`${summary.activeGroups} Workspaces`}
           subtext="Bangalore Roommates, Goa Trip, College Friends"
           icon={Layers}
         />
         <StatCard
-          variant="mist"
-          label="Active Expense Categories"
+          variant="wash"
+          label="Active Categories"
           value={`${categoryData.length} Categories`}
           subtext="Rent, Groceries, Food, Travel, Utilities"
           icon={Tag}
@@ -159,34 +158,34 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Charts Row 1: Monthly Trend & Category Distribution */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Monthly Trend Bar Chart (7 cols) */}
-        <div className="lg:col-span-7 bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)] flex flex-col justify-between">
+        <div className="lg:col-span-7 bg-white rounded-[16px] border border-[#e5e7eb] p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="font-editorial text-2xl font-semibold text-[#17191c]">
+                <h2 className="text-lg font-normal text-[#0c0a08] tracking-tight">
                   Monthly Spending Trend
                 </h2>
-                <p className="text-xs text-[#777b86] mt-0.5">
-                  Aggregate expenditure over recent billing cycles (in ₹)
+                <p className="text-xs text-[#6d6c6b] mt-0.5">
+                  Aggregate expenditure over recent billing cycles (₹)
                 </p>
               </div>
-              <BarChart3 className="w-5 h-5 text-[#777b86]" />
+              <BarChart3 className="w-4 h-4 text-[#6d6c6b]" />
             </div>
 
-            <div className="h-[280px] w-full">
+            <div className="h-[260px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={monthlyData} barSize={34}>
-                  <CartesianGrid strokeDasharray="2 2" vertical={false} stroke="#f2f2f3" />
+                <BarChart data={monthlyData} barSize={32}>
+                  <CartesianGrid strokeDasharray="2 2" vertical={false} stroke="#e5e7eb" />
                   <XAxis
                     dataKey="name"
-                    tick={{ fontSize: 12, fill: '#777b86' }}
-                    axisLine={{ stroke: '#f2f2f3' }}
+                    tick={{ fontSize: 11, fill: '#6d6c6b' }}
+                    axisLine={{ stroke: '#e5e7eb' }}
                     tickLine={false}
                   />
                   <YAxis
-                    tick={{ fontSize: 12, fill: '#777b86' }}
+                    tick={{ fontSize: 11, fill: '#6d6c6b' }}
                     axisLine={false}
                     tickLine={false}
                     tickFormatter={(v) => `₹${v}`}
@@ -194,15 +193,15 @@ export default function AnalyticsPage() {
                   <Tooltip
                     formatter={(val) => [`₹${val.toLocaleString('en-IN')}`, 'Monthly Spend']}
                     contentStyle={{
-                      backgroundColor: '#17191c',
+                      backgroundColor: '#1a1919',
                       color: '#ffffff',
-                      borderRadius: '12px',
-                      border: 'none',
-                      fontSize: '12px',
+                      borderRadius: '6px',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      fontSize: '11px',
                     }}
                     itemStyle={{ color: '#ffffff' }}
                   />
-                  <Bar dataKey="amount" fill="#17191c" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="amount" fill="#0c0a08" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -210,21 +209,21 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Category Breakdown Donut Chart (5 cols) */}
-        <div className="lg:col-span-5 bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)] flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-white rounded-[16px] border border-[#e5e7eb] p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="font-editorial text-2xl font-semibold text-[#17191c]">
+                <h2 className="text-lg font-normal text-[#0c0a08] tracking-tight">
                   Category Share
                 </h2>
-                <p className="text-xs text-[#777b86] mt-0.5">
+                <p className="text-xs text-[#6d6c6b] mt-0.5">
                   Proportional division of group funds
                 </p>
               </div>
-              <PieIcon className="w-5 h-5 text-[#777b86]" />
+              <PieIcon className="w-4 h-4 text-[#6d6c6b]" />
             </div>
 
-            <div className="h-[200px] w-full">
+            <div className="h-[180px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -233,26 +232,26 @@ export default function AnalyticsPage() {
                     nameKey="name"
                     cx="50%"
                     cy="50%"
-                    outerRadius={80}
-                    innerRadius={50}
+                    outerRadius={75}
+                    innerRadius={45}
                     stroke="#ffffff"
                     strokeWidth={2}
                   >
                     {categoryData.map((entry, index) => (
                       <Cell
                         key={`cell-${index}`}
-                        fill={STEEP_CHART_COLORS[index % STEEP_CHART_COLORS.length]}
+                        fill={RAMP_PALETTE[index % RAMP_PALETTE.length]}
                       />
                     ))}
                   </Pie>
                   <Tooltip
                     formatter={(val) => [`₹${val.toLocaleString('en-IN')}`, 'Amount']}
                     contentStyle={{
-                      backgroundColor: '#17191c',
+                      backgroundColor: '#1a1919',
                       color: '#ffffff',
-                      borderRadius: '12px',
-                      border: 'none',
-                      fontSize: '12px',
+                      borderRadius: '6px',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      fontSize: '11px',
                     }}
                     itemStyle={{ color: '#ffffff' }}
                   />
@@ -261,20 +260,20 @@ export default function AnalyticsPage() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-[#f2f2f3] space-y-2">
+          <div className="pt-4 border-t border-[#e5e7eb] space-y-2">
             {categoryData.slice(0, 4).map((item, idx) => (
               <div key={idx} className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <div
-                    className="w-2.5 h-2.5 rounded-full"
+                    className="w-2.5 h-2.5 rounded-[3px]"
                     style={{
                       backgroundColor:
-                        STEEP_CHART_COLORS[idx % STEEP_CHART_COLORS.length],
+                        RAMP_PALETTE[idx % RAMP_PALETTE.length],
                     }}
                   />
-                  <span className="text-[#17191c] font-medium">{item.name}</span>
+                  <span className="text-[#0c0a08] font-normal">{item.name}</span>
                 </div>
-                <span className="font-semibold text-[#17191c]">
+                <span className="text-[#0c0a08] font-normal">
                   {formatCurrency(item.raw)}
                 </span>
               </div>
@@ -283,84 +282,84 @@ export default function AnalyticsPage() {
         </div>
       </div>
 
-      {/* Charts Row 2: Group Spending Comparison & Individual Outlay */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Charts Row 2: Group Spending Comparison & Individual Contributions */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Group Spending Comparison Chart */}
-        <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
+        <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="font-editorial text-2xl font-semibold text-[#17191c]">
+              <h2 className="text-lg font-normal text-[#0c0a08] tracking-tight">
                 Group Spending Comparison
               </h2>
-              <p className="text-xs text-[#777b86] mt-0.5">
+              <p className="text-xs text-[#6d6c6b] mt-0.5">
                 Total expenditure volume per workspace (₹)
               </p>
             </div>
-            <Users className="w-5 h-5 text-[#777b86]" />
+            <Users className="w-4 h-4 text-[#6d6c6b]" />
           </div>
 
-          <div className="h-[260px] w-full">
+          <div className="h-[240px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={groupData} layout="vertical" barSize={22}>
-                <CartesianGrid strokeDasharray="2 2" horizontal={false} stroke="#f2f2f3" />
+              <BarChart data={groupData} layout="vertical" barSize={20}>
+                <CartesianGrid strokeDasharray="2 2" horizontal={false} stroke="#e5e7eb" />
                 <XAxis
                   type="number"
-                  tick={{ fontSize: 11, fill: '#777b86' }}
-                  axisLine={{ stroke: '#f2f2f3' }}
+                  tick={{ fontSize: 10, fill: '#6d6c6b' }}
+                  axisLine={{ stroke: '#e5e7eb' }}
                   tickLine={false}
                   tickFormatter={(v) => `₹${v}`}
                 />
                 <YAxis
                   type="category"
                   dataKey="name"
-                  tick={{ fontSize: 11, fill: '#17191c' }}
+                  tick={{ fontSize: 11, fill: '#0c0a08' }}
                   axisLine={false}
                   tickLine={false}
-                  width={140}
+                  width={130}
                 />
                 <Tooltip
                   formatter={(val) => [`₹${val.toLocaleString('en-IN')}`, 'Total Spent']}
                   contentStyle={{
-                    backgroundColor: '#17191c',
+                    backgroundColor: '#1a1919',
                     color: '#ffffff',
-                    borderRadius: '12px',
-                    border: 'none',
-                    fontSize: '12px',
+                    borderRadius: '6px',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    fontSize: '11px',
                   }}
                   itemStyle={{ color: '#ffffff' }}
                 />
-                <Bar dataKey="amount" fill="#5d2a1a" radius={[0, 6, 6, 0]} />
+                <Bar dataKey="amount" fill="#0c0a08" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Member Outlays (Who Paid What) */}
-        <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
+        <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="font-editorial text-2xl font-semibold text-[#17191c]">
-                Individual Member Contributions
+              <h2 className="text-lg font-normal text-[#0c0a08] tracking-tight">
+                Individual Member Outlays
               </h2>
-              <p className="text-xs text-[#777b86] mt-0.5">
+              <p className="text-xs text-[#6d6c6b] mt-0.5">
                 Total amounts fronted / paid by each member (₹)
               </p>
             </div>
-            <TrendingUp className="w-5 h-5 text-[#777b86]" />
+            <TrendingUp className="w-4 h-4 text-[#6d6c6b]" />
           </div>
 
-          <div className="h-[260px] w-full">
+          <div className="h-[240px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={contributionData} barSize={30}>
-                <CartesianGrid strokeDasharray="2 2" vertical={false} stroke="#f2f2f3" />
+              <BarChart data={contributionData} barSize={28}>
+                <CartesianGrid strokeDasharray="2 2" vertical={false} stroke="#e5e7eb" />
                 <XAxis
                   dataKey="name"
-                  tick={{ fontSize: 12, fill: '#17191c' }}
-                  axisLine={{ stroke: '#f2f2f3' }}
+                  tick={{ fontSize: 11, fill: '#0c0a08' }}
+                  axisLine={{ stroke: '#e5e7eb' }}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fontSize: 11, fill: '#777b86' }}
+                  tick={{ fontSize: 10, fill: '#6d6c6b' }}
                   axisLine={false}
                   tickLine={false}
                   tickFormatter={(v) => `₹${v}`}
@@ -371,15 +370,15 @@ export default function AnalyticsPage() {
                     item.payload.fullName,
                   ]}
                   contentStyle={{
-                    backgroundColor: '#17191c',
+                    backgroundColor: '#1a1919',
                     color: '#ffffff',
-                    borderRadius: '12px',
-                    border: 'none',
-                    fontSize: '12px',
+                    borderRadius: '6px',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    fontSize: '11px',
                   }}
                   itemStyle={{ color: '#ffffff' }}
                 />
-                <Bar dataKey="amount" fill="#17191c" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="amount" fill="#0c0a08" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

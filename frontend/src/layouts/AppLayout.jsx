@@ -11,7 +11,7 @@ import {
   Menu,
   X,
   RotateCcw,
-  ChevronRight,
+  User,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -22,7 +22,7 @@ const navItems = [
   { to: '/groups', label: 'Groups', icon: Users },
   { to: '/expenses', label: 'Expenses', icon: Receipt },
   { to: '/balances', label: 'Balances', icon: Scale },
-  { to: '/settlements', label: 'Smart Settlement', icon: Handshake },
+  { to: '/settlements', label: 'Settlement Engine', icon: Handshake },
   { to: '/analytics', label: 'Analytics', icon: BarChart3 },
 ];
 
@@ -30,7 +30,7 @@ export default function AppLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [resettingDemo, setResettingDemo] = useState(false);
 
   const handleLogout = () => {
@@ -39,13 +39,13 @@ export default function AppLayout() {
   };
 
   const handleResetDemo = async () => {
-    if (!window.confirm('Reset all demo groups, expenses, and settlements to default sample state?')) {
+    if (!window.confirm('Reset all demo groups, expenses, and settlements to default state?')) {
       return;
     }
     setResettingDemo(true);
     try {
       await demoService.reset();
-      toast.success('Demo environment reset to initial standard state!');
+      toast.success('Demo environment reset to standard state!');
       window.location.reload();
     } catch {
       toast.error('Failed to reset demo data');
@@ -55,61 +55,99 @@ export default function AppLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f2f0] text-[#0c0a08]">
-      {/* Mobile Top Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-30 bg-[#1a1919] text-white px-4 py-3 flex items-center justify-between border-b border-white/10">
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="p-1.5 rounded-[6px] hover:bg-white/10 text-white transition"
-        >
-          <Menu size={20} />
-        </button>
-        <span className="text-lg tracking-tight text-white font-normal">
-          SplitSimple
-        </span>
-        <div className="w-8" />
-      </div>
-
-      {/* Sidebar Backdrop Overlay */}
-      {sidebarOpen && (
-        <div
-          className="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-xs transition-opacity"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Ramp Obsidian Sidebar (#1a1919) */}
-      <aside
-        className={`fixed top-0 left-0 z-50 h-full w-64 bg-[#1a1919] text-white border-r border-white/10 flex flex-col justify-between transform transition-transform duration-200 ease-in-out
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
-      >
-        {/* Brand Header */}
-        <div>
-          <div className="p-5 flex items-center justify-between border-b border-white/10">
+    <div className="min-h-screen bg-[#f4f2f0] text-[#0c0a08] flex flex-col">
+      {/* Top Navigation Bar (#1a1919 Obsidian) */}
+      <header className="sticky top-0 z-50 bg-[#1a1919] text-white border-b border-white/10 shadow-sm">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          {/* Brand Logo & Title */}
+          <div className="flex items-center gap-6">
             <NavLink to="/dashboard" className="flex items-center gap-2.5 group">
-              {/* Single neon highlighter mark */}
-              <div className="w-6 h-6 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-normal text-xs tracking-tight">
+              <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-semibold text-xs tracking-tight shadow-xs group-hover:scale-105 transition-transform">
                 S
               </div>
               <div className="flex flex-col">
-                <span className="text-base text-white tracking-tight leading-none font-normal">
+                <span className="text-base text-white font-medium tracking-tight leading-none">
                   SplitSimple
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mt-1 leading-none font-normal">
-                  Editorial Desk
+                <span className="text-[9px] uppercase tracking-wider text-[#6d6c6b] mt-0.5 leading-none font-normal">
+                  Expense Desk
                 </span>
               </div>
             </NavLink>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="lg:hidden text-[#6d6c6b] hover:text-white"
-            >
-              <X size={18} />
-            </button>
+
+            {/* Desktop Horizontal Navigation Links */}
+            <nav className="hidden lg:flex items-center gap-1.5 ml-2">
+              {navItems.map(({ to, label, icon: Icon }) => {
+                const active =
+                  location.pathname === to ||
+                  (to !== '/dashboard' && location.pathname.startsWith(to));
+                return (
+                  <NavLink
+                    key={to}
+                    to={to}
+                    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] text-xs font-medium transition-all duration-150 ${
+                      active
+                        ? 'bg-[#e4f222] text-[#0c0a08] font-semibold'
+                        : 'text-[#6d6c6b] hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <Icon size={14} className={active ? 'text-[#0c0a08]' : 'text-[#6d6c6b]'} />
+                    <span>{label}</span>
+                  </NavLink>
+                );
+              })}
+            </nav>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="p-3 space-y-1">
+          {/* Right Header Actions: Reset Demo + Profile + Logout */}
+          <div className="hidden sm:flex items-center gap-3">
+            {/* Demo Reset Button */}
+            <button
+              onClick={handleResetDemo}
+              disabled={resettingDemo}
+              title="Reset demo data to default sample state"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-[6px] bg-white/5 border border-white/10 text-[11px] text-[#e4f222] hover:bg-white/10 transition-colors disabled:opacity-50"
+            >
+              <RotateCcw size={12} className={resettingDemo ? 'animate-spin' : ''} />
+              <span>{resettingDemo ? 'Resetting…' : 'Reset Demo'}</span>
+            </button>
+
+            {/* User Profile Pill */}
+            <div className="flex items-center gap-2 pl-3 border-l border-white/10">
+              <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs font-semibold shrink-0">
+                {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+              </div>
+              <div className="hidden md:flex flex-col text-left">
+                <span className="text-xs text-white font-medium leading-tight truncate max-w-[120px]">
+                  {user?.name || 'Chiranjeevi S'}
+                </span>
+                <span className="text-[10px] text-[#6d6c6b] leading-tight truncate max-w-[120px]">
+                  {user?.email || 'chiranjeevi@example.com'}
+                </span>
+              </div>
+              <button
+                onClick={handleLogout}
+                title="Sign out"
+                className="p-1.5 text-[#6d6c6b] hover:text-white rounded-[6px] hover:bg-white/10 transition ml-1"
+              >
+                <LogOut size={15} />
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-white hover:bg-white/10 rounded-[6px] transition"
+            aria-label="Toggle navigation"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-[#1a1919] border-t border-white/10 px-4 py-3 space-y-1">
             {navItems.map(({ to, label, icon: Icon }) => {
               const active =
                 location.pathname === to ||
@@ -118,74 +156,46 @@ export default function AppLayout() {
                 <NavLink
                   key={to}
                   to={to}
-                  onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center justify-between px-3 py-2 rounded-[6px] text-sm font-normal transition-colors duration-150 ${
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-2.5 px-3 py-2 rounded-[6px] text-xs font-medium transition-colors ${
                     active
                       ? 'bg-[#e4f222] text-[#0c0a08]'
-                      : 'text-[#6d6c6b] hover:bg-white/5 hover:text-white'
+                      : 'text-white/70 hover:bg-white/5 hover:text-white'
                   }`}
                 >
-                  <div className="flex items-center gap-2.5">
-                    <Icon size={16} className={active ? 'text-[#0c0a08]' : 'text-[#6d6c6b]'} />
-                    <span>{label}</span>
-                  </div>
-                  {active && <ChevronRight size={14} className="text-[#0c0a08]" />}
+                  <Icon size={16} />
+                  <span>{label}</span>
                 </NavLink>
               );
             })}
-          </nav>
-        </div>
 
-        {/* Demo Controller & User Profile */}
-        <div className="p-3 border-t border-white/10 space-y-2">
-          {/* Demo Mode Strip */}
-          <div className="bg-white/5 rounded-[6px] border border-white/10 p-2.5 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#e4f222]" />
-              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">Demo Desk</span>
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleResetDemo();
+                }}
+                disabled={resettingDemo}
+                className="text-xs text-[#e4f222] flex items-center gap-1.5"
+              >
+                <RotateCcw size={12} className={resettingDemo ? 'animate-spin' : ''} />
+                <span>Reset Demo State</span>
+              </button>
+              <button
+                onClick={handleLogout}
+                className="text-xs text-rose-400 flex items-center gap-1.5"
+              >
+                <LogOut size={14} />
+                <span>Sign Out</span>
+              </button>
             </div>
-            <button
-              onClick={handleResetDemo}
-              disabled={resettingDemo}
-              title="Reset sample data"
-              className="text-[10px] uppercase tracking-[0.018em] text-[#e4f222] hover:underline flex items-center gap-1 transition disabled:opacity-50"
-            >
-              <RotateCcw size={10} className={resettingDemo ? 'animate-spin' : ''} />
-              <span>{resettingDemo ? 'Resetting…' : 'Reset'}</span>
-            </button>
           </div>
+        )}
+      </header>
 
-          {/* User Profile Pill */}
-          <div className="bg-white/5 rounded-[6px] border border-white/10 p-2.5 flex items-center justify-between">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs font-normal shrink-0">
-                {user?.name?.charAt(0)?.toUpperCase() || 'U'}
-              </div>
-              <div className="min-w-0">
-                <p className="text-xs text-white truncate font-normal leading-tight">
-                  {user?.name || 'Chiranjeevi S'}
-                </p>
-                <p className="text-[10px] text-[#6d6c6b] truncate leading-tight mt-0.5">
-                  {user?.email || 'chiranjeevi@example.com'}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={handleLogout}
-              title="Sign out"
-              className="p-1.5 text-[#6d6c6b] hover:text-white rounded-[6px] hover:bg-white/10 transition"
-            >
-              <LogOut size={15} />
-            </button>
-          </div>
-        </div>
-      </aside>
-
-      {/* Main Content Area (1200px max width editorial canvas) */}
-      <main className="lg:ml-64 min-h-screen pt-14 lg:pt-0">
-        <div className="max-w-[1200px] mx-auto p-5 sm:p-8 lg:p-10">
-          <Outlet />
-        </div>
+      {/* Main Content Area (Clean, perfectly centered editorial canvas) */}
+      <main className="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <Outlet />
       </main>
     </div>
   );
