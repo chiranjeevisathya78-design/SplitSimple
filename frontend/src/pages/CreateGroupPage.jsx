@@ -78,113 +78,113 @@ export default function CreateGroupPage() {
       <div>
         <Link
           to="/groups"
-          className="text-xs font-semibold text-[#777b86] hover:text-[#17191c] flex items-center gap-1.5 mb-2 transition"
+          className="text-xs text-[#6d6c6b] hover:text-[#0c0a08] flex items-center gap-1.5 mb-2 transition font-normal"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Groups</span>
         </Link>
-        <h1 className="font-editorial text-4xl font-normal text-[#17191c]">
+        <h1 className="text-3xl sm:text-4xl font-normal text-[#0c0a08] tracking-tight">
           Create New Group
         </h1>
-        <p className="text-sm text-[#777b86] mt-1">
+        <p className="text-sm text-[#6d6c6b] mt-1 font-normal">
           Set up a shared expense space for your roommates or travel companions.
         </p>
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-[24px] border border-[#f2f2f3] p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)] space-y-6"
+        className="bg-white rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8 space-y-6"
       >
         <Input
           label="Group Name"
           id="name"
-          placeholder="e.g. Bangalore Roommates, Ladakh Expedition"
+          type="text"
+          required
+          placeholder="e.g. Indiranagar Apartment 402"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
         />
 
-        <div>
-          <label className="block text-xs font-semibold tracking-wider uppercase text-[#777b86] mb-2">
-            Description (Optional)
-          </label>
-          <textarea
-            rows="2"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Flat 402 rent and utilities, food, and road trip costs..."
-            className="w-full bg-white text-[#17191c] placeholder-[#a3a6af] text-sm rounded-[16px] border border-[#f2f2f3] p-3.5 focus:outline-none focus:border-[#17191c]"
-          />
-        </div>
+        <Input
+          label="Description (Optional)"
+          id="description"
+          type="text"
+          placeholder="e.g. Shared rent, utilities, and daily groceries"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
 
-        {/* Member Search & Invitation */}
-        <div className="pt-4 border-t border-[#f2f2f3] space-y-4">
-          <label className="block text-xs font-semibold tracking-wider uppercase text-[#777b86]">
-            Invite Group Members (by Email)
+        {/* Member Invitation Search */}
+        <div className="space-y-3 pt-2">
+          <label className="block text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
+            Invite Members by Email or Name
           </label>
 
           <div className="relative">
-            <Search className="w-4 h-4 text-[#777b86] absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#6d6c6b] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search by registered email (e.g. gagan, pranav, chandan)..."
+              placeholder="Search registered members (e.g. gagan@example.com)..."
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full bg-[#fafafb] text-sm text-[#17191c] placeholder-[#a3a6af] rounded-[16px] border border-[#f2f2f3] pl-10 pr-4 py-2.5 focus:outline-none focus:border-[#17191c]"
+              className="w-full bg-white text-sm text-[#0c0a08] placeholder-[#6d6c6b]/60 rounded-[10px] border border-[#e5e7eb] pl-10 pr-4 py-2.5 focus:outline-none focus:border-[#0c0a08] font-normal"
             />
             {searching && (
-              <Loader2 className="w-4 h-4 animate-spin text-[#777b86] absolute right-3.5 top-1/2 -translate-y-1/2" />
+              <Loader2 className="w-4 h-4 animate-spin text-[#6d6c6b] absolute right-3.5 top-1/2 -translate-y-1/2" />
             )}
           </div>
 
-          {/* Search Results Dropdown */}
+          {/* Autocomplete Dropdown */}
           {searchResults.length > 0 && (
-            <div className="bg-white rounded-[16px] border border-[#f2f2f3] shadow-md divide-y divide-[#f2f2f3] max-h-48 overflow-y-auto">
-              {searchResults.map((u) => (
+            <div className="bg-white border border-[#e5e7eb] rounded-[10px] divide-y divide-[#e5e7eb]">
+              {searchResults.map((user) => (
                 <button
-                  key={u._id}
+                  key={user._id}
                   type="button"
-                  onClick={() => addMember(u)}
-                  className="w-full p-3 flex items-center justify-between text-left hover:bg-[#fafafb] transition"
+                  onClick={() => addMember(user)}
+                  className="w-full text-left p-3 hover:bg-[#f4f2f0] flex items-center justify-between text-xs transition-colors"
                 >
                   <div className="flex items-center gap-2.5">
-                    <MemberAvatar name={u.name} size="sm" />
+                    <MemberAvatar name={user.name} size="sm" />
                     <div>
-                      <p className="text-xs font-semibold text-[#17191c]">{u.name}</p>
-                      <p className="text-[11px] text-[#777b86]">{u.email}</p>
+                      <p className="text-sm font-normal text-[#0c0a08]">{user.name}</p>
+                      <p className="text-xs text-[#6d6c6b]">{user.email}</p>
                     </div>
                   </div>
-                  <span className="text-xs font-semibold text-[#17191c]">+ Add</span>
+                  <span className="text-xs text-[#0c0a08] font-normal">+ Add</span>
                 </button>
               ))}
             </div>
           )}
 
-          {/* Selected Member Chips */}
+          {/* Added Members Pills */}
           {members.length > 0 && (
-            <div className="flex flex-wrap gap-2 pt-2">
-              {members.map((m) => (
-                <span
-                  key={m.email}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#fafafb] border border-[#f2f2f3] text-xs font-medium text-[#17191c]"
-                >
-                  <MemberAvatar name={m.name} size="sm" />
-                  <span>{m.name}</span>
-                  <button
-                    type="button"
-                    onClick={() => removeMember(m.email)}
-                    className="text-[#777b86] hover:text-red-600 transition"
+            <div className="pt-2">
+              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] block mb-2 font-normal">
+                Members to invite ({members.length}):
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {members.map((m) => (
+                  <div
+                    key={m.email}
+                    className="flex items-center gap-2 bg-[#f4f2f0] border border-[#e5e7eb] rounded-[6px] pl-2.5 pr-1.5 py-1 text-xs text-[#0c0a08]"
                   >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                </span>
-              ))}
+                    <span>{m.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeMember(m.email)}
+                      className="p-0.5 hover:bg-white rounded text-[#6d6c6b] hover:text-[#0c0a08]"
+                    >
+                      <X size={12} />
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
 
-        {/* Action Buttons */}
-        <div className="pt-4 flex items-center justify-end gap-3 border-t border-[#f2f2f3]">
+        <div className="pt-4 border-t border-[#e5e7eb] flex items-center justify-end gap-3">
           <Link to="/groups">
             <SecondaryButton>Cancel</SecondaryButton>
           </Link>
@@ -192,7 +192,7 @@ export default function CreateGroupPage() {
             type="submit"
             variant="primary"
             loading={submitting}
-            icon={Users}
+            icon={Plus}
           >
             Create Group
           </Button>

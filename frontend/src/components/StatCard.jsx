@@ -5,72 +5,72 @@ export function StatCard({
   value,
   subtext,
   icon: Icon,
-  variant = 'white', // 'white' | 'dark' | 'peach' | 'mist'
-  trend, // 'positive' | 'negative' | 'neutral'
+  variant = 'white', // 'white' | 'dark' | 'wash' | 'highlight'
+  trend,
   badge,
   action,
   className = '',
 }) {
   const variantStyles = {
-    white: 'bg-white text-[#17191c] border-[#f2f2f3] shadow-[0_1px_3px_rgba(23,25,28,0.03)] hover:border-[#e3e4e7]',
-    dark: 'bg-[#17191c] text-white border-white/10 shadow-[0_4px_24px_rgba(23,25,28,0.12)] hover:border-white/20',
-    peach: 'bg-[#fbe1d1]/50 text-[#5d2a1a] border-[#f6d0bb] shadow-[0_1px_3px_rgba(93,42,26,0.04)] hover:border-[#fbe1d1]',
-    mist: 'bg-[#f2f2f3] text-[#17191c] border-[#e3e4e7] shadow-none hover:border-[#d0d2d6]',
+    // Ramp Paper Card: #ffffff fill, 1px #e5e7eb hairline border, 16px radius, no shadow
+    white: 'bg-white text-[#0c0a08] border border-[#e5e7eb]',
+    // Ramp Obsidian Inverted Card: #1a1919 fill, white text, 1px subtle border
+    dark: 'bg-[#1a1919] text-white border border-white/10',
+    // Ramp Wash Card: #f4f2f0 fill, no border (or subtle hairline), 12-16px radius
+    wash: 'bg-[#f4f2f0] text-[#0c0a08] border border-[#e5e7eb]',
+    // Ramp Highlight Card: white card with vivid highlighter yellow accent border or top mark
+    highlight: 'bg-white text-[#0c0a08] border-2 border-[#e4f222]',
   };
 
   const labelStyles = {
-    white: 'text-[#777b86]',
-    dark: 'text-[#a3a6af]',
-    peach: 'text-[#5d2a1a]',
-    mist: 'text-[#777b86]',
+    white: 'text-[#6d6c6b]',
+    dark: 'text-[#6d6c6b]',
+    wash: 'text-[#6d6c6b]',
+    highlight: 'text-[#0c0a08]',
   };
 
   const subtextStyles = {
-    white: 'text-[#777b86]',
-    dark: 'text-[#a3a6af]',
-    peach: 'text-[#5d2a1a]/80',
-    mist: 'text-[#777b86]',
+    white: 'text-[#6d6c6b]',
+    dark: 'text-[#6d6c6b]',
+    wash: 'text-[#6d6c6b]',
+    highlight: 'text-[#6d6c6b]',
   };
 
   return (
     <div
-      className={`rounded-[24px] border p-6 flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${variantStyles[variant]} ${className}`}
+      className={`rounded-[16px] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-150 ${variantStyles[variant] || variantStyles.white} ${className}`}
     >
       <div className="flex items-center justify-between mb-4">
         <span
-          className={`text-xs font-semibold uppercase tracking-wider ${labelStyles[variant]}`}
+          className={`text-[10px] uppercase tracking-[0.018em] font-normal ${labelStyles[variant]}`}
         >
           {label}
         </span>
         {badge ? (
           <span
-            className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${
+            className={`text-[10px] uppercase tracking-[0.018em] font-normal px-2 py-0.5 rounded-[6px] ${
               variant === 'dark'
-                ? 'bg-[#fbe1d1] text-[#5d2a1a]'
-                : variant === 'peach'
-                ? 'bg-[#5d2a1a] text-white'
-                : 'bg-[#fbe1d1] text-[#5d2a1a]'
+                ? 'bg-[#e4f222] text-[#0c0a08]'
+                : 'bg-[#e4f222] text-[#0c0a08]'
             }`}
           >
             {badge}
           </span>
         ) : Icon ? (
           <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center ${
+            className={`w-7 h-7 rounded-[6px] flex items-center justify-center ${
               variant === 'dark'
                 ? 'bg-white/10 text-white'
-                : variant === 'peach'
-                ? 'bg-[#5d2a1a]/10 text-[#5d2a1a]'
-                : 'bg-[#fafafb] border border-[#f2f2f3] text-[#777b86]'
+                : 'bg-[#f4f2f0] text-[#0c0a08]'
             }`}
           >
-            <Icon className="w-4 h-4" />
+            <Icon className="w-3.5 h-3.5" />
           </div>
         ) : null}
       </div>
 
       <div>
-        <div className="text-3xl sm:text-4xl font-editorial tracking-tight">
+        <div className="text-3xl sm:text-4xl tracking-tight font-normal leading-none">
           {value}
         </div>
         {subtext && (
@@ -87,7 +87,7 @@ export function StatCard({
 export function MemberAvatar({
   name = '',
   size = 'md', // 'sm' | 'md' | 'lg'
-  variant = 'neutral', // 'neutral' | 'peach' | 'dark'
+  variant = 'neutral', // 'neutral' | 'highlighter' | 'dark'
   className = '',
 }) {
   const initials = name
@@ -101,21 +101,21 @@ export function MemberAvatar({
     : '?';
 
   const sizes = {
-    sm: 'w-7 h-7 text-[11px]',
-    md: 'w-9 h-9 text-xs',
-    lg: 'w-11 h-11 text-sm',
+    sm: 'w-7 h-7 text-[10px]',
+    md: 'w-8 h-8 text-xs',
+    lg: 'w-10 h-10 text-sm',
   };
 
   const variants = {
-    neutral: 'bg-[#f2f2f3] text-[#17191c] border-[#e3e4e7]',
-    peach: 'bg-[#fbe1d1] text-[#5d2a1a] border-[#f6d0bb]',
-    dark: 'bg-[#17191c] text-white border-white/20',
+    neutral: 'bg-[#f4f2f0] text-[#0c0a08] border border-[#e5e7eb]',
+    highlighter: 'bg-[#e4f222] text-[#0c0a08] border border-black/10',
+    dark: 'bg-[#1a1919] text-white border border-white/20',
   };
 
   return (
     <div
       title={name}
-      className={`${sizes[size]} ${variants[variant]} rounded-full font-semibold flex items-center justify-center border shrink-0 select-none shadow-xs ${className}`}
+      className={`${sizes[size]} ${variants[variant]} rounded-[6px] font-normal flex items-center justify-center shrink-0 select-none ${className}`}
     >
       {initials}
     </div>
@@ -124,14 +124,14 @@ export function MemberAvatar({
 
 export function DemoBadge({ onReset, isResetting }) {
   return (
-    <div className="bg-[#fbe1d1] text-[#5d2a1a] border border-[#f6d0bb] px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 shadow-xs">
-      <span className="w-2 h-2 rounded-full bg-[#5d2a1a] animate-pulse" />
+    <div className="bg-[#1a1919] text-white border border-white/10 px-2.5 py-1 rounded-[6px] text-[10px] uppercase tracking-[0.018em] font-normal flex items-center gap-2">
+      <span className="w-1.5 h-1.5 rounded-full bg-[#e4f222]" />
       <span>Demo Workspace</span>
       {onReset && (
         <button
           onClick={onReset}
           disabled={isResetting}
-          className="ml-1 text-[11px] underline font-bold hover:opacity-80 transition disabled:opacity-50"
+          className="ml-1 text-[10px] text-[#e4f222] hover:underline font-normal transition disabled:opacity-50"
         >
           {isResetting ? 'Resetting…' : 'Reset'}
         </button>

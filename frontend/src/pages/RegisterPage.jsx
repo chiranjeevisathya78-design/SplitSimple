@@ -50,31 +50,31 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#fafafb] px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-[#f4f2f0] px-4 py-12">
       <div className="w-full max-w-md">
         {/* Brand Logo */}
         <Link
           to="/"
-          className="flex items-center justify-center gap-2.5 text-2xl font-editorial font-semibold text-[#17191c] mb-8"
+          className="flex items-center justify-center gap-2 text-xl font-normal text-[#0c0a08] mb-8"
         >
-          <div className="w-7 h-7 rounded-full bg-[#17191c] text-white flex items-center justify-center font-bold text-xs">
+          <div className="w-6 h-6 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-normal text-xs">
             S
           </div>
           <span>SplitSimple</span>
         </Link>
 
-        {/* Card */}
-        <div className="bg-white rounded-[24px] shadow-[0_1px_3px_rgba(23,25,28,0.03)] border border-[#f2f2f3] p-8 sm:p-10">
-          <div className="text-center">
-            <h2 className="font-editorial text-3xl font-normal text-[#17191c]">
+        {/* Ramp Content Card: 16px radius, Paper #ffffff, Hairline #e5e7eb border, no shadow */}
+        <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8">
+          <div className="text-left">
+            <h2 className="text-2xl font-normal text-[#0c0a08] tracking-tight">
               Create an account
             </h2>
-            <p className="mt-1.5 text-xs text-[#777b86]">
-              Start tracking shared expenses with roommates and friends
+            <p className="mt-1 text-xs text-[#6d6c6b] font-normal">
+              Join or create group ledgers and settle shared expenses
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <form onSubmit={handleSubmit} className="mt-5 space-y-4">
             <Input
               label="Full Name"
               id="name"
@@ -123,7 +123,7 @@ export default function RegisterPage() {
               type="submit"
               variant="primary"
               loading={loading}
-              className="w-full mt-4"
+              className="w-full mt-2"
               icon={ArrowRight}
             >
               Create Account
@@ -132,11 +132,11 @@ export default function RegisterPage() {
         </div>
 
         {/* Footer link */}
-        <p className="mt-6 text-center text-xs text-[#777b86]">
+        <p className="mt-5 text-center text-xs text-[#6d6c6b] font-normal">
           Already have an account?{' '}
           <Link
             to="/login"
-            className="font-semibold text-[#17191c] hover:underline"
+            className="text-[#0c0a08] underline underline-offset-4 font-normal"
           >
             Sign in
           </Link>

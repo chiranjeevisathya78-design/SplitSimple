@@ -11,7 +11,6 @@ import {
   Menu,
   X,
   RotateCcw,
-  Sparkles,
   ChevronRight,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -56,16 +55,16 @@ export default function AppLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafb] text-[#17191c]">
+    <div className="min-h-screen bg-[#f4f2f0] text-[#0c0a08]">
       {/* Mobile Top Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-30 bg-[#17191c] text-white px-4 py-3.5 flex items-center justify-between border-b border-white/10">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-30 bg-[#1a1919] text-white px-4 py-3 flex items-center justify-between border-b border-white/10">
         <button
           onClick={() => setSidebarOpen(true)}
-          className="p-1.5 rounded-full hover:bg-white/10 text-white transition"
+          className="p-1.5 rounded-[6px] hover:bg-white/10 text-white transition"
         >
           <Menu size={20} />
         </button>
-        <span className="font-editorial text-xl font-semibold tracking-tight text-white">
+        <span className="text-lg tracking-tight text-white font-normal">
           SplitSimple
         </span>
         <div className="w-8" />
@@ -79,37 +78,38 @@ export default function AppLayout() {
         />
       )}
 
-      {/* Sophisticated Dark Charcoal Sidebar */}
+      {/* Ramp Obsidian Sidebar (#1a1919) */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-70 bg-[#17191c] text-white border-r border-[#26282d] flex flex-col justify-between transform transition-transform duration-200 ease-in-out
+        className={`fixed top-0 left-0 z-50 h-full w-64 bg-[#1a1919] text-white border-r border-white/10 flex flex-col justify-between transform transition-transform duration-200 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
         {/* Brand Header */}
         <div>
-          <div className="p-6 flex items-center justify-between border-b border-white/10">
-            <NavLink to="/dashboard" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 rounded-full bg-[#fbe1d1] text-[#5d2a1a] flex items-center justify-center font-bold text-sm tracking-tight shadow-sm transition-transform group-hover:scale-105">
+          <div className="p-5 flex items-center justify-between border-b border-white/10">
+            <NavLink to="/dashboard" className="flex items-center gap-2.5 group">
+              {/* Single neon highlighter mark */}
+              <div className="w-6 h-6 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-normal text-xs tracking-tight">
                 S
               </div>
               <div className="flex flex-col">
-                <span className="font-editorial text-xl font-semibold text-white tracking-tight">
+                <span className="text-base text-white tracking-tight leading-none font-normal">
                   SplitSimple
                 </span>
-                <span className="text-[10px] uppercase font-semibold tracking-widest text-[#a3a6af]">
-                  Financial SaaS
+                <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mt-1 leading-none font-normal">
+                  Editorial Desk
                 </span>
               </div>
             </NavLink>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden text-[#a3a6af] hover:text-white"
+              className="lg:hidden text-[#6d6c6b] hover:text-white"
             >
               <X size={18} />
             </button>
           </div>
 
           {/* Navigation Links */}
-          <nav className="p-4 space-y-1.5">
+          <nav className="p-3 space-y-1">
             {navItems.map(({ to, label, icon: Icon }) => {
               const active =
                 location.pathname === to ||
@@ -119,53 +119,53 @@ export default function AppLayout() {
                   key={to}
                   to={to}
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center justify-between px-4 py-2.5 rounded-[16px] text-sm font-medium transition-all duration-150 ${
+                  className={`flex items-center justify-between px-3 py-2 rounded-[6px] text-sm font-normal transition-colors duration-150 ${
                     active
-                      ? 'bg-[#fbe1d1] text-[#5d2a1a] font-semibold shadow-sm'
-                      : 'text-[#979799] hover:bg-white/5 hover:text-white'
+                      ? 'bg-[#e4f222] text-[#0c0a08]'
+                      : 'text-[#6d6c6b] hover:bg-white/5 hover:text-white'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon size={18} className={active ? 'text-[#5d2a1a]' : 'text-[#777b86]'} />
+                  <div className="flex items-center gap-2.5">
+                    <Icon size={16} className={active ? 'text-[#0c0a08]' : 'text-[#6d6c6b]'} />
                     <span>{label}</span>
                   </div>
-                  {active && <ChevronRight size={14} className="text-[#5d2a1a]" />}
+                  {active && <ChevronRight size={14} className="text-[#0c0a08]" />}
                 </NavLink>
               );
             })}
           </nav>
         </div>
 
-        {/* Demo Controller & User Footer */}
-        <div className="p-4 border-t border-white/10 space-y-3.5">
-          {/* Quick Demo Re-seed Helper */}
-          <div className="bg-[#202327] rounded-[16px] border border-white/10 p-3 flex items-center justify-between">
+        {/* Demo Controller & User Profile */}
+        <div className="p-3 border-t border-white/10 space-y-2">
+          {/* Demo Mode Strip */}
+          <div className="bg-white/5 rounded-[6px] border border-white/10 p-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#fbe1d1] animate-pulse" />
-              <span className="text-xs font-semibold text-[#fbe1d1]">Demo Mode</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#e4f222]" />
+              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">Demo Desk</span>
             </div>
             <button
               onClick={handleResetDemo}
               disabled={resettingDemo}
               title="Reset sample data"
-              className="text-[11px] text-[#a3a6af] hover:text-white flex items-center gap-1.5 transition disabled:opacity-50"
+              className="text-[10px] uppercase tracking-[0.018em] text-[#e4f222] hover:underline flex items-center gap-1 transition disabled:opacity-50"
             >
-              <RotateCcw size={12} className={resettingDemo ? 'animate-spin' : ''} />
+              <RotateCcw size={10} className={resettingDemo ? 'animate-spin' : ''} />
               <span>{resettingDemo ? 'Resetting…' : 'Reset'}</span>
             </button>
           </div>
 
           {/* User Profile Pill */}
-          <div className="bg-[#202327] rounded-[16px] border border-white/10 p-3 flex items-center justify-between">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-8 h-8 rounded-full bg-[#fbe1d1] text-[#5d2a1a] flex items-center justify-center text-xs font-bold shrink-0">
+          <div className="bg-white/5 rounded-[6px] border border-white/10 p-2.5 flex items-center justify-between">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs font-normal shrink-0">
                 {user?.name?.charAt(0)?.toUpperCase() || 'U'}
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-semibold text-white truncate">
+                <p className="text-xs text-white truncate font-normal leading-tight">
                   {user?.name || 'Chiranjeevi S'}
                 </p>
-                <p className="text-[11px] text-[#979799] truncate">
+                <p className="text-[10px] text-[#6d6c6b] truncate leading-tight mt-0.5">
                   {user?.email || 'chiranjeevi@example.com'}
                 </p>
               </div>
@@ -173,17 +173,17 @@ export default function AppLayout() {
             <button
               onClick={handleLogout}
               title="Sign out"
-              className="p-1.5 text-[#979799] hover:text-white rounded-full hover:bg-white/10 transition"
+              className="p-1.5 text-[#6d6c6b] hover:text-white rounded-[6px] hover:bg-white/10 transition"
             >
-              <LogOut size={16} />
+              <LogOut size={15} />
             </button>
           </div>
         </div>
       </aside>
 
-      {/* Main Content Area (offset by sidebar width, max 1200px centered) */}
-      <main className="lg:ml-70 min-h-screen pt-16 lg:pt-0">
-        <div className="max-w-[1200px] mx-auto p-6 sm:p-8 lg:p-10">
+      {/* Main Content Area (1200px max width editorial canvas) */}
+      <main className="lg:ml-64 min-h-screen pt-14 lg:pt-0">
+        <div className="max-w-[1200px] mx-auto p-5 sm:p-8 lg:p-10">
           <Outlet />
         </div>
       </main>

@@ -19,14 +19,14 @@ export function Input({
       {label && (
         <label
           htmlFor={id}
-          className="block text-xs font-semibold tracking-wider uppercase text-[#777b86] mb-2"
+          className="block text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1.5 font-normal leading-tight"
         >
-          {label} {required && <span className="text-[#5d2a1a]">*</span>}
+          {label} {required && <span className="text-[#0c0a08]">*</span>}
         </label>
       )}
       <div className="relative">
         {Icon && (
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#777b86]">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#6d6c6b]">
             <Icon className="w-4 h-4" />
           </div>
         )}
@@ -37,14 +37,14 @@ export function Input({
           onChange={onChange}
           placeholder={placeholder}
           required={required}
-          className={`w-full bg-white text-[#17191c] placeholder-[#a3a6af] text-sm rounded-[16px] border border-[#f2f2f3] py-2.5 px-3.5 transition-colors focus:outline-none focus:border-[#17191c] focus:ring-1 focus:ring-[#17191c] ${
+          className={`w-full bg-white text-[#0c0a08] placeholder-[#6d6c6b]/60 text-sm rounded-[10px] border border-[#e5e7eb] py-2.5 px-3.5 transition-colors focus:outline-none focus:border-[#0c0a08] focus:ring-1 focus:ring-[#0c0a08] font-normal ${
             Icon ? 'pl-10' : ''
-          } ${error ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : ''} ${className}`}
+          } ${error ? 'border-red-400 focus:border-red-500 focus:ring-red-500' : ''} ${className}`}
           {...props}
         />
       </div>
-      {error && <p className="mt-1.5 text-xs text-red-600">{error}</p>}
-      {helper && !error && <p className="mt-1.5 text-xs text-[#777b86]">{helper}</p>}
+      {error && <p className="mt-1 text-xs text-red-600 font-normal">{error}</p>}
+      {helper && !error && <p className="mt-1 text-xs text-[#6d6c6b] font-normal">{helper}</p>}
     </div>
   );
 }
@@ -66,9 +66,9 @@ export function Select({
       {label && (
         <label
           htmlFor={id}
-          className="block text-xs font-semibold tracking-wider uppercase text-[#777b86] mb-2"
+          className="block text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1.5 font-normal leading-tight"
         >
-          {label} {required && <span className="text-[#5d2a1a]">*</span>}
+          {label} {required && <span className="text-[#0c0a08]">*</span>}
         </label>
       )}
       <select
@@ -76,8 +76,8 @@ export function Select({
         value={value}
         onChange={onChange}
         required={required}
-        className={`w-full bg-white text-[#17191c] text-sm rounded-[16px] border border-[#f2f2f3] py-2.5 px-3.5 transition-colors focus:outline-none focus:border-[#17191c] focus:ring-1 focus:ring-[#17191c] ${
-          error ? 'border-red-300' : ''
+        className={`w-full bg-white text-[#0c0a08] text-sm rounded-[10px] border border-[#e5e7eb] py-2.5 px-3.5 transition-colors focus:outline-none focus:border-[#0c0a08] focus:ring-1 focus:ring-[#0c0a08] font-normal ${
+          error ? 'border-red-400' : ''
         } ${className}`}
         {...props}
       >
@@ -92,10 +92,9 @@ export function Select({
           </option>
         ))}
       </select>
-      {error && <p className="mt-1.5 text-xs text-red-600">{error}</p>}
+      {error && <p className="mt-1 text-xs text-red-600 font-normal">{error}</p>}
     </div>
   );
 }
 
 export default Input;
-

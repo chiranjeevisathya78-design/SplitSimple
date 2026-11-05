@@ -11,7 +11,6 @@ import {
   Edit2,
   Loader2,
   CheckCircle2,
-  Calendar,
   ArrowRight,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -30,9 +29,8 @@ export default function GroupDetailPage() {
   const [expenses, setExpenses] = useState([]);
   const [balances, setBalances] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'expenses' | 'members' | 'balances'
+  const [activeTab, setActiveTab] = useState('overview');
 
-  // Edit / Delete states
   const [editing, setEditing] = useState(false);
   const [editName, setEditName] = useState('');
   const [editDescription, setEditDescription] = useState('');
@@ -109,16 +107,16 @@ export default function GroupDetailPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-7 h-7 animate-spin text-[#17191c]" />
+        <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
       </div>
     );
   }
 
   if (!group) {
     return (
-      <div className="text-center py-20 text-[#777b86]">
-        <p>Group not found.</p>
-        <Link to="/groups" className="text-xs font-semibold text-[#17191c] underline mt-2 block">
+      <div className="text-center py-20 text-[#6d6c6b]">
+        <p className="font-normal">Group not found.</p>
+        <Link to="/groups" className="text-xs text-[#0c0a08] underline mt-2 block font-normal">
           Back to Groups
         </Link>
       </div>
@@ -133,35 +131,35 @@ export default function GroupDetailPage() {
       <div>
         <Link
           to="/groups"
-          className="text-xs font-semibold text-[#777b86] hover:text-[#17191c] flex items-center gap-1.5 mb-3 transition"
+          className="text-xs text-[#6d6c6b] hover:text-[#0c0a08] flex items-center gap-1.5 mb-2 transition font-normal"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>All Groups</span>
         </Link>
 
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#f2f2f3]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#e5e7eb]">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
+            <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
               Group Workspace
             </span>
-            <h1 className="font-editorial text-4xl sm:text-5xl font-normal text-[#17191c] mt-1">
+            <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-normal text-[#0c0a08] tracking-tight leading-tight mt-1">
               {group.name}
             </h1>
             {group.description && (
-              <p className="text-sm text-[#777b86] mt-1 max-w-xl">
+              <p className="text-sm text-[#6d6c6b] mt-1 max-w-xl font-normal">
                 {group.description}
               </p>
             )}
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5">
             <Link to="/expenses/new">
               <Button variant="primary" icon={Plus}>
                 Add Expense
               </Button>
             </Link>
             <Link to={`/settlements?groupId=${group._id}`}>
-              <Button variant="peach" icon={Handshake}>
+              <Button variant="secondary" icon={Handshake}>
                 Smart Settlement
               </Button>
             </Link>
@@ -178,7 +176,7 @@ export default function GroupDetailPage() {
                   onClick={handleDeleteGroup}
                   disabled={deleting}
                   title="Delete group"
-                  className="p-2.5 text-[#a3a6af] hover:text-red-600 hover:bg-red-50 rounded-full transition"
+                  className="p-2 text-[#6d6c6b] hover:text-[#b91c1c] hover:bg-[#fef2f2] rounded-[6px] transition"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -188,13 +186,13 @@ export default function GroupDetailPage() {
         </div>
       </div>
 
-      {/* Edit Form (if toggled) */}
+      {/* Edit Form */}
       {editing && (
         <form
           onSubmit={handleSaveEdit}
-          className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 shadow-sm space-y-4"
+          className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 space-y-4"
         >
-          <h3 className="text-sm font-semibold text-[#17191c]">Edit Group Details</h3>
+          <h3 className="text-sm font-normal text-[#0c0a08]">Edit Group Details</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input
               type="text"
@@ -202,14 +200,14 @@ export default function GroupDetailPage() {
               onChange={(e) => setEditName(e.target.value)}
               placeholder="Group name"
               required
-              className="bg-[#fafafb] text-sm text-[#17191c] rounded-[16px] border border-[#f2f2f3] px-3.5 py-2.5 focus:outline-none focus:border-[#17191c]"
+              className="bg-white text-sm text-[#0c0a08] rounded-[10px] border border-[#e5e7eb] px-3.5 py-2.5 focus:outline-none focus:border-[#0c0a08] font-normal"
             />
             <input
               type="text"
               value={editDescription}
               onChange={(e) => setEditDescription(e.target.value)}
               placeholder="Description"
-              className="bg-[#fafafb] text-sm text-[#17191c] rounded-[16px] border border-[#f2f2f3] px-3.5 py-2.5 focus:outline-none focus:border-[#17191c]"
+              className="bg-white text-sm text-[#0c0a08] rounded-[10px] border border-[#e5e7eb] px-3.5 py-2.5 focus:outline-none focus:border-[#0c0a08] font-normal"
             />
           </div>
           <div className="flex justify-end gap-2">
@@ -223,8 +221,8 @@ export default function GroupDetailPage() {
         </form>
       )}
 
-      {/* Tab Navigation */}
-      <div className="flex items-center gap-2 border-b border-[#f2f2f3] pb-3 text-xs font-semibold">
+      {/* Tab Navigation (6px Radius Ramp Tags/Buttons) */}
+      <div className="flex items-center gap-1.5 border-b border-[#e5e7eb] pb-3 text-xs font-normal">
         {[
           { key: 'overview', label: 'Overview' },
           { key: 'expenses', label: `Expenses (${expenses.length})` },
@@ -234,10 +232,10 @@ export default function GroupDetailPage() {
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-2 rounded-full transition-all ${
+            className={`px-3 py-1.5 rounded-[6px] transition-colors ${
               activeTab === tab.key
-                ? 'bg-[#17191c] text-white'
-                : 'text-[#777b86] hover:text-[#17191c] hover:bg-[#fafafb]'
+                ? 'bg-[#e4f222] text-[#0c0a08]'
+                : 'text-[#6d6c6b] hover:text-[#0c0a08] hover:bg-[#f4f2f0]'
             }`}
           >
             {tab.label}
@@ -248,73 +246,73 @@ export default function GroupDetailPage() {
       {/* Tab Contents */}
       {activeTab === 'overview' && (
         <div className="space-y-6">
-          {/* Overview Snapshot with Varied Tokens */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-[#17191c] text-white rounded-[24px] border border-white/10 p-6 shadow-[0_4px_20px_rgba(23,25,28,0.1)]">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#a3a6af]">
+          {/* Overview Snapshot */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="bg-[#1a1919] text-white rounded-[16px] border border-white/10 p-5 sm:p-6">
+              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
                 Total Group Spending
               </span>
-              <p className="font-editorial text-3xl font-semibold text-white mt-2">
+              <p className="text-3xl font-normal text-white mt-1 leading-none">
                 {formatCurrency(totalSpent)}
               </p>
-              <p className="text-xs text-[#a3a6af] mt-1.5">{expenses.length} shared receipts logged</p>
+              <p className="text-xs text-[#6d6c6b] mt-2 font-normal">{expenses.length} shared receipts logged</p>
             </div>
 
-            <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
+            <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
                 Roster Size
               </span>
-              <p className="font-editorial text-3xl font-semibold text-[#17191c] mt-2">
+              <p className="text-3xl font-normal text-[#0c0a08] mt-1 leading-none">
                 {group.members?.length || 0} Members
               </p>
-              <p className="text-xs text-[#777b86] mt-1.5">Shared evenly or by custom allocation</p>
+              <p className="text-xs text-[#6d6c6b] mt-2 font-normal">Shared evenly or by custom allocation</p>
             </div>
 
-            <div className="bg-[#fbe1d1]/50 rounded-[24px] border border-[#f6d0bb] p-6 text-[#5d2a1a]">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#5d2a1a]">
+            <div className="bg-[#f4f2f0] rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
                 Settlement Engine
               </span>
-              <p className="font-editorial text-3xl font-semibold text-[#5d2a1a] mt-2">
+              <p className="text-3xl font-normal text-[#0c0a08] mt-1 leading-none">
                 Greedy Plan
               </p>
               <Link
                 to={`/settlements?groupId=${group._id}`}
-                className="text-xs font-bold text-[#5d2a1a] underline mt-1.5 block hover:opacity-80"
+                className="text-xs text-[#0c0a08] underline mt-2 block font-normal hover:opacity-80"
               >
-                Inspect Optimized Repayments ➔
+                Inspect Optimized Repayments →
               </Link>
             </div>
           </div>
 
-          {/* Member Balance Overview Table */}
-          <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-            <h3 className="font-editorial text-2xl font-semibold text-[#17191c] mb-4">
+          {/* Member Balance Overview */}
+          <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+            <h3 className="text-xl font-normal text-[#0c0a08] tracking-tight mb-4">
               Member Net Positions
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {balances.map((b, i) => (
                 <div
                   key={i}
-                  className="p-4 rounded-[16px] bg-[#fafafb] border border-[#f2f2f3] flex items-center justify-between"
+                  className="p-3.5 rounded-[10px] bg-[#f4f2f0] border border-[#e5e7eb] flex items-center justify-between"
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2.5">
                     <MemberAvatar name={b.user?.name || 'Member'} size="sm" />
                     <div>
-                      <p className="text-sm font-semibold text-[#17191c]">
+                      <p className="text-sm font-normal text-[#0c0a08]">
                         {b.user?.name || 'Member'}
                       </p>
-                      <p className="text-[11px] text-[#777b86]">
+                      <p className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
                         {b.balance > 0 ? 'Receives' : b.balance < 0 ? 'Owes' : 'Settled'}
                       </p>
                     </div>
                   </div>
                   <span
-                    className={`font-editorial font-semibold ${
+                    className={`text-sm font-normal ${
                       b.balance > 0
-                        ? 'text-[#17191c]'
+                        ? 'text-[#0c0a08]'
                         : b.balance < 0
-                        ? 'text-[#5d2a1a]'
-                        : 'text-[#777b86]'
+                        ? 'text-[#b91c1c]'
+                        : 'text-[#6d6c6b]'
                     }`}
                   >
                     {b.balance > 0 ? '+' : ''}
@@ -328,31 +326,31 @@ export default function GroupDetailPage() {
       )}
 
       {activeTab === 'expenses' && (
-        <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
+        <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
           {expenses.length > 0 ? (
-            <div className="divide-y divide-[#f2f2f3]">
+            <div className="divide-y divide-[#e5e7eb]">
               {expenses.map((expense) => (
                 <div
                   key={expense._id}
-                  className="py-4 flex items-center justify-between gap-4"
+                  className="py-3.5 flex items-center justify-between gap-4"
                 >
-                  <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="flex items-center gap-3 min-w-0">
                     <MemberAvatar name={expense.paidBy?.name || 'User'} size="md" />
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-[#17191c] truncate">
+                      <p className="text-sm font-normal text-[#0c0a08] truncate">
                         {expense.title}
                       </p>
-                      <p className="text-xs text-[#777b86] mt-0.5">
+                      <p className="text-xs text-[#6d6c6b] mt-0.5 font-normal">
                         Paid by {expense.paidBy?.name} · {formatDate(expense.date)}
                       </p>
                     </div>
                   </div>
 
                   <div className="text-right shrink-0">
-                    <p className="font-editorial text-lg font-semibold text-[#17191c]">
+                    <p className="text-base font-normal text-[#0c0a08]">
                       {formatCurrency(expense.amount)}
                     </p>
-                    <span className="text-[11px] text-[#777b86] uppercase font-semibold">
+                    <span className="text-[10px] text-[#6d6c6b] uppercase tracking-[0.018em]">
                       {expense.splitType || 'Equal'}
                     </span>
                   </div>
@@ -360,7 +358,7 @@ export default function GroupDetailPage() {
               ))}
             </div>
           ) : (
-            <p className="text-sm text-[#777b86] py-12 text-center">
+            <p className="text-sm text-[#6d6c6b] py-10 text-center font-normal">
               No expenses in this group yet.
             </p>
           )}
@@ -368,17 +366,17 @@ export default function GroupDetailPage() {
       )}
 
       {activeTab === 'members' && (
-        <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {(group.members || []).map((m) => (
               <div
                 key={m._id}
-                className="p-4 rounded-[16px] bg-[#fafafb] border border-[#f2f2f3] flex items-center gap-3"
+                className="p-3.5 rounded-[10px] bg-[#f4f2f0] border border-[#e5e7eb] flex items-center gap-2.5"
               >
                 <MemberAvatar name={m.name} size="md" />
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-[#17191c] truncate">{m.name}</p>
-                  <p className="text-xs text-[#777b86] truncate">{m.email}</p>
+                  <p className="text-sm font-normal text-[#0c0a08] truncate">{m.name}</p>
+                  <p className="text-xs text-[#6d6c6b] truncate">{m.email}</p>
                 </div>
               </div>
             ))}
@@ -387,37 +385,37 @@ export default function GroupDetailPage() {
       )}
 
       {activeTab === 'balances' && (
-        <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-          <div className="space-y-4">
+        <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+          <div className="space-y-3">
             {balances.map((b, i) => (
               <div
                 key={i}
-                className="p-4 rounded-[16px] bg-[#fafafb] border border-[#f2f2f3] flex items-center justify-between"
+                className="p-3.5 rounded-[10px] bg-[#f4f2f0] border border-[#e5e7eb] flex items-center justify-between"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5">
                   <MemberAvatar name={b.user?.name || 'Member'} size="md" />
                   <div>
-                    <p className="text-sm font-semibold text-[#17191c]">
+                    <p className="text-sm font-normal text-[#0c0a08]">
                       {b.user?.name || 'Member'}
                     </p>
-                    <p className="text-xs text-[#777b86]">{b.user?.email}</p>
+                    <p className="text-xs text-[#6d6c6b]">{b.user?.email}</p>
                   </div>
                 </div>
 
                 <div className="text-right">
                   <p
-                    className={`font-editorial text-xl font-semibold ${
+                    className={`text-lg font-normal ${
                       b.balance > 0
-                        ? 'text-[#17191c]'
+                        ? 'text-[#0c0a08]'
                         : b.balance < 0
-                        ? 'text-[#5d2a1a]'
-                        : 'text-[#777b86]'
+                        ? 'text-[#b91c1c]'
+                        : 'text-[#6d6c6b]'
                     }`}
                   >
                     {b.balance > 0 ? '+' : ''}
                     {formatCurrency(b.balance)}
                   </p>
-                  <span className="text-[11px] text-[#777b86]">
+                  <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
                     {b.balance > 0
                       ? 'Should receive'
                       : b.balance < 0

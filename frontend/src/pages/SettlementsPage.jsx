@@ -7,10 +7,7 @@ import {
   Clock,
   ArrowRight,
   Loader2,
-  Sparkles,
   AlertCircle,
-  TrendingDown,
-  TrendingUp,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { settlementService, groupService } from '../services';
@@ -85,7 +82,6 @@ export default function SettlementsPage() {
 
     setProcessingId(`${fromId}-${toId}`);
     try {
-      // 1. Create settlement record
       const createRes = await settlementService.create({
         groupId: selectedGroup,
         from: fromId,
@@ -95,13 +91,11 @@ export default function SettlementsPage() {
 
       const settlementId = createRes.data?.data?.settlement?._id || createRes.data?.settlement?._id;
 
-      // 2. Mark it as paid
       if (settlementId) {
         await settlementService.markPaid(settlementId);
       }
 
       toast.success(`Settlement of ₹${amountRupees.toFixed(2)} recorded as paid!`);
-      // Refresh current settlements and balances
       await fetchSettlementData(selectedGroup);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to complete settlement');
@@ -113,7 +107,7 @@ export default function SettlementsPage() {
   if (loadingGroups) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-7 h-7 animate-spin text-[#17191c]" />
+        <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
       </div>
     );
   }
@@ -123,30 +117,30 @@ export default function SettlementsPage() {
   const totalOutstanding = optimized?.totalOutstanding || 0;
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       {/* Editorial Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#f2f2f3]">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#e5e7eb]">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5d2a1a] px-3 py-1 rounded-full bg-[#fbe1d1] inline-block mb-2">
+          <span className="text-[10px] uppercase tracking-[0.018em] text-[#0c0a08] px-2 py-0.5 rounded-[6px] bg-[#e4f222] inline-block mb-1 font-normal">
             Greedy Simplification Engine
           </span>
-          <h1 className="font-editorial text-4xl sm:text-5xl font-normal text-[#17191c]">
+          <h1 className="text-3xl sm:text-4xl lg:text-[40px] text-[#0c0a08] font-normal tracking-tight leading-tight">
             Smart Settlement
           </h1>
-          <p className="text-sm text-[#777b86] mt-1 max-w-xl">
+          <p className="text-sm text-[#6d6c6b] mt-1 max-w-xl font-normal">
             Calculates minimal payments to completely clear all group debts with zero balance drift.
           </p>
         </div>
 
         {/* Group Selector Dropdown */}
         <div className="w-full md:w-72">
-          <label className="block text-xs font-semibold uppercase tracking-wider text-[#777b86] mb-1.5">
+          <label className="block text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1 font-normal">
             Active Workspace
           </label>
           <select
             value={selectedGroup}
             onChange={handleGroupSelect}
-            className="w-full bg-white text-[#17191c] text-sm rounded-[16px] border border-[#f2f2f3] py-2.5 px-3.5 focus:outline-none focus:border-[#17191c]"
+            className="w-full bg-white text-[#0c0a08] text-sm rounded-[10px] border border-[#e5e7eb] py-2.5 px-3.5 focus:outline-none focus:border-[#0c0a08] font-normal"
           >
             {groups.map((g) => (
               <option key={g._id} value={g._id}>
@@ -158,63 +152,63 @@ export default function SettlementsPage() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-24">
-          <Loader2 className="w-7 h-7 animate-spin text-[#17191c]" />
+        <div className="flex items-center justify-center py-20">
+          <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
         </div>
       ) : (
         <>
-          {/* Optimization Summary Bar (Varied Token Styles) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-[#17191c] text-white rounded-[24px] border border-white/10 p-6 shadow-[0_4px_20px_rgba(23,25,28,0.1)]">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#a3a6af]">
+          {/* Optimization Summary Bar */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="bg-[#1a1919] text-white rounded-[16px] border border-white/10 p-5 sm:p-6">
+              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
                 Total Outstanding Debt
               </span>
-              <p className="font-editorial text-3xl sm:text-4xl font-semibold text-white mt-2">
+              <p className="text-3xl sm:text-4xl font-normal text-white mt-1 leading-none">
                 {formatCurrency(totalOutstanding)}
               </p>
-              <p className="text-xs text-[#a3a6af] mt-1.5">Across all debtor members in this group</p>
+              <p className="text-xs text-[#6d6c6b] mt-2 font-normal">Across all debtor members in this group</p>
             </div>
 
-            <div className="bg-[#fbe1d1]/50 text-[#5d2a1a] rounded-[24px] border border-[#f6d0bb] p-6 shadow-xs">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#5d2a1a]">
+            <div className="bg-white text-[#0c0a08] rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
                 Optimized Transactions
               </span>
-              <p className="font-editorial text-3xl sm:text-4xl font-semibold text-[#5d2a1a] mt-2">
+              <p className="text-3xl sm:text-4xl font-normal text-[#0c0a08] mt-1 leading-none">
                 {transactions.length} Payment{transactions.length === 1 ? '' : 's'}
               </p>
-              <p className="text-xs text-[#5d2a1a]/80 mt-1.5">
+              <p className="text-xs text-[#6d6c6b] mt-2 font-normal">
                 {transactions.length === 0
                   ? 'All accounts are balanced'
                   : 'Minimal transfers calculated by greedy algorithm'}
               </p>
             </div>
 
-            <div className="bg-[#f2f2f3] rounded-[24px] border border-[#e3e4e7] p-6">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
+            <div className="bg-[#f4f2f0] rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
                 Balance Conservation
               </span>
-              <p className="font-editorial text-3xl sm:text-4xl font-semibold text-[#17191c] mt-2">
+              <p className="text-3xl sm:text-4xl font-normal text-[#0c0a08] mt-1 leading-none">
                 Exact Paise
               </p>
-              <p className="text-xs text-[#777b86] mt-1.5">Zero floating-point arithmetic drift</p>
+              <p className="text-xs text-[#6d6c6b] mt-2 font-normal">Zero floating-point arithmetic drift</p>
             </div>
           </div>
 
-          {/* Optimized Transactions Plan */}
-          <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-            <div className="flex items-center justify-between pb-5 mb-5 border-b border-[#f2f2f3]">
+          {/* Recommended Repayment Plan */}
+          <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+            <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#e5e7eb]">
               <div>
-                <h2 className="font-editorial text-2xl font-semibold text-[#17191c]">
+                <h2 className="text-xl sm:text-2xl font-normal text-[#0c0a08] tracking-tight">
                   Recommended Repayment Plan
                 </h2>
-                <p className="text-xs text-[#777b86] mt-0.5">
+                <p className="text-xs text-[#6d6c6b] mt-0.5 font-normal">
                   Follow these transfers to settle all obligations with the fewest payments possible
                 </p>
               </div>
             </div>
 
             {transactions.length > 0 ? (
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {transactions.map((tx, idx) => {
                   const fromName = tx.from?.name || 'Member';
                   const toName = tx.to?.name || 'Member';
@@ -224,34 +218,34 @@ export default function SettlementsPage() {
                   return (
                     <div
                       key={idx}
-                      className="p-5 rounded-[20px] bg-[#fafafb] border border-[#f2f2f3] flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all hover:border-[#17191c]"
+                      className="p-4 rounded-[10px] bg-[#f4f2f0] border border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:border-[#0c0a08]"
                     >
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-3">
                         <MemberAvatar name={fromName} size="md" />
                         <div>
-                          <div className="flex items-center gap-2 text-sm font-semibold text-[#17191c]">
+                          <div className="flex items-center gap-2 text-sm font-normal text-[#0c0a08]">
                             <span>{fromName}</span>
-                            <span className="text-xs text-[#777b86]">pays</span>
-                            <span className="text-[#17191c] font-bold">{toName}</span>
+                            <span className="text-xs text-[#6d6c6b]">pays</span>
+                            <span className="text-[#0c0a08] underline underline-offset-4">{toName}</span>
                           </div>
-                          <p className="text-xs text-[#777b86] mt-0.5">
+                          <p className="text-xs text-[#6d6c6b] mt-0.5 font-normal">
                             Direct settlement transfer
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between sm:justify-end gap-6">
+                      <div className="flex items-center justify-between sm:justify-end gap-5">
                         <div className="text-right">
-                          <p className="font-editorial text-2xl font-semibold text-[#17191c]">
+                          <p className="text-xl sm:text-2xl font-normal text-[#0c0a08]">
                             {formatCurrency(tx.amount)}
                           </p>
-                          <span className="text-[11px] text-[#777b86] uppercase font-semibold">
+                          <span className="text-[10px] text-[#6d6c6b] uppercase tracking-[0.018em]">
                             Full Settlement
                           </span>
                         </div>
 
                         <Button
-                          variant="peach"
+                          variant="primary"
                           size="sm"
                           loading={isProcessing}
                           onClick={() => handleSettleTransaction(tx)}
@@ -265,14 +259,14 @@ export default function SettlementsPage() {
                 })}
               </div>
             ) : (
-              <div className="py-12 text-center">
-                <div className="w-12 h-12 rounded-full bg-[#fbe1d1] text-[#5d2a1a] flex items-center justify-center mx-auto mb-3">
-                  <CheckCircle2 className="w-6 h-6" />
+              <div className="py-10 text-center">
+                <div className="w-10 h-10 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center mx-auto mb-2">
+                  <CheckCircle2 className="w-5 h-5" />
                 </div>
-                <h3 className="font-editorial text-2xl font-semibold text-[#17191c]">
+                <h3 className="text-xl font-normal text-[#0c0a08] tracking-tight">
                   All Debts Settled
                 </h3>
-                <p className="text-sm text-[#777b86] mt-1 max-w-sm mx-auto">
+                <p className="text-xs text-[#6d6c6b] mt-1 max-w-sm mx-auto font-normal">
                   Every member in this group is currently balanced at ₹0.00. No repayments required!
                 </p>
               </div>
@@ -280,15 +274,15 @@ export default function SettlementsPage() {
           </div>
 
           {/* Member Current Net Balances */}
-          <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-            <h3 className="font-editorial text-2xl font-semibold text-[#17191c] mb-1">
+          <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+            <h3 className="text-xl sm:text-2xl font-normal text-[#0c0a08] tracking-tight mb-1">
               Member Ledger Balances
             </h3>
-            <p className="text-xs text-[#777b86] mb-6">
+            <p className="text-xs text-[#6d6c6b] mb-4 font-normal">
               Individual net status in this group (positive = receives money, negative = owes money)
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {currentBalances.map((item, i) => {
                 const name = item.user?.name || 'Member';
                 const bal = item.balance;
@@ -298,24 +292,24 @@ export default function SettlementsPage() {
                 return (
                   <div
                     key={i}
-                    className="p-4 rounded-[16px] bg-[#fafafb] border border-[#f2f2f3] flex items-center justify-between"
+                    className="p-3.5 rounded-[10px] bg-[#f4f2f0] border border-[#e5e7eb] flex items-center justify-between"
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2.5">
                       <MemberAvatar name={name} size="sm" />
                       <div>
-                        <p className="text-sm font-semibold text-[#17191c]">{name}</p>
-                        <p className="text-[11px] text-[#777b86]">
-                          {isCreditor ? 'Owed to them' : isDebtor ? 'Owes to group' : 'Settled'}
+                        <p className="text-sm font-normal text-[#0c0a08]">{name}</p>
+                        <p className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
+                          {isCreditor ? 'Owed' : isDebtor ? 'Owes' : 'Balanced'}
                         </p>
                       </div>
                     </div>
                     <div
-                      className={`font-editorial text-base font-semibold ${
+                      className={`text-sm font-normal ${
                         isCreditor
-                          ? 'text-[#17191c]'
+                          ? 'text-[#0c0a08]'
                           : isDebtor
-                          ? 'text-[#5d2a1a]'
-                          : 'text-[#777b86]'
+                          ? 'text-[#b91c1c]'
+                          : 'text-[#6d6c6b]'
                       }`}
                     >
                       {bal > 0 ? '+' : ''}
@@ -329,38 +323,38 @@ export default function SettlementsPage() {
 
           {/* Settlement History Log */}
           {history.length > 0 && (
-            <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)]">
-              <h3 className="font-editorial text-2xl font-semibold text-[#17191c] mb-1">
+            <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+              <h3 className="text-xl sm:text-2xl font-normal text-[#0c0a08] tracking-tight mb-1">
                 Completed Settlements
               </h3>
-              <p className="text-xs text-[#777b86] mb-6">
+              <p className="text-xs text-[#6d6c6b] mb-4 font-normal">
                 Verified payment receipts recorded in this group ledger
               </p>
 
-              <div className="divide-y divide-[#f2f2f3]">
+              <div className="divide-y divide-[#e5e7eb]">
                 {history.map((h) => (
                   <div
                     key={h._id}
-                    className="py-3.5 flex items-center justify-between text-sm"
+                    className="py-3 flex items-center justify-between text-sm"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#fafafb] border border-[#f2f2f3] flex items-center justify-center text-green-700">
-                        <CheckCircle2 className="w-4 h-4" />
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-[6px] bg-[#f4f2f0] border border-[#e5e7eb] flex items-center justify-center text-[#0c0a08]">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
                       </div>
                       <div>
-                        <p className="font-medium text-[#17191c]">
+                        <p className="text-sm font-normal text-[#0c0a08]">
                           {h.from?.name || 'Member'} paid {h.to?.name || 'Member'}
                         </p>
-                        <p className="text-xs text-[#777b86]">
+                        <p className="text-xs text-[#6d6c6b]">
                           {formatDate(h.settledAt || h.createdAt)}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-editorial font-semibold text-base text-[#17191c]">
+                      <p className="text-sm font-normal text-[#0c0a08]">
                         {formatCurrency(h.amount)}
                       </p>
-                      <span className="text-[11px] text-green-700 font-medium">
+                      <span className="text-[10px] text-[#0c0a08] uppercase tracking-[0.018em]">
                         Paid & Verified
                       </span>
                     </div>

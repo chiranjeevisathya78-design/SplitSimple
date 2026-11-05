@@ -8,8 +8,6 @@ import {
   TrendingDown,
   Users,
   Handshake,
-  CheckCircle2,
-  AlertCircle,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { groupService } from '../services';
@@ -60,7 +58,7 @@ export default function BalancesPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-7 h-7 animate-spin text-[#17191c]" />
+        <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
       </div>
     );
   }
@@ -82,31 +80,31 @@ export default function BalancesPage() {
   const netOverall = totalYouAreOwed - totalYouOwe;
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       {/* Editorial Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#f2f2f3]">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#e5e7eb]">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
+          <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
             Multi-Group Ledger
           </span>
-          <h1 className="font-editorial text-4xl sm:text-5xl font-normal text-[#17191c]">
+          <h1 className="text-3xl sm:text-4xl lg:text-[40px] text-[#0c0a08] font-normal tracking-tight leading-tight">
             Balances
           </h1>
-          <p className="text-sm text-[#777b86] mt-1 max-w-xl">
+          <p className="text-sm text-[#6d6c6b] mt-1 max-w-xl font-normal">
             Real-time balance breakdown across every active group and individual member.
           </p>
         </div>
 
         <Link to="/settlements">
-          <Button variant="peach" icon={Handshake}>
+          <Button variant="primary" icon={Handshake}>
             Launch Smart Settlement
           </Button>
         </Link>
       </div>
 
-      {/* Varied Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Featured Net Card in Dark Charcoal */}
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        {/* Featured Net Card in Inverted Obsidian */}
         <StatCard
           variant="dark"
           label="Your Combined Net Balance"
@@ -136,9 +134,9 @@ export default function BalancesPage() {
           icon={TrendingUp}
         />
 
-        {/* Peach Accent: Total You Owe */}
+        {/* Paper White: Total You Owe */}
         <StatCard
-          variant="peach"
+          variant="wash"
           label="Total You Owe"
           value={formatCurrency(totalYouOwe)}
           subtext="Your pending repayment share across groups"
@@ -153,20 +151,20 @@ export default function BalancesPage() {
           return (
             <div
               key={group._id}
-              className="bg-white rounded-[24px] border border-[#f2f2f3] p-6 sm:p-8 shadow-[0_1px_3px_rgba(23,25,28,0.03)] transition-all hover:border-[#17191c]"
+              className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6 transition-colors hover:border-[#0c0a08]"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-5 border-b border-[#f2f2f3] gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-[#e5e7eb] gap-3">
                 <div>
-                  <h3 className="font-editorial text-2xl font-semibold text-[#17191c]">
+                  <h3 className="text-xl font-normal text-[#0c0a08] tracking-tight">
                     {group.name}
                   </h3>
-                  <p className="text-xs text-[#777b86] mt-0.5">
+                  <p className="text-xs text-[#6d6c6b] mt-0.5 font-normal">
                     {group.description || `${group.members?.length || 0} participants`}
                   </p>
                 </div>
                 <Link
                   to={`/settlements?groupId=${group._id}`}
-                  className="text-xs font-semibold text-[#17191c] hover:underline flex items-center gap-1.5"
+                  className="text-xs text-[#0c0a08] hover:underline flex items-center gap-1.5 font-normal"
                 >
                   <span>Settle Group Debts</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -174,7 +172,7 @@ export default function BalancesPage() {
               </div>
 
               {balances.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                   {balances.map((b, idx) => {
                     const name = b.user?.name || 'Member';
                     const bal = b.balance;
@@ -184,25 +182,25 @@ export default function BalancesPage() {
                     return (
                       <div
                         key={idx}
-                        className={`p-4 rounded-[16px] border flex items-center justify-between transition-all ${
+                        className={`p-3.5 rounded-[10px] border flex items-center justify-between transition-colors ${
                           isDebtor
-                            ? 'bg-[#fbe1d1]/20 border-[#f6d0bb]'
+                            ? 'bg-[#f4f2f0] border-[#e5e7eb]'
                             : isCreditor
-                            ? 'bg-[#fafafb] border-[#f2f2f3]'
-                            : 'bg-white border-[#f2f2f3]'
+                            ? 'bg-white border-[#e5e7eb]'
+                            : 'bg-white border-[#e5e7eb]'
                         }`}
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2.5">
                           <MemberAvatar name={name} size="sm" />
                           <div>
-                            <p className="text-sm font-semibold text-[#17191c]">{name}</p>
+                            <p className="text-sm font-normal text-[#0c0a08]">{name}</p>
                             <span
-                              className={`inline-block text-[10px] font-bold uppercase tracking-wider ${
+                              className={`inline-block text-[10px] uppercase tracking-[0.018em] font-normal ${
                                 isCreditor
-                                  ? 'text-green-800'
+                                  ? 'text-[#0c0a08]'
                                   : isDebtor
-                                  ? 'text-[#5d2a1a]'
-                                  : 'text-[#777b86]'
+                                  ? 'text-[#b91c1c]'
+                                  : 'text-[#6d6c6b]'
                               }`}
                             >
                               {isCreditor ? 'Receives' : isDebtor ? 'Owes' : 'Settled'}
@@ -211,12 +209,12 @@ export default function BalancesPage() {
                         </div>
 
                         <div
-                          className={`font-editorial text-base font-semibold ${
+                          className={`text-sm font-normal ${
                             isCreditor
-                              ? 'text-[#17191c]'
+                              ? 'text-[#0c0a08]'
                               : isDebtor
-                              ? 'text-[#5d2a1a]'
-                              : 'text-[#777b86]'
+                              ? 'text-[#b91c1c]'
+                              : 'text-[#6d6c6b]'
                           }`}
                         >
                           {bal > 0 ? '+' : ''}
@@ -227,7 +225,7 @@ export default function BalancesPage() {
                   })}
                 </div>
               ) : (
-                <p className="text-xs text-[#777b86] py-4">
+                <p className="text-xs text-[#6d6c6b] py-3 font-normal">
                   No active expenses recorded in this group yet.
                 </p>
               )}

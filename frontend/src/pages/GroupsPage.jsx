@@ -7,7 +7,6 @@ import {
   Search,
   ArrowRight,
   Receipt,
-  Sparkles,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { groupService } from '../services';
@@ -42,16 +41,16 @@ export default function GroupsPage() {
   return (
     <div className="space-y-8">
       {/* Editorial Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-[#f2f2f3]">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-[#e5e7eb]">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
+          <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
             Shared Spaces
           </span>
-          <h1 className="font-editorial text-4xl sm:text-5xl font-normal text-[#17191c]">
+          <h1 className="text-3xl sm:text-4xl lg:text-[40px] text-[#0c0a08] font-normal tracking-tight leading-tight">
             Groups
           </h1>
-          <p className="text-sm text-[#777b86] mt-1 max-w-xl">
-            Manage your roommates, travel groups, and projects.
+          <p className="text-sm text-[#6d6c6b] mt-1 max-w-xl font-normal">
+            Manage your roommates, travel groups, and shared expense desks.
           </p>
         </div>
 
@@ -62,89 +61,89 @@ export default function GroupsPage() {
         </Link>
       </div>
 
-      {/* Search Bar */}
+      {/* Search Bar (10px Radius Input) */}
       <div className="max-w-md relative">
-        <Search className="w-4 h-4 text-[#777b86] absolute left-3.5 top-1/2 -translate-y-1/2" />
+        <Search className="w-4 h-4 text-[#6d6c6b] absolute left-3.5 top-1/2 -translate-y-1/2" />
         <input
           type="text"
           placeholder="Filter groups by name..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full bg-white text-sm text-[#17191c] placeholder-[#a3a6af] rounded-full border border-[#f2f2f3] pl-10 pr-4 py-2.5 focus:outline-none focus:border-[#17191c]"
+          className="w-full bg-white text-sm text-[#0c0a08] placeholder-[#6d6c6b]/60 rounded-[10px] border border-[#e5e7eb] pl-10 pr-4 py-2.5 focus:outline-none focus:border-[#0c0a08] font-normal"
         />
       </div>
 
-      {/* Groups Grid */}
+      {/* Groups Grid (16px Radius Content Cards, Hairline Borders) */}
       {loading ? (
         <div className="flex items-center justify-center py-20">
-          <Loader2 className="w-7 h-7 animate-spin text-[#17191c]" />
+          <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
         </div>
       ) : filtered.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filtered.map((group) => {
             const memberCount = group.members?.length || 0;
             return (
               <Link
                 key={group._id}
                 to={`/groups/${group._id}`}
-                className="bg-white rounded-[24px] border border-[#f2f2f3] p-7 shadow-[0_1px_3px_rgba(23,25,28,0.03)] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:border-[#17191c] hover:shadow-[0_8px_30px_rgba(23,25,28,0.06)]"
+                className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6 flex flex-col justify-between transition-colors hover:border-[#0c0a08]"
               >
                 <div>
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <h3 className="font-editorial text-2xl font-semibold text-[#17191c]">
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <h3 className="text-xl font-normal text-[#0c0a08] tracking-tight">
                       {group.name}
                     </h3>
-                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#fafafb] border border-[#f2f2f3] text-[#777b86] font-medium shrink-0">
+                    <span className="text-[10px] uppercase tracking-[0.018em] px-2 py-0.5 rounded-[6px] bg-[#f4f2f0] text-[#6d6c6b] border border-[#e5e7eb] font-normal shrink-0">
                       {memberCount} member{memberCount === 1 ? '' : 's'}
                     </span>
                   </div>
 
-                  <p className="text-xs text-[#777b86] line-clamp-2 leading-relaxed mb-6">
-                    {group.description || 'Shared expense tracking group.'}
-                  </p>
-                </div>
+                  {group.description && (
+                    <p className="text-xs text-[#6d6c6b] line-clamp-2 mb-4 font-normal">
+                      {group.description}
+                    </p>
+                  )}
 
-                <div className="pt-5 border-t border-[#f2f2f3] flex items-center justify-between">
-                  {/* Member avatars preview */}
-                  <div className="flex -space-x-2 overflow-hidden">
-                    {(group.members || []).slice(0, 4).map((m, i) => (
+                  <div className="flex items-center gap-1.5 my-4">
+                    {group.members?.slice(0, 5).map((m) => (
                       <MemberAvatar
-                        key={m._id || i}
-                        name={m.name || 'User'}
+                        key={m.user?._id || m._id}
+                        name={m.user?.name || m.name}
                         size="sm"
-                        className="border-2 border-white"
                       />
                     ))}
-                    {memberCount > 4 && (
-                      <div className="w-7 h-7 rounded-full bg-[#f2f2f3] border-2 border-white flex items-center justify-center text-[10px] font-bold text-[#777b86]">
-                        +{memberCount - 4}
-                      </div>
+                    {memberCount > 5 && (
+                      <span className="text-[10px] text-[#6d6c6b] pl-1 font-normal">
+                        +{memberCount - 5}
+                      </span>
                     )}
                   </div>
+                </div>
 
-                  <div className="flex items-center gap-1 text-xs font-semibold text-[#17191c]">
-                    <span>Open Ledger</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </div>
+                <div className="pt-4 border-t border-[#e5e7eb] flex items-center justify-between text-xs text-[#6d6c6b] font-normal">
+                  <span>Open Ledger</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#0c0a08]" />
                 </div>
               </Link>
             );
           })}
         </div>
       ) : (
-        <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-12 text-center text-[#777b86]">
-          <Users className="w-8 h-8 mx-auto mb-3 text-[#a3a6af]" />
-          <h3 className="font-editorial text-2xl font-semibold text-[#17191c]">
+        <div className="text-center py-16 bg-white rounded-[16px] border border-[#e5e7eb] p-8">
+          <Users className="w-8 h-8 text-[#6d6c6b] mx-auto mb-3" />
+          <h3 className="text-lg font-normal text-[#0c0a08]">
             No groups found
           </h3>
-          <p className="text-xs text-[#777b86] mt-1 max-w-sm mx-auto">
-            Create a new group to start tracking shared expenses with roommates or friends.
+          <p className="text-xs text-[#6d6c6b] mt-1 mb-5">
+            {search
+              ? 'Try adjusting your search criteria.'
+              : 'Create your first group to start splitting shared expenses.'}
           </p>
-          <div className="mt-6">
-            <Link to="/groups/new">
-              <Button variant="primary">Create Your First Group</Button>
-            </Link>
-          </div>
+          <Link to="/groups/new">
+            <Button variant="primary" icon={Plus}>
+              Create New Group
+            </Button>
+          </Link>
         </div>
       )}
     </div>

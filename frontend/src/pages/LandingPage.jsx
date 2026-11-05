@@ -12,7 +12,6 @@ import {
   Users,
   PieChart,
   ArrowUpRight,
-  TrendingUp,
   Wallet,
   CheckCircle2,
   Lock,
@@ -21,8 +20,7 @@ import {
   Menu,
   X,
   CreditCard,
-  DollarSign,
-  Repeat,
+  Handshake,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -34,7 +32,7 @@ import { formatCurrency } from '../utils/helpers';
 const PREVIEW_DATA = {
   bangalore: {
     name: 'Bangalore Roommates',
-    desc: 'Flat 402, Indiranagar — Monthly rent, utilities, and daily essentials',
+    desc: 'Indiranagar flat ledger — Monthly rent, utilities, and daily provisions',
     members: ['Chiranjeevi S', 'Gagan K', 'Pranav M', 'Chandan R'],
     totalSpent: 5401500, // ₹54,015.00
     expenses: [
@@ -47,11 +45,11 @@ const PREVIEW_DATA = {
       { from: 'Chandan R', to: 'Chiranjeevi S', amount: 855000 },
       { from: 'Gagan K', to: 'Chiranjeevi S', amount: 420000 },
     ],
-    debtReduction: 'Reduced 6 individual IOUs into 2 clean transfers',
+    debtReduction: '6 circular debts collapsed into 2 single-hop repayments',
   },
   goa: {
     name: 'Goa Trip 2026',
-    desc: 'Annual getaway: North Goa beach resort, scooter rentals, and scuba dive',
+    desc: 'Beach villa, scooter rentals, and scuba expeditions',
     members: ['Chiranjeevi S', 'Gagan K', 'Pranav M', 'Chandan R', 'Rahul V'],
     totalSpent: 8870000, // ₹88,700.00
     expenses: [
@@ -65,11 +63,11 @@ const PREVIEW_DATA = {
       { from: 'Pranav M', to: 'Gagan K', amount: 1774000 },
       { from: 'Rahul V', to: 'Chiranjeevi S', amount: 420000 },
     ],
-    debtReduction: 'Reduced 10 potential debts into 3 single-hop payments',
+    debtReduction: '10 potential IOUs resolved into 3 clean peer payments',
   },
   college: {
     name: 'College Friends',
-    desc: 'Weekend movies, burger nights, turf football, and cafe catchups',
+    desc: 'IMAX movies, burger nights, turf football, and cafe catchups',
     members: ['Chiranjeevi S', 'Pranav M', 'Chandan R', 'Rahul V'],
     totalSpent: 1060000, // ₹10,600.00
     expenses: [
@@ -82,7 +80,7 @@ const PREVIEW_DATA = {
       { from: 'Chiranjeevi S', to: 'Pranav M', amount: 15000 },
       { from: 'Rahul V', to: 'Chandan R', amount: 95000 },
     ],
-    debtReduction: 'Resolved in 2 streamlined transfers with zero balance drift',
+    debtReduction: 'Streamlined into 2 transfers with zero balance drift',
   },
 };
 
@@ -92,17 +90,17 @@ export default function LandingPage() {
   const [loadingDemo, setLoadingDemo] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activePreviewTab, setActivePreviewTab] = useState('bangalore');
-  const [settledSimulated, setSettledSimulated] = useState(false);
+  const [heroEmail, setHeroEmail] = useState('');
 
   // 1-Click Demo Explorer
   const handleExploreDemo = async () => {
     setLoadingDemo(true);
     try {
       await login('chiranjeevi@example.com', 'password123');
-      toast.success('Welcome to SplitSimple Demo Workspace!');
+      toast.success('Connected to SplitSimple Demo Workspace');
       navigate('/dashboard');
     } catch {
-      toast.error('Could not connect to demo workspace. Directing to login.');
+      toast.error('Directing to login desk...');
       navigate('/login');
     } finally {
       setLoadingDemo(false);
@@ -112,42 +110,62 @@ export default function LandingPage() {
   const preview = PREVIEW_DATA[activePreviewTab];
 
   return (
-    <div className="min-h-screen bg-[#fafafb] text-[#17191c] overflow-x-hidden selection:bg-[#fbe1d1] selection:text-[#5d2a1a]">
-      {/* 1. Sophisticated Navigation Bar (Dark Charcoal) */}
-      <header className="sticky top-0 z-50 bg-[#17191c]/95 backdrop-blur-md border-b border-white/10 text-white">
-        <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
+    <div className="min-h-screen bg-[#f4f2f0] text-[#0c0a08] overflow-x-hidden selection:bg-[#e4f222] selection:text-[#0c0a08]">
+      {/* 1. Top Announcement Bar (Ramp 40px Height) */}
+      <div className="h-10 bg-white border-b border-[#e5e7eb] px-4 flex items-center justify-between text-xs text-[#6d6c6b] font-normal">
+        <div className="max-w-[1200px] mx-auto w-full flex items-center justify-between">
+          <div className="flex items-center gap-2 mx-auto sm:mx-0">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#e4f222]" />
+            <span>Greedy settlement algorithm reduces multi-party group debts by up to 75%</span>
+            <span className="hidden sm:inline">·</span>
+            <a href="#settlement" className="text-[#0c0a08] underline hidden sm:inline">
+              Learn how it works
+            </a>
+          </div>
+          <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] hidden md:inline">
+            Integer Paise Precision
+          </span>
+        </div>
+      </div>
+
+      {/* 2. Ramp Sticky Navigation Bar (62px, Paper #ffffff, Hairline Border #e5e7eb) */}
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#e5e7eb] shadow-[rgba(255,255,255,0.6)_0px_0px_2px_0px_inset]">
+        <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
           {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-full bg-[#fbe1d1] text-[#5d2a1a] flex items-center justify-center font-bold text-sm tracking-tight shadow-sm transition-transform group-hover:scale-105">
+          <Link to="/" className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-normal text-xs">
               S
             </div>
-            <div className="flex flex-col">
-              <span className="font-editorial text-2xl font-semibold tracking-tight text-white">
-                SplitSimple
-              </span>
-            </div>
+            <span className="text-base font-normal tracking-tight text-[#0c0a08]">
+              SplitSimple
+            </span>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#a3a6af]">
-            <a href="#preview" className="hover:text-white transition-colors">
-              Product Preview
+          {/* Nav Links */}
+          <nav className="hidden md:flex items-center gap-8 text-sm font-normal text-[#6d6c6b]">
+            <a href="#preview" className="hover:text-[#0c0a08] transition-colors">
+              Product
             </a>
-            <a href="#features" className="hover:text-white transition-colors">
-              Features
+            <a href="#settlement" className="hover:text-[#0c0a08] transition-colors">
+              Settlement Engine
             </a>
-            <a href="#how-it-works" className="hover:text-white transition-colors">
-              How It Works
+            <a href="#features" className="hover:text-[#0c0a08] transition-colors">
+              Ledger
             </a>
-            <a href="#settlement" className="hover:text-white transition-colors">
-              Smart Settlement
+            <a href="#benchmarks" className="hover:text-[#0c0a08] transition-colors">
+              Accuracy
             </a>
           </nav>
 
-          {/* Desktop Actions */}
+          {/* Actions */}
           <div className="hidden md:flex items-center gap-3">
+            <Link to="/login">
+              <button className="px-3 py-1.5 text-sm text-[#0c0a08] rounded-[6px] hover:bg-[#f4f2f0] transition-colors font-normal">
+                Sign in
+              </button>
+            </Link>
             <Button
-              variant="peach"
+              variant="primary"
               size="sm"
               loading={loadingDemo}
               onClick={handleExploreDemo}
@@ -155,62 +173,44 @@ export default function LandingPage() {
             >
               Explore Demo
             </Button>
-            <Link to="/login">
-              <button className="px-4 py-2 rounded-full border border-white/15 hover:border-white/30 text-white text-xs font-semibold hover:bg-white/5 transition">
-                Sign In
-              </button>
-            </Link>
-            <Link to="/register">
-              <button className="px-4 py-2 rounded-full bg-white text-[#17191c] hover:bg-[#f2f2f3] text-xs font-semibold transition flex items-center gap-1.5">
-                <span>Get Started</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </Link>
           </div>
 
           {/* Mobile menu trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-white p-2 rounded-lg hover:bg-white/10"
+            className="md:hidden text-[#0c0a08] p-1.5 rounded-[6px] hover:bg-[#f4f2f0]"
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
-        {/* Mobile dropdown drawer */}
+        {/* Mobile Drawer */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-[#17191c] border-b border-white/10 px-6 py-6 space-y-4">
+          <div className="md:hidden bg-white border-b border-[#e5e7eb] px-6 py-4 space-y-3">
             <a
               href="#preview"
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-[#a3a6af] hover:text-white"
+              className="block text-sm text-[#6d6c6b] hover:text-[#0c0a08]"
             >
-              Product Preview
-            </a>
-            <a
-              href="#features"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-[#a3a6af] hover:text-white"
-            >
-              Features
-            </a>
-            <a
-              href="#how-it-works"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-[#a3a6af] hover:text-white"
-            >
-              How It Works
+              Product
             </a>
             <a
               href="#settlement"
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-[#a3a6af] hover:text-white"
+              className="block text-sm text-[#6d6c6b] hover:text-[#0c0a08]"
             >
-              Smart Settlement
+              Settlement Engine
             </a>
-            <div className="pt-4 border-t border-white/10 flex flex-col gap-2.5">
+            <a
+              href="#features"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm text-[#6d6c6b] hover:text-[#0c0a08]"
+            >
+              Ledger
+            </a>
+            <div className="pt-3 border-t border-[#e5e7eb] flex flex-col gap-2">
               <Button
-                variant="peach"
+                variant="primary"
                 size="md"
                 loading={loadingDemo}
                 onClick={handleExploreDemo}
@@ -219,7 +219,7 @@ export default function LandingPage() {
                 Explore Live Demo
               </Button>
               <Link to="/login" className="w-full">
-                <button className="w-full py-2.5 rounded-full border border-white/20 text-white text-xs font-semibold hover:bg-white/5 transition">
+                <button className="w-full h-11 rounded-[6px] border border-[#0c0a08] text-xs font-normal text-[#0c0a08]">
                   Sign In
                 </button>
               </Link>
@@ -228,605 +228,382 @@ export default function LandingPage() {
         )}
       </header>
 
-      {/* 2. Hero Section — Dark Charcoal (#17191c) with Floating Animated Elements */}
-      <section className="relative bg-[#17191c] text-white pt-20 pb-28 md:pt-28 md:pb-36 px-6 overflow-hidden">
-        {/* Ambient subtle glow lights in background */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-radial from-[#5d2a1a]/20 via-[#17191c]/50 to-transparent blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 right-10 w-[400px] h-[300px] bg-radial from-[#fbe1d1]/5 via-transparent to-transparent blur-2xl pointer-events-none" />
-
-        <div className="max-w-[1200px] mx-auto text-center relative z-10">
-          {/* Staggered Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-[#fbe1d1] text-xs font-semibold tracking-wide uppercase mb-8 backdrop-blur-xs"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#fbe1d1]" />
-            <span>FINANCIAL SAAS FOR ROOMMATES & TRAVEL GROUPS</span>
-          </motion.div>
-
-          {/* Staggered Editorial Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-            className="font-editorial text-5xl sm:text-6xl md:text-7xl lg:text-[88px] leading-[1.04] tracking-tight text-white max-w-4xl mx-auto font-normal"
-          >
-            Shared expenses. <br />
-            <span className="italic font-normal text-[#fbe1d1]">
-              Zero awkward calculations.
-            </span>
-          </motion.h1>
-
-          {/* Staggered Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25, ease: 'easeOut' }}
-            className="mt-8 text-base sm:text-lg md:text-xl text-[#a3a6af] max-w-2xl mx-auto font-normal leading-relaxed"
-          >
-            Track shared rent, group vacations, and dinner tabs with integer paise precision, real-time ledgers, and intelligent greedy debt minimization.
-          </motion.p>
-
-          {/* Staggered CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
-          >
-            <Button
-              size="lg"
-              variant="peach"
-              loading={loadingDemo}
-              onClick={handleExploreDemo}
-              icon={ArrowRight}
-              className="shadow-[0_4px_24px_rgba(251,225,209,0.25)] hover:scale-[1.02] active:scale-[0.98] transition-transform"
-            >
-              Explore Live Demo
-            </Button>
-            <Link to="/register">
-              <button className="px-6 py-3.5 rounded-full border border-white/20 hover:border-white/40 text-white font-medium text-base hover:bg-white/10 transition backdrop-blur-xs flex items-center gap-2">
-                <span>Create Free Account</span>
-              </button>
-            </Link>
-          </motion.div>
-
-          {/* Interactive Floating Hero Preview Container */}
-          <div className="relative mt-20 max-w-[1100px] mx-auto">
-            {/* Floating Element 1: Top Left Pill */}
-            <motion.div
-              initial={{ opacity: 0, x: -40, y: 20 }}
-              animate={{ opacity: 1, x: 0, y: [0, -8, 0] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                repeatType: 'reverse',
-                ease: 'easeInOut',
-              }}
-              className="hidden lg:flex absolute -top-8 -left-10 z-20 items-center gap-3 bg-[#202327]/95 border border-white/15 px-4 py-2.5 rounded-full shadow-2xl backdrop-blur-md"
-            >
-              <div className="w-6 h-6 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xs font-bold">
-                ✓
-              </div>
-              <div className="text-left text-xs">
-                <span className="font-semibold text-white">Gagan K settled ₹500</span>
-                <span className="block text-[#a3a6af] text-[10px]">Instant ledger update</span>
-              </div>
-            </motion.div>
-
-            {/* Floating Element 2: Top Right Pill */}
-            <motion.div
-              initial={{ opacity: 0, x: 40, y: -20 }}
-              animate={{ opacity: 1, x: 0, y: [0, 8, 0] }}
-              transition={{
-                duration: 4.5,
-                repeat: Infinity,
-                repeatType: 'reverse',
-                ease: 'easeInOut',
-                delay: 0.5,
-              }}
-              className="hidden lg:flex absolute -top-6 -right-8 z-20 items-center gap-3 bg-[#fbe1d1] text-[#5d2a1a] px-4 py-2.5 rounded-full shadow-2xl"
-            >
-              <Sparkles className="w-4 h-4 text-[#5d2a1a]" />
-              <div className="text-left text-xs">
-                <span className="font-bold">Greedy Debt Solver</span>
-                <span className="block text-[#5d2a1a]/80 text-[10px]">6 debts ➔ 2 transfers</span>
-              </div>
-            </motion.div>
-
-            {/* Floating Element 3: Bottom Left Pill */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1, y: [0, -6, 0] }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                repeatType: 'reverse',
-                ease: 'easeInOut',
-                delay: 1,
-              }}
-              className="hidden lg:flex absolute -bottom-6 -left-8 z-20 items-center gap-2.5 bg-[#202327]/95 border border-white/15 px-4 py-2 rounded-full shadow-xl backdrop-blur-md"
-            >
-              <Lock className="w-3.5 h-3.5 text-[#fbe1d1]" />
-              <span className="text-xs font-medium text-white">Integer Paise: 0.00% Rounding Drift</span>
-            </motion.div>
-
-            {/* Main Hero Card Preview Mockup */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.35, ease: 'easeOut' }}
-              className="bg-white rounded-[28px] border border-white/20 p-6 sm:p-8 md:p-10 text-[#17191c] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] text-left"
-            >
-              {/* Card Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#f2f2f3] gap-4">
-                <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-full bg-[#17191c] text-white flex items-center justify-center font-bold text-sm">
-                    FL
-                  </div>
-                  <div>
-                    <h3 className="font-editorial text-2xl font-semibold text-[#17191c]">
-                      Flat 402 Roommates
-                    </h3>
-                    <p className="text-xs text-[#777b86]">
-                      Active shared space · Indiranagar, Bangalore
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-full bg-[#f2f2f3] text-xs font-medium text-[#17191c]">
-                    4 Roommates
-                  </span>
-                  <span className="px-3 py-1 rounded-full bg-[#fbe1d1] text-xs font-bold text-[#5d2a1a] flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3" />
-                    Optimal Debt Plan
-                  </span>
-                </div>
-              </div>
-
-              {/* Statistics Row with Visual Hierarchy */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-                <div className="p-5 rounded-[20px] bg-[#17191c] text-white">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[#a3a6af]">
-                    Total Month Outlay
-                  </span>
-                  <p className="font-editorial text-3xl font-semibold mt-2 text-white">
-                    ₹54,015.00
-                  </p>
-                  <p className="text-xs text-[#a3a6af] mt-1">Rent, electricity, Wi-Fi & groceries</p>
-                </div>
-
-                <div className="p-5 rounded-[20px] bg-[#fbe1d1]/50 border border-[#f6d0bb] text-[#5d2a1a]">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[#5d2a1a]">
-                    Smart Settlement Plan
-                  </span>
-                  <p className="font-editorial text-3xl font-semibold mt-2 text-[#5d2a1a]">
-                    2 Payments
-                  </p>
-                  <p className="text-xs text-[#5d2a1a]/80 mt-1">6 chaotic debts simplified</p>
-                </div>
-
-                <div className="p-5 rounded-[20px] bg-[#fafafb] border border-[#f2f2f3]">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[#777b86]">
-                    Your Balance Status
-                  </span>
-                  <p className="font-editorial text-3xl font-semibold mt-2 text-[#17191c]">
-                    +₹1,250.00
-                  </p>
-                  <p className="text-xs text-green-700 font-semibold mt-1">You are owed overall</p>
-                </div>
-              </div>
-
-              {/* Illustrative Transaction Item */}
-              <div className="p-4 rounded-[18px] bg-[#fafafb] border border-[#f2f2f3] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <MemberAvatar name="Chandan R" size="md" />
-                  <div>
-                    <div className="flex items-center gap-2 text-sm font-semibold text-[#17191c]">
-                      <span>Chandan R</span>
-                      <span className="text-xs text-[#777b86]">pays</span>
-                      <span className="text-[#17191c] font-bold">Chiranjeevi S</span>
-                    </div>
-                    <p className="text-xs text-[#777b86]">Clears all flat utility & groceries shares</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
-                  <span className="font-editorial text-2xl font-semibold text-[#17191c]">
-                    ₹8,550.00
-                  </span>
-                  <span className="px-3 py-1 rounded-full bg-[#17191c] text-white text-xs font-medium">
-                    Verified Optimal
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Interactive Product Preview Showcase (Warm Neutral Background) */}
-      <section id="preview" className="py-24 px-6 bg-[#faf8f5] border-b border-[#f2f2f3]">
+      {/* 3. Hero Section (Bone Canvas #f4f2f0, Left-Aligned 64px Editorial Headline) */}
+      <section className="pt-16 pb-20 md:pt-24 md:pb-28 px-6">
         <div className="max-w-[1200px] mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#5d2a1a] px-3.5 py-1 rounded-full bg-[#fbe1d1] inline-block mb-3">
-              Interactive Product Showcase
+          {/* Micro-label kicker */}
+          <div className="mb-4">
+            <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
+              Shared Expense Management · Intelligent Settlement Desk
             </span>
-            <h2 className="font-editorial text-4xl sm:text-5xl font-normal text-[#17191c]">
-              Tailored for every group dynamic.
-            </h2>
-            <p className="text-sm text-[#777b86] mt-2">
-              Switch between workspaces to see how SplitSimple resolves different spending patterns with zero math errors.
-            </p>
+          </div>
 
-            {/* Interactive Tab Switcher */}
-            <div className="mt-8 inline-flex p-1.5 rounded-full bg-[#f2f2f3] border border-[#e3e4e7] text-xs font-semibold">
-              {[
-                { id: 'bangalore', label: 'Flat 402 Roommates' },
-                { id: 'goa', label: 'Goa Trip 2026' },
-                { id: 'college', label: 'College Friends' },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActivePreviewTab(tab.id)}
-                  className={`px-4 py-2 rounded-full transition-all ${
-                    activePreviewTab === tab.id
-                      ? 'bg-[#17191c] text-white shadow-xs'
-                      : 'text-[#777b86] hover:text-[#17191c]'
-                  }`}
+          {/* Left-Aligned Headline (Tight Leading 1.0, Weight 400) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
+            <div className="lg:col-span-8">
+              <h1 className="text-4xl sm:text-5xl lg:text-[64px] leading-none tracking-tight text-[#0c0a08] font-normal">
+                Shared expenses. <br />
+                <span className="underline decoration-[#e4f222] decoration-4 underline-offset-8">
+                  Zero awkward calculations.
+                </span>
+              </h1>
+              <p className="mt-6 text-lg sm:text-xl text-[#6d6c6b] font-normal leading-relaxed max-w-2xl">
+                Track roommates, travel tabs, and group dinners with integer precision. The greedy debt engine eliminates circular transfers in one click.
+              </p>
+            </div>
+
+            {/* Composite CTA: Input + Highlighter Button */}
+            <div className="lg:col-span-4 flex flex-col gap-3">
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-2">
+                <Button
+                  size="lg"
+                  variant="primary"
+                  loading={loadingDemo}
+                  onClick={handleExploreDemo}
+                  className="w-full"
                 >
-                  {tab.label}
-                </button>
-              ))}
+                  Explore Demo Workspace
+                </Button>
+                <Link to="/register" className="w-full">
+                  <SecondaryButton size="lg" className="w-full">
+                    Create Free Account
+                  </SecondaryButton>
+                </Link>
+              </div>
+              <p className="text-[10px] text-[#6d6c6b] uppercase tracking-[0.018em]">
+                Preloaded with 3 groups · 22 expenses · No credit card
+              </p>
             </div>
           </div>
 
-          {/* Dynamic Preview Card with AnimatePresence */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activePreviewTab}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white rounded-[28px] border border-[#f2f2f3] p-6 sm:p-10 shadow-[0_4px_24px_rgba(23,25,28,0.04)]"
-            >
-              <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-[#f2f2f3] gap-4">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-editorial text-3xl font-semibold text-[#17191c]">
-                      {preview.name}
-                    </h3>
-                  </div>
-                  <p className="text-xs text-[#777b86] mt-1">{preview.desc}</p>
-                </div>
-
-                <div className="text-right">
-                  <span className="text-xs uppercase font-semibold text-[#777b86]">Total Group Outlay</span>
-                  <p className="font-editorial text-3xl font-semibold text-[#17191c]">
-                    {formatCurrency(preview.totalSpent)}
-                  </p>
-                </div>
+          {/* Product UI Preview (Chrome browser frame, hairline border, shadow-free) */}
+          <div id="preview" className="mt-16 bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-8">
+            {/* Browser chrome header */}
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-[#e5e7eb]">
+              <div className="flex items-center gap-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
+                <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] ml-2">
+                  splitsimple.app/workspace
+                </span>
               </div>
 
-              {/* Grid: Left Column (Expenses), Right Column (Settlement Plan) */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-8">
-                {/* 4 Expenses (7 cols) */}
-                <div className="lg:col-span-7 space-y-3">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86] block mb-2">
-                    Recent Group Ledger Entries
+              {/* Group Workspace Switcher Tabs */}
+              <div className="flex items-center gap-1.5 bg-[#f4f2f0] p-1 rounded-[6px]">
+                {Object.keys(PREVIEW_DATA).map((key) => (
+                  <button
+                    key={key}
+                    onClick={() => setActivePreviewTab(key)}
+                    className={`px-3 py-1 text-xs rounded-[6px] transition-colors font-normal ${
+                      activePreviewTab === key
+                        ? 'bg-white text-[#0c0a08] border border-[#e5e7eb]'
+                        : 'text-[#6d6c6b] hover:text-[#0c0a08]'
+                    }`}
+                  >
+                    {PREVIEW_DATA[key].name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Interactive Workspace Body */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Left Column: Group Summary & Expenses */}
+              <div className="lg:col-span-7 space-y-6">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-2xl font-normal text-[#0c0a08] tracking-tight">
+                      {preview.name}
+                    </h3>
+                    <span className="bg-[#e4f222] text-[#0c0a08] px-2 py-0.5 rounded-[6px] text-[10px] uppercase tracking-[0.018em] font-normal">
+                      Active Ledger
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#6d6c6b]">{preview.desc}</p>
+                </div>
+
+                {/* Member avatars */}
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
+                    Members:
                   </span>
-                  {preview.expenses.map((exp, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3.5 rounded-[16px] bg-[#fafafb] border border-[#f2f2f3] flex items-center justify-between"
-                    >
-                      <div className="flex items-center gap-3">
-                        <MemberAvatar name={exp.paidBy} size="sm" />
-                        <div>
-                          <p className="text-sm font-semibold text-[#17191c]">{exp.title}</p>
-                          <p className="text-[11px] text-[#777b86]">
-                            Paid by {exp.paidBy} · {exp.category}
-                          </p>
-                        </div>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    {preview.members.map((name) => (
+                      <span
+                        key={name}
+                        className="text-xs px-2.5 py-1 rounded-[6px] bg-[#f4f2f0] text-[#0c0a08] border border-[#e5e7eb]"
+                      >
+                        {name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Expense List */}
+                <div className="border border-[#e5e7eb] rounded-[10px] divide-y divide-[#e5e7eb] bg-white">
+                  {preview.expenses.map((item, idx) => (
+                    <div key={idx} className="p-3.5 flex items-center justify-between text-xs">
+                      <div>
+                        <p className="text-sm font-normal text-[#0c0a08]">{item.title}</p>
+                        <p className="text-[11px] text-[#6d6c6b] mt-0.5">
+                          Paid by {item.paidBy} · {item.category}
+                        </p>
                       </div>
-                      <p className="font-editorial text-base font-semibold text-[#17191c]">
-                        {formatCurrency(exp.amount)}
-                      </p>
+                      <span className="text-sm text-[#0c0a08] font-normal">
+                        {formatCurrency(item.amount)}
+                      </span>
                     </div>
                   ))}
                 </div>
+              </div>
 
-                {/* Settlement Outcome (5 cols) */}
-                <div className="lg:col-span-5 bg-[#fafafb] rounded-[20px] border border-[#f2f2f3] p-6 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-[#5d2a1a] bg-[#fbe1d1] px-2.5 py-0.5 rounded-full">
-                        Greedy Optimization
+              {/* Right Column: Smart Settlement Optimizer */}
+              <div className="lg:col-span-5 bg-[#1a1919] text-white rounded-[16px] p-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+                    <div>
+                      <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
+                        Settlement Engine
                       </span>
+                      <h4 className="text-lg font-normal text-white tracking-tight">
+                        Optimized Repayments
+                      </h4>
                     </div>
-
-                    <h4 className="font-editorial text-xl font-semibold text-[#17191c] mb-1">
-                      Optimized Repayments
-                    </h4>
-                    <p className="text-xs text-[#777b86] mb-4">{preview.debtReduction}</p>
-
-                    <div className="space-y-2.5">
-                      {preview.settlementPlan.map((s, idx) => (
-                        <div
-                          key={idx}
-                          className="p-3 bg-white rounded-[14px] border border-[#f2f2f3] flex items-center justify-between text-xs"
-                        >
-                          <span className="text-[#17191c]">
-                            <strong>{s.from}</strong> ➔ {s.to}
-                          </span>
-                          <span className="font-editorial text-sm font-semibold text-[#17191c]">
-                            {formatCurrency(s.amount)}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+                    <span className="bg-[#e4f222] text-[#0c0a08] text-[10px] uppercase tracking-[0.018em] px-2 py-0.5 rounded-[6px]">
+                      Greedy
+                    </span>
                   </div>
 
-                  <div className="pt-6 mt-6 border-t border-[#f2f2f3]">
-                    <Button
-                      variant="peach"
-                      size="sm"
-                      onClick={handleExploreDemo}
-                      className="w-full text-xs justify-center"
-                    >
-                      Open Live Group Ledger ➔
-                    </Button>
+                  <p className="text-xs text-[#6d6c6b] mb-4">
+                    {preview.debtReduction}
+                  </p>
+
+                  <div className="space-y-2.5">
+                    {preview.settlementPlan.map((step, idx) => (
+                      <div
+                        key={idx}
+                        className="bg-white/5 border border-white/10 rounded-[10px] p-3 flex items-center justify-between"
+                      >
+                        <div className="text-xs text-[#6d6c6b]">
+                          <span className="text-white">{step.from}</span>
+                          <span className="mx-1.5 text-[#e4f222]">→ pays →</span>
+                          <span className="text-white">{step.to}</span>
+                        </div>
+                        <span className="text-sm text-[#e4f222] font-normal">
+                          {formatCurrency(step.amount)}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
+
+                <div className="pt-6 mt-6 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-xs text-[#6d6c6b]">Net Group Volume:</span>
+                  <span className="text-xl text-white font-normal">
+                    {formatCurrency(preview.totalSpent)}
+                  </span>
+                </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* 4. Features Section (Paper White with Hover Lift) */}
-      <section id="features" className="py-24 px-6 bg-white border-b border-[#f2f2f3]">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="max-w-2xl mb-16">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
-              Architected for Real Life
+      {/* 4. Ramp Live Counter Ticker (#1a1919 Dark Band, Uppercase Ash Micro-Labels) */}
+      <section className="bg-[#1a1919] text-white py-12 px-6 border-y border-white/10">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1">
+              Transactions Settled
+            </p>
+            <p className="text-2xl sm:text-3xl font-normal text-white">
+              ₹1.53 Lakh+
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1">
+              Debt Step Reduction
+            </p>
+            <p className="text-2xl sm:text-3xl font-normal text-[#e4f222]">
+              -75% Transactions
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1">
+              Rounding Precision
+            </p>
+            <p className="text-2xl sm:text-3xl font-normal text-white">
+              0.00% Drift (Paise)
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1">
+              Active Desks
+            </p>
+            <p className="text-2xl sm:text-3xl font-normal text-white">
+              100% Client Audited
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Editorial Feature Grid (Content Cards: 16px radius, #ffffff, 1px Hairline #e5e7eb) */}
+      <section id="features" className="py-20 md:py-28 px-6 bg-[#f4f2f0]">
+        <div className="max-w-[1200px] mx-auto space-y-12">
+          <div>
+            <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
+              Platform Architecture
             </span>
-            <h2 className="font-editorial text-4xl sm:text-5xl font-normal text-[#17191c] mt-2">
-              Designed with precision. Built without complexity.
+            <h2 className="text-3xl sm:text-4xl font-normal text-[#0c0a08] tracking-tight mt-1">
+              Engineered like an editorial trading desk.
             </h2>
+            <p className="text-sm text-[#6d6c6b] mt-2 max-w-xl">
+              Clean separation between ledgers, member contributions, and settlement executions.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Feature 1 */}
-            <div className="p-7 rounded-[24px] bg-[#fafafb] border border-[#f2f2f3] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1.5 hover:shadow-lg hover:border-[#17191c]">
+            <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-6 flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 rounded-full bg-white border border-[#f2f2f3] flex items-center justify-center mb-6 text-[#17191c]">
-                  <Users className="w-5 h-5" />
+                <div className="w-8 h-8 rounded-[6px] bg-[#f4f2f0] flex items-center justify-center text-[#0c0a08] mb-4">
+                  <Receipt className="w-4 h-4" />
                 </div>
-                <h3 className="font-editorial text-2xl font-semibold text-[#17191c]">
-                  Shared Groups
+                <h3 className="text-lg font-normal text-[#0c0a08] tracking-tight">
+                  Integer Paise Accounting
                 </h3>
-                <p className="mt-3 text-sm text-[#777b86] leading-relaxed">
-                  Isolate flat rent, holiday bookings, and college outings into distinct rosters with custom membership lists.
+                <p className="text-xs text-[#6d6c6b] mt-2 leading-relaxed">
+                  Every split, custom share, and reimbursement is handled in integer paise, preventing fractional currency drift or floating-point rounding bugs.
                 </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-[#e5e7eb] text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
+                Standard Banking Math
               </div>
             </div>
 
             {/* Feature 2 */}
-            <div className="p-7 rounded-[24px] bg-[#fafafb] border border-[#f2f2f3] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1.5 hover:shadow-lg hover:border-[#17191c]">
+            <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-6 flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 rounded-full bg-white border border-[#f2f2f3] flex items-center justify-center mb-6 text-[#17191c]">
-                  <Receipt className="w-5 h-5" />
+                <div className="w-8 h-8 rounded-[6px] bg-[#e4f222] flex items-center justify-center text-[#0c0a08] mb-4">
+                  <Handshake className="w-4 h-4" />
                 </div>
-                <h3 className="font-editorial text-2xl font-semibold text-[#17191c]">
-                  Flexible Splitting
+                <h3 className="text-lg font-normal text-[#0c0a08] tracking-tight">
+                  Greedy Debt Minimization
                 </h3>
-                <p className="mt-3 text-sm text-[#777b86] leading-relaxed">
-                  Split equally with remainder paise distributed cleanly, or assign specific rupee shares with real-time sum checking.
+                <p className="text-xs text-[#6d6c6b] mt-2 leading-relaxed">
+                  Instead of tracking who paid whom across 20 dinners, our algorithm calculates each member's net position and generates the minimum viable repayment paths.
                 </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-[#e5e7eb] text-[10px] uppercase tracking-[0.018em] text-[#0c0a08]">
+                Minimal Transfers
               </div>
             </div>
 
             {/* Feature 3 */}
-            <div className="p-7 rounded-[24px] bg-[#fafafb] border border-[#f2f2f3] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1.5 hover:shadow-lg hover:border-[#17191c]">
+            <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-6 flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 rounded-full bg-white border border-[#f2f2f3] flex items-center justify-center mb-6 text-[#17191c]">
-                  <Scale className="w-5 h-5" />
+                <div className="w-8 h-8 rounded-[6px] bg-[#f4f2f0] flex items-center justify-center text-[#0c0a08] mb-4">
+                  <PieChart className="w-4 h-4" />
                 </div>
-                <h3 className="font-editorial text-2xl font-semibold text-[#17191c]">
-                  Real-Time Ledgers
+                <h3 className="text-lg font-normal text-[#0c0a08] tracking-tight">
+                  Multi-Category Analytics
                 </h3>
-                <p className="mt-3 text-sm text-[#777b86] leading-relaxed">
-                  Immediate recalculation of individual member positions. Know who is owed money and who must pay instantly.
+                <p className="text-xs text-[#6d6c6b] mt-2 leading-relaxed">
+                  Analyze group spending across Rent, Groceries, Dining, Travel, and Utilities. Export balances and review spending trends over time.
                 </p>
               </div>
-            </div>
-
-            {/* Feature 4 */}
-            <div className="p-7 rounded-[24px] bg-[#fbe1d1]/30 border border-[#f6d0bb] p-7 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1.5 hover:shadow-lg hover:border-[#5d2a1a]">
-              <div>
-                <div className="w-12 h-12 rounded-full bg-[#fbe1d1] text-[#5d2a1a] flex items-center justify-center mb-6">
-                  <Zap className="w-5 h-5" />
-                </div>
-                <h3 className="font-editorial text-2xl font-semibold text-[#5d2a1a]">
-                  Smart Settlement
-                </h3>
-                <p className="mt-3 text-sm text-[#5d2a1a]/80 leading-relaxed">
-                  Our greedy debt engine reduces pairwise IOUs down to at most N-1 clean transfers. Settle debts with fewer repayments.
-                </p>
+              <div className="mt-6 pt-4 border-t border-[#e5e7eb] text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
+                Interactive Recharts
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. How It Works Section */}
-      <section id="how-it-works" className="py-24 px-6 bg-[#fafafb] border-b border-[#f2f2f3]">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#777b86]">
-              Simple Three-Step Workflow
-            </span>
-            <h2 className="font-editorial text-4xl sm:text-5xl font-normal text-[#17191c] mt-2">
-              How SplitSimple works
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-8 transition-all hover:border-[#17191c]">
-              <span className="font-editorial text-5xl text-[#a3a6af]">01</span>
-              <h3 className="font-editorial text-2xl font-semibold text-[#17191c] mt-4">
-                Create a Group
-              </h3>
-              <p className="mt-3 text-sm text-[#777b86] leading-relaxed">
-                Add roommates or friends. Look up members by email, or immediately explore with pre-loaded demo groups.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-8 transition-all hover:border-[#17191c]">
-              <span className="font-editorial text-5xl text-[#a3a6af]">02</span>
-              <h3 className="font-editorial text-2xl font-semibold text-[#17191c] mt-4">
-                Log Shared Receipts
-              </h3>
-              <p className="mt-3 text-sm text-[#777b86] leading-relaxed">
-                Enter expense title, category, date, and payer. Choose equal division or allocate custom rupee shares.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-[24px] border border-[#f2f2f3] p-8 transition-all hover:border-[#17191c]">
-              <span className="font-editorial text-5xl text-[#5d2a1a]">03</span>
-              <h3 className="font-editorial text-2xl font-semibold text-[#17191c] mt-4">
-                Settle with Less Effort
-              </h3>
-              <p className="mt-3 text-sm text-[#777b86] leading-relaxed">
-                Review the greedy settlement plan. Send money directly via UPI or cash, click "Mark as Paid", and balances update to zero.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Dedicated Smart Settlement Showcase (Dark Charcoal Section) */}
-      <section id="settlement" className="py-24 px-6 bg-[#17191c] text-white relative overflow-hidden">
+      {/* 6. Smart Settlement Deep Dive */}
+      <section id="settlement" className="py-20 md:py-28 px-6 bg-white border-t border-[#e5e7eb]">
         <div className="max-w-[1200px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Column: Description */}
-            <div className="lg:col-span-5">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#5d2a1a] px-3.5 py-1 rounded-full bg-[#fbe1d1] inline-block mb-4">
-                Proprietary Algorithm
+            <div className="lg:col-span-6 space-y-6">
+              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
+                The Mathematics of Debt Elimination
               </span>
-              <h2 className="font-editorial text-4xl sm:text-5xl font-normal text-white leading-tight">
-                How 6 chaotic debts become 2 clean transfers.
+              <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-normal text-[#0c0a08] tracking-tight leading-tight">
+                From a web of IOUs <br />
+                to direct bank payments.
               </h2>
-              <p className="mt-6 text-sm text-[#a3a6af] leading-relaxed">
-                When friends repeatedly pay for groceries, cabs, and meals, debts intersect. Traditional splitting forces everyone to exchange multiple payments.
-              </p>
-              <p className="mt-3 text-sm text-[#a3a6af] leading-relaxed">
-                SplitSimple models debts as a bipartite creditor-debtor graph. By pairing the largest debtor with the largest creditor, all obligations collapse into minimal payments.
+              <p className="text-sm text-[#6d6c6b] leading-relaxed">
+                When 5 roommates split rent, groceries, and dining over months, manual calculations require up to 10 cross-payments. SplitSimple computes the global net balance for each person, matches max creditors with max debtors, and settles the group in at most N - 1 transactions.
               </p>
 
-              <div className="mt-8 space-y-3">
-                <div className="flex items-center gap-3 text-sm text-white">
-                  <div className="w-5 h-5 rounded-full bg-[#fbe1d1] text-[#5d2a1a] flex items-center justify-center text-xs font-bold">✓</div>
-                  <span>Reduces banking friction and transfer fees</span>
+              <div className="space-y-3 pt-2">
+                <div className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs mt-0.5">
+                    ✓
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-normal text-[#0c0a08]">No circular transaction loops</h4>
+                    <p className="text-xs text-[#6d6c6b]">No one pays person A only for person A to pay person B.</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3 text-sm text-white">
-                  <div className="w-5 h-5 rounded-full bg-[#fbe1d1] text-[#5d2a1a] flex items-center justify-center text-xs font-bold">✓</div>
-                  <span>Instant recalculation when a payment is marked paid</span>
+                <div className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs mt-0.5">
+                    ✓
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-normal text-[#0c0a08]">1-Click Settlement Recording</h4>
+                    <p className="text-xs text-[#6d6c6b]">Once paid via UPI or bank transfer, click "Mark as Settled" to clear the ledger.</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3 text-sm text-white">
-                  <div className="w-5 h-5 rounded-full bg-[#fbe1d1] text-[#5d2a1a] flex items-center justify-center text-xs font-bold">✓</div>
-                  <span>Strict zero-sum conservation in integer paise</span>
-                </div>
+              </div>
+
+              <div className="pt-4">
+                <Button variant="primary" size="md" onClick={handleExploreDemo}>
+                  Try Smart Settlement Now
+                </Button>
               </div>
             </div>
 
-            {/* Right Column: Visual Debt Simplification Demonstration */}
-            <div className="lg:col-span-7 bg-[#202327] rounded-[28px] border border-white/10 p-6 sm:p-8">
-              <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#fbe1d1]">
-                  Visual Simplification Model
-                </span>
-                <button
-                  onClick={() => setSettledSimulated(!settledSimulated)}
-                  className="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-xs text-white font-medium transition flex items-center gap-1.5"
-                >
-                  <Repeat size={12} />
-                  <span>{settledSimulated ? 'Reset Demonstration' : 'Simulate Settlement'}</span>
-                </button>
-              </div>
-
-              {/* Before vs After Container */}
-              <div className="space-y-4">
-                {/* Before: Raw Balances */}
-                <div className="p-4 rounded-[18px] bg-white/5 border border-white/10">
-                  <div className="flex items-center justify-between text-xs text-[#a3a6af] mb-3">
-                    <span>Raw Net Balances (4 Members)</span>
-                    <span className="text-green-400 font-semibold">Net Sum: ₹0.00</span>
+            {/* Visual comparison box */}
+            <div className="lg:col-span-6 bg-[#f4f2f0] rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8">
+              <div className="space-y-6">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
+                      Without SplitSimple (Manual)
+                    </span>
+                    <span className="text-xs text-[#b91c1c] font-normal">6 Separate IOUs</span>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-                    <div className="p-2.5 rounded-[12px] bg-white/5 border border-white/5">
-                      <span className="block text-[11px] text-[#a3a6af]">Chiranjeevi</span>
-                      <strong className="text-green-400 font-editorial text-sm">+₹1,000</strong>
-                    </div>
-                    <div className="p-2.5 rounded-[12px] bg-white/5 border border-white/5">
-                      <span className="block text-[11px] text-[#a3a6af]">Gagan</span>
-                      <strong className="text-[#fbe1d1] font-editorial text-sm">-₹500</strong>
-                    </div>
-                    <div className="p-2.5 rounded-[12px] bg-white/5 border border-white/5">
-                      <span className="block text-[11px] text-[#a3a6af]">Pranav</span>
-                      <strong className="text-[#fbe1d1] font-editorial text-sm">-₹300</strong>
-                    </div>
-                    <div className="p-2.5 rounded-[12px] bg-white/5 border border-white/5">
-                      <span className="block text-[11px] text-[#a3a6af]">Chandan</span>
-                      <strong className="text-[#fbe1d1] font-editorial text-sm">-₹200</strong>
-                    </div>
+                  <div className="p-3 bg-white rounded-[10px] border border-[#e5e7eb] space-y-1.5 text-xs text-[#6d6c6b]">
+                    <p>• Chandan owes Pranav ₹2,400</p>
+                    <p>• Pranav owes Chiranjeevi ₹5,800</p>
+                    <p>• Gagan owes Chandan ₹1,200</p>
+                    <p>• Rahul owes Gagan ₹3,500</p>
+                    <p>• Chandan owes Chiranjeevi ₹4,100</p>
+                    <p>• Rahul owes Chiranjeevi ₹1,900</p>
                   </div>
                 </div>
 
-                {/* Animated Arrow / Transition Indicator */}
-                <div className="text-center py-1">
-                  <span className="text-xs text-[#a3a6af] inline-flex items-center gap-1.5">
-                    <span>Greedy Debtor-Creditor Solver</span>
-                    <span>↓</span>
-                  </span>
-                </div>
-
-                {/* After: Minimal Repayments */}
-                <div className="p-5 rounded-[18px] bg-[#fbe1d1] text-[#5d2a1a] shadow-lg">
-                  <div className="flex items-center justify-between text-xs font-bold mb-3">
-                    <span>OPTIMIZED REPAYMENTS ({settledSimulated ? '0 Remaining' : '3 Clean Transfers'})</span>
-                    <span className="px-2 py-0.5 rounded-full bg-[#5d2a1a] text-white text-[10px]">
-                      Greedy Optimal
+                <div className="border-t border-[#e5e7eb] pt-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] uppercase tracking-[0.018em] text-[#0c0a08]">
+                      With SplitSimple Smart Settlement
+                    </span>
+                    <span className="text-xs bg-[#e4f222] text-[#0c0a08] px-2 py-0.5 rounded-[6px]">
+                      2 Direct Payments
                     </span>
                   </div>
-
-                  {settledSimulated ? (
-                    <div className="py-6 text-center text-[#5d2a1a]">
-                      <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-[#5d2a1a]" />
-                      <p className="font-editorial text-xl font-semibold">All Accounts Settled</p>
-                      <p className="text-xs text-[#5d2a1a]/80 mt-0.5">Every member balance returned to ₹0.00.</p>
+                  <div className="p-3 bg-[#1a1919] text-white rounded-[10px] space-y-2 text-xs">
+                    <div className="flex items-center justify-between">
+                      <span>Chandan R pays Chiranjeevi S</span>
+                      <span className="text-[#e4f222] font-normal">₹8,550.00</span>
                     </div>
-                  ) : (
-                    <div className="space-y-2 text-xs">
-                      <div className="p-2.5 bg-white rounded-[12px] flex items-center justify-between text-[#17191c]">
-                        <span><strong>Gagan K</strong> pays Chiranjeevi S</span>
-                        <strong className="font-editorial text-base">₹500.00</strong>
-                      </div>
-                      <div className="p-2.5 bg-white rounded-[12px] flex items-center justify-between text-[#17191c]">
-                        <span><strong>Pranav M</strong> pays Chiranjeevi S</span>
-                        <strong className="font-editorial text-base">₹300.00</strong>
-                      </div>
-                      <div className="p-2.5 bg-white rounded-[12px] flex items-center justify-between text-[#17191c]">
-                        <span><strong>Chandan R</strong> pays Chiranjeevi S</span>
-                        <strong className="font-editorial text-base">₹200.00</strong>
-                      </div>
+                    <div className="flex items-center justify-between">
+                      <span>Gagan K pays Chiranjeevi S</span>
+                      <span className="text-[#e4f222] font-normal">₹4,200.00</span>
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -834,57 +611,38 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. Final Call to Action */}
-      <section className="py-24 px-6 bg-[#faf8f5]">
-        <div className="max-w-[1000px] mx-auto bg-[#17191c] rounded-[32px] p-10 sm:p-16 text-center text-white relative overflow-hidden shadow-2xl">
-          <div className="relative z-10">
-            <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl font-normal leading-tight">
-              Make shared expenses simple.
-            </h2>
-            <p className="mt-4 text-sm sm:text-base text-[#a3a6af] max-w-xl mx-auto">
-              Join roommates and friends who manage split rent, group holidays, and shared meals without stress.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Button
-                variant="peach"
-                size="lg"
-                loading={loadingDemo}
-                onClick={handleExploreDemo}
-                icon={ArrowRight}
-                className="shadow-[0_4px_24px_rgba(251,225,209,0.2)]"
-              >
-                Launch Demo Workspace
-              </Button>
-              <Link to="/register">
-                <button className="px-6 py-3.5 rounded-full border border-white/20 hover:border-white/40 text-white font-medium text-base hover:bg-white/10 transition">
-                  Create Account
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 8. Editorial Footer */}
-      <footer className="border-t border-[#f2f2f3] py-14 px-6 bg-white">
-        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#777b86]">
-          <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-full bg-[#17191c] text-white flex items-center justify-center font-bold text-xs">
+      {/* 7. Footer (Obsidian #1a1919) */}
+      <footer className="bg-[#1a1919] text-white py-14 px-6 border-t border-white/10">
+        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-normal text-xs">
               S
             </div>
-            <span className="font-editorial text-xl font-semibold text-[#17191c]">
-              SplitSimple
-            </span>
-            <span>·</span>
-            <span>Shared Financial Ledger</span>
+            <div>
+              <span className="text-sm font-normal text-white">SplitSimple</span>
+              <p className="text-[10px] text-[#6d6c6b] uppercase tracking-[0.018em] mt-0.5">
+                Editorial Expense Desk
+              </p>
+            </div>
           </div>
 
-          <div>
-            Project Architect & Owner: <strong className="text-[#17191c]">CHIRANJEEVI S</strong>
+          <div className="flex flex-wrap items-center gap-6 text-xs text-[#6d6c6b]">
+            <Link to="/login" className="hover:text-white transition-colors">
+              Sign In
+            </Link>
+            <Link to="/register" className="hover:text-white transition-colors">
+              Register
+            </Link>
+            <a href="#preview" className="hover:text-white transition-colors">
+              Preview
+            </a>
+            <a href="#settlement" className="hover:text-white transition-colors">
+              Settlement Engine
+            </a>
           </div>
 
-          <div>
-            © {new Date().getFullYear()} SplitSimple. All rights reserved.
+          <div className="text-[10px] text-[#6d6c6b] uppercase tracking-[0.018em]">
+            © {new Date().getFullYear()} SplitSimple · Built for roommates & friends
           </div>
         </div>
       </footer>

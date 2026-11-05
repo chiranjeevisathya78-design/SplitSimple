@@ -1,100 +1,253 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #17191c;
+  /* Colors */
+  --color-highlighter-yellow: #e4f222;
+  --color-ink: #0c0a08;
+  --color-obsidian: #1a1919;
   --color-paper: #ffffff;
-  --color-mist: #f2f2f3;
-  --color-fog: #fafafb;
-  --color-slate: #777b86;
-  --color-ash: #979799;
-  --color-smoke: #a3a6af;
-  --color-peach: #fbe1d1;
-  --color-sienna: #5d2a1a;
+  --color-bone: #f4f2f0;
+  --color-ash: #6d6c6b;
+  --color-hairline: #e5e7eb;
+  --color-smoke: #d3d3d3;
 
-  --font-serif: "Source Serif 4", Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Aliases for backwards compatibility */
+  --color-slate: #6d6c6b;
+  --color-mist: #f4f2f0;
+  --color-fog: #f4f2f0;
 
-  --radius-card: 24px;
-  --radius-elevated: 20px;
-  --radius-card-sm: 16px;
-  --radius-input: 16px;
-  --radius-btn: 9999px;
-  --radius-img: 12px;
+  /* Typography */
+  --font-lausanne: 'lausanne', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: 'lausanne', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Typography — Scale */
+  --text-caption: 10px;
+  --leading-caption: 2.2;
+  --tracking-caption: 0.18px;
+  --text-body: 16px;
+  --leading-body: 1.5;
+  --text-subheading: 20px;
+  --leading-subheading: 1.3;
+  --text-heading-sm: 24px;
+  --leading-heading-sm: 1.17;
+  --text-heading: 28px;
+  --leading-heading: 1.14;
+  --text-heading-lg: 40px;
+  --leading-heading-lg: 1.05;
+  --text-display: 64px;
+  --leading-display: 1;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-128: 128px;
+  --spacing-156: 156px;
+
+  /* Border Radius */
+  --radius-md: 6px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+
+  /* Shadows */
+  --shadow-subtle: rgba(255, 255, 255, 0.6) 0px 0px 2px 0px inset;
 }
 
 :root {
-  --color-ink: #17191c;
+  /* Colors */
+  --color-highlighter-yellow: #e4f222;
+  --color-ink: #0c0a08;
+  --color-obsidian: #1a1919;
   --color-paper: #ffffff;
-  --color-mist: #f2f2f3;
-  --color-fog: #fafafb;
-  --color-slate: #777b86;
-  --color-ash: #979799;
-  --color-smoke: #a3a6af;
-  --color-peach: #fbe1d1;
-  --color-sienna: #5d2a1a;
+  --color-bone: #f4f2f0;
+  --color-ash: #6d6c6b;
+  --color-hairline: #e5e7eb;
+  --color-smoke: #d3d3d3;
+
+  /* Typography — Font Families */
+  --font-lausanne: 'lausanne', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Typography — Scale */
+  --text-caption: 10px;
+  --leading-caption: 2.2;
+  --tracking-caption: 0.18px;
+  --text-body: 16px;
+  --leading-body: 1.5;
+  --text-subheading: 20px;
+  --leading-subheading: 1.3;
+  --text-heading-sm: 24px;
+  --leading-heading-sm: 1.17;
+  --text-heading: 28px;
+  --leading-heading: 1.14;
+  --text-heading-lg: 40px;
+  --leading-heading-lg: 1.05;
+  --text-display: 64px;
+  --leading-display: 1;
+
+  /* Typography — Weights (Strictly 400 across whole system) */
+  --font-weight-regular: 400;
+
+  /* Spacing */
+  --spacing-unit: 4px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-128: 128px;
+  --spacing-156: 156px;
+
+  /* Layout */
+  --page-max-width: 1200px;
+  --section-gap: 64-128px;
+  --card-padding: 20-24px;
+  --element-gap: 8px;
+
+  /* Border Radius */
+  --radius-md: 6px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+
+  /* Named Radii */
+  --radius-tags: 6px;
+  --radius-cards: 16px;
+  --radius-inputs: 10px;
+  --radius-buttons: 6px;
+
+  /* Shadows */
+  --shadow-subtle: rgba(255, 255, 255, 0.6) 0px 0px 2px 0px inset;
+
+  /* Surfaces */
+  --surface-canvas: #f4f2f0;
+  --surface-card: #ffffff;
+  --surface-wash: #f4f2f0;
+  --surface-inverted: #1a1919;
+  --surface-action: #e4f222;
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: #fafafb;
-  color: #17191c;
+  font-family: var(--font-lausanne);
+  font-weight: 400;
+  font-feature-settings: "ss01" on;
+  background-color: var(--surface-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
 }
 
-.font-editorial {
-  font-family: var(--font-serif);
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+/* Strict single-weight (400) hierarchy rule — hierarchy comes from size and tracking */
+h1, h2, h3, h4, h5, h6, button, input, select, textarea, label {
+  font-family: var(--font-lausanne);
+  font-weight: 400;
+  font-feature-settings: "ss01" on;
 }
 
-/* Card elevation & micro-interaction styles */
-.card-hover-lift {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
-}
-.card-hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px -8px rgba(23, 25, 28, 0.08);
-}
-
-/* Subtle editorial borders and soft shadows */
-.card-steep {
+/* Hairline border content card: 1px #e5e7eb, 16px radius, no shadow */
+.card-ramp {
   background-color: #ffffff;
-  border: 1px solid #f2f2f3;
-  border-radius: 24px;
-  box-shadow: 0 1px 3px rgba(23, 25, 28, 0.03), 0 4px 12px rgba(23, 25, 28, 0.02);
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: none;
 }
 
-.card-elevated {
-  background-color: #ffffff;
-  border: 1px solid #f2f2f3;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(23, 25, 28, 0.04), 0 1px 3px rgba(23, 25, 28, 0.02);
+/* Subtle wash card: #f4f2f0, 12px radius, no border */
+.card-wash {
+  background-color: #f4f2f0;
+  border-radius: 12px;
+  padding: 20px;
 }
 
-.btn-primary {
-  background-color: #17191c;
+/* Inverted surface: #1a1919, 16px radius */
+.card-inverted {
+  background-color: #1a1919;
   color: #ffffff;
-  border-radius: 9999px;
-  font-weight: 500;
-  transition: all 0.15s ease-in-out;
-}
-.btn-primary:hover {
-  background-color: #2b2e34;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
 }
 
-.btn-secondary {
-  background-color: #ffffff;
-  color: #17191c;
-  border: 1px solid #f2f2f3;
-  border-radius: 9999px;
-  font-weight: 500;
-  transition: all 0.15s ease-in-out;
+/* Primary Button (Highlighter Yellow, 6px radius, 0px vertical / 20px horizontal padding, Ink text) */
+.btn-highlighter {
+  background-color: #e4f222;
+  color: #0c0a08;
+  border-radius: 6px;
+  padding: 0 20px;
+  height: 44px;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition: opacity 0.2s ease, filter 0.2s ease;
 }
-.btn-secondary:hover {
-  background-color: #fafafb;
-  border-color: #e3e4e7;
+.btn-highlighter:hover {
+  filter: brightness(0.96);
 }
 
-.badge-peach {
-  background-color: #fbe1d1;
-  color: #5d2a1a;
-  border-radius: 9999px;
+/* Outlined Button (Transparent fill, 1px Ink border, 6px radius, Ink text) */
+.btn-outlined {
+  background-color: transparent;
+  color: #0c0a08;
+  border: 1px solid #0c0a08;
+  border-radius: 6px;
+  padding: 0 12px;
+  height: 44px;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+.btn-outlined:hover {
+  background-color: #f4f2f0;
+}
+
+/* Ghost Button (Transparent, 6px radius, Ink text, hover #f4f2f0) */
+.btn-ghost {
+  background-color: transparent;
+  color: #0c0a08;
+  border-radius: 6px;
+  padding: 0 12px;
+  height: 44px;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+.btn-ghost:hover {
+  background-color: #f4f2f0;
+}
+
+/* Micro-label / Caption Step (10px, line-height 2.2, tracking 0.018em uppercase, Ash color) */
+.micro-label {
+  font-size: 10px;
+  line-height: 2.2;
+  letter-spacing: 0.018em;
+  text-transform: uppercase;
+  color: #6d6c6b;
+  font-weight: 400;
+}
+
+/* Tags: 6px radius, never full pill */
+.tag-ramp {
+  border-radius: 6px;
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.018em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  font-weight: 400;
 }
