@@ -56,16 +56,14 @@ export default function AppLayout() {
   return (
     <div className="min-h-screen bg-[#f4f2f0] text-[#0c0a08] flex flex-col antialiased">
       {/* 
-        TOP NAVIGATION BAR 
-        Standardized container: max-w-7xl (1280px) mx-auto px-4 sm:px-6 lg:px-8
-        Guarantees 100% pixel-perfect vertical alignment with the main page content
+        TOP NAVIGATION BAR
+        Explicit 64px height with perfect flex centering
       */}
       <header className="sticky top-0 z-50 bg-[#1a1919] text-white border-b border-white/10 shadow-sm">
-        {/* Tier 1: Main Header Bar (Brand, Global Nav, User Controls) */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="h-16 flex items-center justify-between gap-4">
-            {/* Left: Brand Logo */}
-            <div className="flex items-center gap-8 shrink-0">
+            {/* Left: Brand + Navigation */}
+            <div className="flex items-center gap-6 lg:gap-8 shrink-0">
               <NavLink to="/dashboard" className="flex items-center gap-2.5 group">
                 <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-bold text-xs tracking-tight shadow-xs group-hover:scale-105 transition-transform">
                   S
@@ -80,7 +78,7 @@ export default function AppLayout() {
                 </div>
               </NavLink>
 
-              {/* Desktop Main Navigation Links */}
+              {/* Desktop Horizontal Navigation Links */}
               <nav className="hidden md:flex items-center gap-1">
                 {navItems.map(({ to, label, icon: Icon }) => {
                   const active =
@@ -90,9 +88,9 @@ export default function AppLayout() {
                     <NavLink
                       key={to}
                       to={to}
-                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] text-xs font-medium transition-all ${
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-medium transition-all ${
                         active
-                          ? 'bg-[#e4f222] text-[#0c0a08] font-semibold'
+                          ? 'bg-[#e4f222] text-[#0c0a08] font-semibold shadow-xs'
                           : 'text-white/70 hover:text-white hover:bg-white/5'
                       }`}
                     >
@@ -104,9 +102,9 @@ export default function AppLayout() {
               </nav>
             </div>
 
-            {/* Right: Demo Reset & Profile Controls */}
+            {/* Right: Demo Reset & Profile */}
             <div className="hidden sm:flex items-center gap-3 shrink-0">
-              {/* Reset Demo State Button */}
+              {/* Reset Demo Button */}
               <button
                 onClick={handleResetDemo}
                 disabled={resettingDemo}
@@ -117,7 +115,7 @@ export default function AppLayout() {
                 <span>{resettingDemo ? 'Resetting…' : 'Reset Demo'}</span>
               </button>
 
-              {/* User Avatar & Logout */}
+              {/* User Avatar + Logout */}
               <div className="flex items-center gap-2 pl-3 border-l border-white/10">
                 <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs font-semibold shrink-0">
                   {user?.name?.charAt(0)?.toUpperCase() || 'U'}
@@ -140,7 +138,7 @@ export default function AppLayout() {
               </div>
             </div>
 
-            {/* Mobile Hamburger Button */}
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 text-white hover:bg-white/10 rounded-[6px] transition"
@@ -165,7 +163,7 @@ export default function AppLayout() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center gap-2.5 px-3 py-2 rounded-[6px] text-xs font-medium transition-colors ${
                     active
-                      ? 'bg-[#e4f222] text-[#0c0a08]'
+                      ? 'bg-[#e4f222] text-[#0c0a08] font-semibold'
                       : 'text-white/70 hover:bg-white/5 hover:text-white'
                   }`}
                 >
@@ -199,11 +197,7 @@ export default function AppLayout() {
         )}
       </header>
 
-      {/* 
-        MAIN CONTENT CONTAINER
-        Uses the exact same max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
-        Guarantees exact horizontal alignment with header
-      */}
+      {/* Main Content Area */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <Outlet />
       </main>

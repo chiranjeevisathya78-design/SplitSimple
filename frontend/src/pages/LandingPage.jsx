@@ -171,7 +171,7 @@ export default function LandingPage() {
         1. Top Announcement Bar
         Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
       */}
-      <div className="h-9 bg-[#0c0a08] text-white border-b border-white/10 text-xs font-normal">
+      <div className="h-9 min-h-[36px] bg-[#0c0a08] text-white border-b border-white/10 text-xs font-normal">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="flex h-2 w-2 relative">
@@ -197,20 +197,20 @@ export default function LandingPage() {
 
       {/* 
         2. Sticky Glass Header
-        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+        Explicit 64px height with flex alignment
       */}
-      <header className="sticky top-0 z-50 bg-[#ffffff]/90 backdrop-blur-md border-b border-[#e5e7eb] transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-[#ffffff]/95 backdrop-blur-md border-b border-[#e5e7eb] transition-all">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 min-h-[64px] flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-bold text-sm shadow-xs group-hover:scale-105 transition-transform">
+            <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-bold text-sm shadow-xs group-hover:scale-105 transition-transform shrink-0">
               S
             </div>
             <div className="flex flex-col">
               <span className="text-base font-semibold tracking-tight text-[#0c0a08] leading-none">
                 SplitSimple
               </span>
-              <span className="text-[9px] uppercase tracking-wider text-[#6d6c6b] mt-0.5">
+              <span className="text-[9px] uppercase tracking-wider text-[#6d6c6b] mt-0.5 leading-none">
                 Expense Desk
               </span>
             </div>
@@ -236,14 +236,14 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to="/login"
-              className="px-4 py-2 text-sm text-[#0c0a08] rounded-[6px] hover:bg-[#f4f2f0] transition-colors"
+              className="px-3.5 py-1.5 text-xs text-[#0c0a08] rounded-[6px] hover:bg-[#f4f2f0] transition-colors font-medium"
             >
               Sign In
             </Link>
             <button
               onClick={handleExploreDemo}
               disabled={loadingDemo}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-[#e4f222] text-[#0c0a08] rounded-[6px] hover:bg-[#d6e41b] active:scale-[0.98] transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider bg-[#e4f222] text-[#0c0a08] rounded-[6px] hover:bg-[#d6e41b] active:scale-[0.98] transition-all shadow-xs shrink-0"
             >
               {loadingDemo ? (
                 <>Connecting...</>
