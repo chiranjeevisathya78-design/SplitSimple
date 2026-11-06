@@ -5,7 +5,7 @@ export function Button({
   children,
   onClick,
   type = 'button',
-  variant = 'primary', // 'primary' (highlighter yellow) | 'secondary' (outlined ink) | 'ghost' | 'dark' (obsidian) | 'danger'
+  variant = 'yellow', // 'yellow' | 'pink' | 'cyan' | 'white' | 'black' | 'secondary' | 'danger'
   size = 'md', // 'sm' | 'md' | 'lg'
   disabled = false,
   loading = false,
@@ -13,32 +13,27 @@ export function Button({
   icon: Icon,
   ...props
 }) {
-  // Ramp buttons: strictly 6px radius, weight 400, no shadows, hairline or no border
   const base =
-    'inline-flex items-center justify-center font-normal rounded-[6px] transition-colors duration-150 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed select-none';
+    'inline-flex items-center justify-center font-display font-bold uppercase tracking-wider border-2 border-black rounded-[4px] transition-all select-none focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed';
 
   const sizes = {
-    sm: 'text-xs px-3 h-8 gap-1.5',
-    md: 'text-sm px-5 h-11 gap-2',
-    lg: 'text-base px-6 h-12 gap-2.5',
+    sm: 'text-xs px-3 py-1.5 gap-1.5 shadow-[2px_2px_0px_#000000] hover:shadow-[4px_4px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000000]',
+    md: 'text-xs sm:text-sm px-4 py-2 sm:px-5 sm:py-2.5 gap-2 shadow-[3px_3px_0px_#000000] hover:shadow-[5px_5px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000000]',
+    lg: 'text-sm sm:text-base px-6 py-3 sm:px-7 sm:py-3.5 gap-2.5 shadow-[4px_4px_0px_#000000] hover:shadow-[6px_6px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000000]',
   };
 
   const variants = {
-    // Ramp primary button: #e4f222 fill, #0c0a08 text, no border
-    primary:
-      'bg-[#e4f222] text-[#0c0a08] hover:brightness-95 active:brightness-90',
-    // Ramp secondary / outlined button: transparent fill, 1px #0c0a08 border, #0c0a08 text
-    secondary:
-      'bg-transparent text-[#0c0a08] border border-[#0c0a08] hover:bg-[#f4f2f0]',
-    // Ramp ghost button: transparent fill, #0c0a08 text, hover to #f4f2f0 bone
-    ghost:
-      'bg-transparent text-[#0c0a08] hover:bg-[#f4f2f0]',
-    // Inverted obsidian button for dark panels: #1a1919 with 1px border or white fill
-    dark:
-      'bg-[#1a1919] text-white border border-white/20 hover:bg-[#252424]',
-    // Danger action
-    danger:
-      'bg-[#ffffff] text-[#b91c1c] border border-[#fca5a5] hover:bg-[#fef2f2]',
+    yellow: 'bg-[#ccff00] text-black hover:bg-[#bbf000]',
+    primary: 'bg-[#ccff00] text-black hover:bg-[#bbf000]', // alias
+    pink: 'bg-[#ff529a] text-white hover:bg-[#f03f89]',
+    cyan: 'bg-[#00f0ff] text-black hover:bg-[#00d9e6]',
+    orange: 'bg-[#ff8800] text-black hover:bg-[#f07b00]',
+    purple: 'bg-[#b388ff] text-black hover:bg-[#9d6ef7]',
+    white: 'bg-white text-black hover:bg-[#faf7ee]',
+    secondary: 'bg-white text-black hover:bg-[#faf7ee]', // alias
+    black: 'bg-black text-white hover:bg-[#1a1a1a]',
+    danger: 'bg-[#ff3b30] text-white hover:bg-[#e03126]',
+    ghost: 'bg-transparent text-black border-transparent shadow-none hover:bg-black/5 hover:border-black hover:shadow-[2px_2px_0px_#000000]',
   };
 
   return (
@@ -46,7 +41,7 @@ export function Button({
       type={type}
       onClick={onClick}
       disabled={disabled || loading}
-      className={`${base} ${sizes[size]} ${variants[variant] || variants.primary} ${className}`}
+      className={`${base} ${sizes[size] || sizes.md} ${variants[variant] || variants.yellow} ${className}`}
       {...props}
     >
       {loading ? (
@@ -60,7 +55,7 @@ export function Button({
 }
 
 export function SecondaryButton(props) {
-  return <Button variant="secondary" {...props} />;
+  return <Button variant="white" {...props} />;
 }
 
 export function GhostButton(props) {

@@ -5,137 +5,129 @@ export function StatCard({
   value,
   subtext,
   icon: Icon,
-  variant = 'white', // 'white' | 'dark' | 'wash' | 'highlight'
+  variant = 'white', // 'white' | 'yellow' | 'pink' | 'cyan' | 'purple' | 'orange' | 'dark'
+  className = '',
   trend,
   badge,
-  action,
-  className = '',
 }) {
   const variantStyles = {
-    // Ramp Paper Card: #ffffff fill, 1px #e5e7eb hairline border, 16px radius, no shadow
-    white: 'bg-white text-[#0c0a08] border border-[#e5e7eb]',
-    // Ramp Obsidian Inverted Card: #1a1919 fill, white text, 1px subtle border
-    dark: 'bg-[#1a1919] text-white border border-white/10',
-    // Ramp Wash Card: #f4f2f0 fill, no border (or subtle hairline), 12-16px radius
-    wash: 'bg-[#f4f2f0] text-[#0c0a08] border border-[#e5e7eb]',
-    // Ramp Highlight Card: white card with vivid highlighter yellow accent border or top mark
-    highlight: 'bg-white text-[#0c0a08] border-2 border-[#e4f222]',
+    white: 'bg-white text-black',
+    yellow: 'bg-[#ccff00] text-black',
+    pink: 'bg-[#ff529a] text-white',
+    cyan: 'bg-[#00f0ff] text-black',
+    purple: 'bg-[#b388ff] text-black',
+    orange: 'bg-[#ff8800] text-black',
+    dark: 'bg-[#000000] text-white',
+    wash: 'bg-[#fffdf8] text-black',
+    highlight: 'bg-[#ccff00] text-black',
+    peach: 'bg-[#ffb703] text-black',
+    mist: 'bg-[#e0f2fe] text-black',
   };
 
-  const labelStyles = {
-    white: 'text-[#6d6c6b]',
-    dark: 'text-[#6d6c6b]',
-    wash: 'text-[#6d6c6b]',
-    highlight: 'text-[#0c0a08]',
-  };
-
-  const subtextStyles = {
-    white: 'text-[#6d6c6b]',
-    dark: 'text-[#6d6c6b]',
-    wash: 'text-[#6d6c6b]',
-    highlight: 'text-[#6d6c6b]',
-  };
+  const isDark = variant === 'dark';
 
   return (
     <div
-      className={`rounded-[16px] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-150 ${variantStyles[variant] || variantStyles.white} ${className}`}
+      className={`relative border-2 sm:border-[3px] border-black rounded-[4px] p-5 sm:p-6 shadow-[4px_4px_0px_#000000] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#000000] ${
+        variantStyles[variant] || variantStyles.white
+      } ${className}`}
     >
-      <div className="flex items-center justify-between mb-4">
-        <span
-          className={`text-[10px] uppercase tracking-[0.018em] font-normal ${labelStyles[variant]}`}
-        >
-          {label}
-        </span>
-        {badge ? (
-          <span
-            className={`text-[10px] uppercase tracking-[0.018em] font-normal px-2 py-0.5 rounded-[6px] ${
-              variant === 'dark'
-                ? 'bg-[#e4f222] text-[#0c0a08]'
-                : 'bg-[#e4f222] text-[#0c0a08]'
-            }`}
-          >
-            {badge}
-          </span>
-        ) : Icon ? (
-          <div
-            className={`w-7 h-7 rounded-[6px] flex items-center justify-center ${
-              variant === 'dark'
-                ? 'bg-white/10 text-white'
-                : 'bg-[#f4f2f0] text-[#0c0a08]'
-            }`}
-          >
-            <Icon className="w-3.5 h-3.5" />
+      {/* Decorative Washi Tape on top */}
+      <div className="absolute -top-2.5 left-6 w-12 h-3.5 bg-black/20 border border-black/40 rotate-1 pointer-events-none" />
+
+      <div className="flex items-start justify-between gap-4">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span
+              className={`font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider ${
+                isDark ? 'text-neutral-400' : 'text-neutral-700'
+              }`}
+            >
+              {label}
+            </span>
+            {badge && (
+              <span className="px-1.5 py-0.2 bg-black text-[#ccff00] text-[9px] font-mono font-bold uppercase border border-black rounded-xs">
+                {badge}
+              </span>
+            )}
           </div>
-        ) : null}
-      </div>
-
-      <div>
-        <div className="text-3xl sm:text-4xl tracking-tight font-normal leading-none">
-          {value}
+          <div className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold tracking-tight">
+            {value}
+          </div>
         </div>
-        {subtext && (
-          <p className={`mt-2 text-xs font-normal leading-relaxed ${subtextStyles[variant]}`}>
-            {subtext}
-          </p>
+
+        {Icon && (
+          <div
+            className={`w-10 h-10 rounded-[4px] border-2 border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000000] ${
+              isDark ? 'bg-[#ccff00] text-black' : 'bg-black text-white'
+            }`}
+          >
+            <Icon size={20} />
+          </div>
         )}
-        {action && <div className="mt-4 pt-3 border-t border-current/10">{action}</div>}
       </div>
-    </div>
-  );
-}
 
-export function MemberAvatar({
-  name = '',
-  size = 'md', // 'sm' | 'md' | 'lg'
-  variant = 'neutral', // 'neutral' | 'highlighter' | 'dark'
-  className = '',
-}) {
-  const initials = name
-    ? name
-        .split(' ')
-        .filter(Boolean)
-        .map((n) => n[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2)
-    : '?';
-
-  const sizes = {
-    sm: 'w-7 h-7 text-[10px]',
-    md: 'w-8 h-8 text-xs',
-    lg: 'w-10 h-10 text-sm',
-  };
-
-  const variants = {
-    neutral: 'bg-[#f4f2f0] text-[#0c0a08] border border-[#e5e7eb]',
-    highlighter: 'bg-[#e4f222] text-[#0c0a08] border border-black/10',
-    dark: 'bg-[#1a1919] text-white border border-white/20',
-  };
-
-  return (
-    <div
-      title={name}
-      className={`${sizes[size]} ${variants[variant]} rounded-[6px] font-normal flex items-center justify-center shrink-0 select-none ${className}`}
-    >
-      {initials}
-    </div>
-  );
-}
-
-export function DemoBadge({ onReset, isResetting }) {
-  return (
-    <div className="bg-[#1a1919] text-white border border-white/10 px-2.5 py-1 rounded-[6px] text-[10px] uppercase tracking-[0.018em] font-normal flex items-center gap-2">
-      <span className="w-1.5 h-1.5 rounded-full bg-[#e4f222]" />
-      <span>Demo Workspace</span>
-      {onReset && (
-        <button
-          onClick={onReset}
-          disabled={isResetting}
-          className="ml-1 text-[10px] text-[#e4f222] hover:underline font-normal transition disabled:opacity-50"
-        >
-          {isResetting ? 'Resetting…' : 'Reset'}
-        </button>
+      {(subtext || trend) && (
+        <div className="mt-4 pt-3 border-t-2 border-black/15 flex items-center justify-between text-xs font-mono">
+          {subtext && (
+            <span className={isDark ? 'text-neutral-400' : 'text-neutral-600'}>
+              {subtext}
+            </span>
+          )}
+          {trend && (
+            <span
+              className={`font-bold uppercase ${
+                trend > 0 ? 'text-[#00c853]' : 'text-[#ff3b30]'
+              }`}
+            >
+              {trend > 0 ? `+${trend}%` : `${trend}%`}
+            </span>
+          )}
+        </div>
       )}
     </div>
   );
 }
+
+export function MemberAvatar({ name = '', size = 'md', className = '' }) {
+  const sizes = {
+    sm: 'w-6 h-6 text-[10px]',
+    md: 'w-8 h-8 text-xs',
+    lg: 'w-10 h-10 text-sm font-bold',
+    xl: 'w-12 h-12 text-base font-bold',
+  };
+
+  const colors = [
+    'bg-[#ccff00] text-black',
+    'bg-[#ff529a] text-white',
+    'bg-[#00f0ff] text-black',
+    'bg-[#ff8800] text-black',
+    'bg-[#b388ff] text-black',
+  ];
+
+  // Hash character code
+  const charCode = name ? name.charCodeAt(0) : 0;
+  const color = colors[charCode % colors.length];
+
+  return (
+    <div
+      title={name}
+      className={`inline-flex items-center justify-center border-2 border-black rounded-[4px] font-display font-bold shadow-[2px_2px_0px_#000000] shrink-0 select-none ${
+        sizes[size] || sizes.md
+      } ${color} ${className}`}
+    >
+      {name ? name.charAt(0).toUpperCase() : '?'}
+    </div>
+  );
+}
+
+export function DemoBadge({ label = 'DEMO DESK', active = true }) {
+  return (
+    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black text-[#ccff00] border-2 border-black rounded-[4px] text-[10px] font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_#000000]">
+      {active && <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />}
+      <span>{label}</span>
+    </div>
+  );
+}
+
+export default StatCard;

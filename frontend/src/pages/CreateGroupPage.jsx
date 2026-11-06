@@ -73,27 +73,30 @@ export default function CreateGroupPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <div className="max-w-2xl mx-auto space-y-6">
       {/* Editorial Header */}
       <div>
         <Link
           to="/groups"
-          className="text-xs text-[#6d6c6b] hover:text-[#0c0a08] flex items-center gap-1.5 mb-2 transition font-normal"
+          className="font-mono text-xs font-bold uppercase text-black hover:text-[#ff529a] flex items-center gap-1.5 mb-2 transition"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Groups</span>
         </Link>
-        <h1 className="text-3xl sm:text-4xl font-normal text-[#0c0a08] tracking-tight">
+        <span className="px-2 py-0.5 bg-[#ccff00] border-2 border-black font-mono text-[10px] font-bold uppercase shadow-[2px_2px_0px_#000] inline-block mb-1">
+          NEW WORKSPACE
+        </span>
+        <h1 className="text-3xl sm:text-4xl font-display font-black text-black tracking-tight uppercase leading-none">
           Create New Group
         </h1>
-        <p className="text-sm text-[#6d6c6b] mt-1 font-normal">
-          Set up a shared expense space for your roommates or travel companions.
+        <p className="text-sm font-display text-neutral-700 mt-1">
+          Set up a shared expense space for your flatmates or travel companions.
         </p>
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8 space-y-6"
+        className="bg-white border-3 border-black rounded-[4px] p-6 sm:p-8 space-y-6 shadow-[6px_6px_0px_#000000]"
       >
         <Input
           label="Group Name"
@@ -116,42 +119,44 @@ export default function CreateGroupPage() {
 
         {/* Member Invitation Search */}
         <div className="space-y-3 pt-2">
-          <label className="block text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
+          <label className="block font-mono text-xs font-bold uppercase tracking-wider text-black">
             Invite Members by Email or Name
           </label>
 
-          <div className="relative">
-            <Search className="w-4 h-4 text-[#6d6c6b] absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <div className="relative font-mono">
+            <Search className="w-4 h-4 text-black absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search registered members (e.g. gagan@example.com)..."
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full bg-white text-sm text-[#0c0a08] placeholder-[#6d6c6b]/60 rounded-[10px] border border-[#e5e7eb] pl-10 pr-4 py-2.5 focus:outline-none focus:border-[#0c0a08] font-normal"
+              className="w-full bg-white text-xs sm:text-sm text-black placeholder-neutral-400 border-2 border-black rounded-[4px] pl-10 pr-4 py-2.5 shadow-[2px_2px_0px_#000] focus:outline-none focus:shadow-[4px_4px_0px_#000] focus:bg-[#fffef7] font-mono"
             />
             {searching && (
-              <Loader2 className="w-4 h-4 animate-spin text-[#6d6c6b] absolute right-3.5 top-1/2 -translate-y-1/2" />
+              <Loader2 className="w-4 h-4 animate-spin text-black absolute right-3.5 top-1/2 -translate-y-1/2" />
             )}
           </div>
 
           {/* Autocomplete Dropdown */}
           {searchResults.length > 0 && (
-            <div className="bg-white border border-[#e5e7eb] rounded-[10px] divide-y divide-[#e5e7eb]">
+            <div className="bg-white border-2 border-black rounded-[4px] shadow-[4px_4px_0px_#000] divide-y-2 divide-black">
               {searchResults.map((user) => (
                 <button
                   key={user._id}
                   type="button"
                   onClick={() => addMember(user)}
-                  className="w-full text-left p-3 hover:bg-[#f4f2f0] flex items-center justify-between text-xs transition-colors"
+                  className="w-full text-left p-3 hover:bg-[#ccff00] flex items-center justify-between text-xs transition-colors cursor-pointer"
                 >
                   <div className="flex items-center gap-2.5">
                     <MemberAvatar name={user.name} size="sm" />
                     <div>
-                      <p className="text-sm font-normal text-[#0c0a08]">{user.name}</p>
-                      <p className="text-xs text-[#6d6c6b]">{user.email}</p>
+                      <p className="font-display font-bold text-sm text-black">{user.name}</p>
+                      <p className="font-mono text-xs text-neutral-600">{user.email}</p>
                     </div>
                   </div>
-                  <span className="text-xs text-[#0c0a08] font-normal">+ Add</span>
+                  <span className="font-mono text-xs font-bold uppercase px-2 py-0.5 bg-black text-white rounded-[2px]">
+                    + ADD
+                  </span>
                 </button>
               ))}
             </div>
@@ -160,20 +165,20 @@ export default function CreateGroupPage() {
           {/* Added Members Pills */}
           {members.length > 0 && (
             <div className="pt-2">
-              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] block mb-2 font-normal">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-600 block mb-2">
                 Members to invite ({members.length}):
               </span>
               <div className="flex flex-wrap gap-2">
                 {members.map((m) => (
                   <div
                     key={m.email}
-                    className="flex items-center gap-2 bg-[#f4f2f0] border border-[#e5e7eb] rounded-[6px] pl-2.5 pr-1.5 py-1 text-xs text-[#0c0a08]"
+                    className="flex items-center gap-2 bg-[#ccff00] border-2 border-black rounded-[3px] pl-2.5 pr-1.5 py-1 text-xs font-mono font-bold shadow-[2px_2px_0px_#000]"
                   >
                     <span>{m.name}</span>
                     <button
                       type="button"
                       onClick={() => removeMember(m.email)}
-                      className="p-0.5 hover:bg-white rounded text-[#6d6c6b] hover:text-[#0c0a08]"
+                      className="p-0.5 hover:bg-black hover:text-white rounded text-black cursor-pointer"
                     >
                       <X size={12} />
                     </button>
@@ -184,13 +189,13 @@ export default function CreateGroupPage() {
           )}
         </div>
 
-        <div className="pt-4 border-t border-[#e5e7eb] flex items-center justify-end gap-3">
+        <div className="pt-4 border-t-2 border-black flex items-center justify-end gap-3">
           <Link to="/groups">
             <SecondaryButton>Cancel</SecondaryButton>
           </Link>
           <Button
             type="submit"
-            variant="primary"
+            variant="yellow"
             loading={submitting}
             icon={Plus}
           >

@@ -38,7 +38,18 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       await register(name.trim(), email.trim(), password);
-      toast.success('Account created successfully');
+      toast.success('Account created successfully!', {
+        icon: '★',
+        style: {
+          border: '2px solid black',
+          borderRadius: '4px',
+          boxShadow: '4px 4px 0px #000',
+          background: '#ccff00',
+          color: '#000',
+          fontWeight: 'bold',
+          fontFamily: 'Space Grotesk, sans-serif',
+        },
+      });
       navigate('/dashboard');
     } catch (err) {
       toast.error(
@@ -50,31 +61,37 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f4f2f0] px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-[#faf7ee] px-4 py-12 antialiased">
       <div className="w-full max-w-md">
         {/* Brand Logo */}
         <Link
           to="/"
-          className="flex items-center justify-center gap-2 text-xl font-normal text-[#0c0a08] mb-8"
+          className="flex items-center justify-center gap-2.5 text-xl font-display font-black text-black mb-8 uppercase"
         >
-          <div className="w-6 h-6 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-normal text-xs">
+          <div className="w-8 h-8 rounded-[4px] bg-[#ccff00] text-black border-2 border-black flex items-center justify-center text-sm shadow-[2px_2px_0px_#000]">
             S
           </div>
           <span>SplitSimple</span>
         </Link>
 
-        {/* Ramp Content Card: 16px radius, Paper #ffffff, Hairline #e5e7eb border, no shadow */}
-        <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8">
-          <div className="text-left">
-            <h2 className="text-2xl font-normal text-[#0c0a08] tracking-tight">
-              Create an account
+        {/* Neo-Brutalist Form Card */}
+        <div className="bg-white border-3 sm:border-4 border-black rounded-[4px] p-6 sm:p-8 shadow-[8px_8px_0px_#000000] relative">
+          {/* Washi Tape */}
+          <div className="absolute -top-3 left-10 w-20 h-5 bg-[#ff529a] border border-black/40 rotate-1 pointer-events-none" />
+
+          <div className="text-left mb-6">
+            <span className="px-2 py-0.5 bg-[#ccff00] border-2 border-black font-mono text-[9px] font-bold uppercase shadow-[2px_2px_0px_#000] inline-block mb-1">
+              FREE ONBOARDING
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-display font-black text-black uppercase tracking-tight">
+              CREATE AN ACCOUNT
             </h2>
-            <p className="mt-1 text-xs text-[#6d6c6b] font-normal">
+            <p className="font-mono text-xs text-neutral-600 mt-1">
               Join or create group ledgers and settle shared expenses
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               label="Full Name"
               id="name"
@@ -115,30 +132,30 @@ export default function RegisterPage() {
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Repeat password"
+              placeholder="Re-enter password"
               icon={Lock}
             />
 
             <Button
               type="submit"
-              variant="primary"
+              variant="pink"
               loading={loading}
               className="w-full mt-2"
               icon={ArrowRight}
             >
-              Create Account
+              Register Account
             </Button>
           </form>
         </div>
 
         {/* Footer link */}
-        <p className="mt-5 text-center text-xs text-[#6d6c6b] font-normal">
-          Already have an account?{' '}
+        <p className="mt-6 text-center font-mono text-xs font-bold uppercase text-black">
+          Already registered?{' '}
           <Link
             to="/login"
-            className="text-[#0c0a08] underline underline-offset-4 font-normal"
+            className="text-black underline decoration-2 decoration-[#ff529a] underline-offset-4"
           >
-            Sign in
+            Sign in here →
           </Link>
         </p>
       </div>

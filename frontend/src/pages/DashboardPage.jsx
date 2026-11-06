@@ -11,6 +11,8 @@ import {
   Calendar,
   ArrowUpRight,
   Handshake,
+  Sparkles,
+  Zap,
 } from 'lucide-react';
 import {
   BarChart,
@@ -23,7 +25,7 @@ import {
 } from 'recharts';
 import { dashboardService } from '../services';
 import { useAuth } from '../context/AuthContext';
-import { formatCurrency, formatDate, formatHeaderDate, CATEGORIES } from '../utils/helpers';
+import { formatCurrency, formatDate, formatHeaderDate } from '../utils/helpers';
 import { StatCard, MemberAvatar } from '../components/StatCard';
 import { Button, SecondaryButton } from '../components/Button';
 
@@ -49,7 +51,10 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
+        <div className="p-6 bg-white border-3 border-black shadow-[5px_5px_0px_#000] flex items-center gap-3 font-mono font-bold text-sm">
+          <Loader2 className="w-5 h-5 animate-spin text-black" />
+          <span>LOADING LEDGER DESK...</span>
+        </div>
       </div>
     );
   }
@@ -82,60 +87,71 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      {/* 1. Top Editorial Header Bar */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#e5e7eb]">
+      {/* 1. Header Desk Bar */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b-3 border-black">
         <div>
-          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1 font-normal">
-            <Calendar className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[#ccff00] border-2 border-black rounded-[3px] text-[10px] font-mono font-bold uppercase tracking-wider mb-2 shadow-[2px_2px_0px_#000]">
+            <Calendar className="w-3 h-3 text-black" />
             <span>{formatHeaderDate()}</span>
             <span>·</span>
-            <span>Ledger Desk</span>
+            <span>ACTIVE LEDGER DESK</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-[40px] text-[#0c0a08] font-normal tracking-tight leading-tight">
-            Welcome back, {user?.name?.split(' ')[0] || 'Chiranjeevi'}
+          <h1 className="text-3xl sm:text-5xl font-display font-black text-black tracking-tight uppercase leading-none">
+            WELCOME, {user?.name?.split(' ')[0] || 'CHIRANJEEVI'}
           </h1>
-          <p className="text-sm text-[#6d6c6b] mt-1 font-normal max-w-xl">
+          <p className="text-sm font-display text-neutral-700 mt-1 max-w-xl">
             Live multi-group expense ledger and optimized repayment settlements.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-3">
           <Link to="/expenses/new">
-            <Button variant="primary" icon={Plus}>
-              Add Expense
+            <Button variant="yellow" icon={Plus}>
+              Record Expense
             </Button>
           </Link>
           <Link to="/settlements">
-            <Button variant="secondary" icon={Handshake}>
-              Smart Settlement
+            <Button variant="cyan" icon={Handshake}>
+              Settlement Engine
             </Button>
           </Link>
         </div>
       </div>
 
-      {/* 2. Inverted Obsidian Hero Card (#1a1919) */}
-      <div className="bg-[#1a1919] text-white rounded-[16px] border border-white/10 p-6 sm:p-8 relative overflow-hidden">
+      {/* 2. Surreal Neo-Brutalist Net Balance Hero Card */}
+      <div className="bg-[#000000] text-white border-3 sm:border-4 border-black rounded-[6px] p-6 sm:p-8 relative overflow-hidden shadow-[8px_8px_0px_#000000]">
+        {/* Washi Tape Accent */}
+        <div className="absolute -top-3 left-10 w-20 h-5 bg-[#ccff00] border border-black/40 rotate-1 pointer-events-none" />
+
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
           <div>
             <div className="flex items-center gap-2.5 mb-2">
-              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
-                Featured Net Balance
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#ccff00]">
+                ★ GLOBAL NET BALANCE
               </span>
-              <span className="px-2 py-0.5 rounded-[6px] bg-[#e4f222] text-[#0c0a08] text-[10px] uppercase tracking-[0.018em] font-normal">
+              <span
+                className={`px-2 py-0.5 rounded-[2px] font-mono text-[10px] font-bold uppercase border border-black ${
+                  netBalance > 0
+                    ? 'bg-[#00c853] text-black'
+                    : netBalance < 0
+                    ? 'bg-[#ff3b30] text-white'
+                    : 'bg-white text-black'
+                }`}
+              >
                 {netBalance > 0
-                  ? 'Net Creditor'
+                  ? 'NET CREDITOR (+)'
                   : netBalance < 0
-                  ? 'Net Debtor'
-                  : 'Balanced'}
+                  ? 'NET DEBTOR (−)'
+                  : 'BALANCED (₹0)'}
               </span>
             </div>
 
-            <div className="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-white leading-none">
+            <div className="text-4xl sm:text-6xl font-display font-black tracking-tight text-white leading-none">
               {netBalance >= 0 ? '+' : ''}
               {formatCurrency(Math.abs(netBalance))}
             </div>
 
-            <p className="text-xs text-[#6d6c6b] mt-2 max-w-md font-normal leading-relaxed">
+            <p className="text-xs font-mono text-neutral-300 mt-2 max-w-md leading-relaxed">
               {netBalance > 0
                 ? 'You are owed money overall. Check Smart Settlement to review incoming repayments.'
                 : netBalance < 0
@@ -144,22 +160,22 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          {/* Breakdown Box inside Hero Card */}
-          <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-[12px]">
-            <div className="pr-5 sm:border-r sm:border-white/10">
-              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
-                You Are Owed
+          {/* Breakdown Box */}
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 bg-[#1a1a1a] border-2 border-white/20 p-4 rounded-[4px] shadow-[4px_4px_0px_#ccff00]">
+            <div className="pr-6 sm:border-r-2 sm:border-white/20">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#00f0ff]">
+                YOU ARE OWED
               </span>
-              <p className="text-2xl sm:text-3xl font-normal text-white mt-1 leading-none">
+              <p className="text-2xl sm:text-3xl font-display font-black text-white mt-1 leading-none">
                 {formatCurrency(summary.youAreOwed)}
               </p>
             </div>
 
-            <div className="pl-1 sm:pl-5">
-              <span className="text-[10px] uppercase tracking-[0.018em] text-[#e4f222] font-normal">
-                You Owe
+            <div className="pl-1 sm:pl-4">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff529a]">
+                YOU OWE
               </span>
-              <p className="text-2xl sm:text-3xl font-normal text-[#e4f222] mt-1 leading-none">
+              <p className="text-2xl sm:text-3xl font-display font-black text-[#ff529a] mt-1 leading-none">
                 {formatCurrency(summary.youOwe)}
               </p>
             </div>
@@ -167,38 +183,25 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* 3. Ramp Metric Cards (Hairline Borders, 16px Radius) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        {/* Card 1: Smart Settlement */}
+      {/* 3. Brutalist Metric Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <StatCard
-          variant="white"
+          variant="yellow"
           label="Settlement Engine"
           value="Greedy Solver"
-          subtext="Collapses multi-member circular debt into minimal peer transactions."
-          badge="Active"
-          action={
-            <Link
-              to="/settlements"
-              className="text-xs text-[#0c0a08] flex items-center gap-1.5 hover:underline font-normal"
-            >
-              <span>View Repayment Suggestions</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          }
+          subtext="Collapses circular debt into minimal peer transactions"
+          badge="ACTIVE"
+          icon={Zap}
         />
-
-        {/* Card 2: Cumulative Volume */}
         <StatCard
-          variant="white"
+          variant="cyan"
           label="Total Group Spending"
           value={formatCurrency(summary.totalExpenses)}
-          subtext="Cumulative volume logged across your registered groups"
+          subtext="Cumulative volume logged across registered workspaces"
           icon={Wallet}
         />
-
-        {/* Card 3: Active Groups */}
         <StatCard
-          variant="wash"
+          variant="pink"
           label="Active Groups"
           value={`${summary.activeGroups} Desks`}
           subtext="Bangalore Roommates, Goa Trip, College Friends"
@@ -207,29 +210,29 @@ export default function DashboardPage() {
       </div>
 
       {/* 4. Transactions & Groups Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Recent Activity (8 cols) */}
-        <div className="lg:col-span-8 bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6 flex flex-col justify-between">
+        <div className="lg:col-span-8 bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#e5e7eb]">
+            <div className="flex items-center justify-between pb-4 mb-4 border-b-2 border-black">
               <div>
-                <h2 className="text-xl sm:text-2xl font-normal text-[#0c0a08] tracking-tight">
+                <h2 className="text-2xl font-display font-black text-black uppercase">
                   Recent Activity
                 </h2>
-                <p className="text-xs text-[#6d6c6b] mt-0.5 font-normal">
+                <p className="text-xs font-mono text-neutral-600 mt-0.5">
                   Latest receipts logged across active groups
                 </p>
               </div>
               <Link
                 to="/expenses"
-                className="text-xs text-[#0c0a08] hover:underline flex items-center gap-1 font-normal"
+                className="font-mono text-xs font-bold uppercase text-black hover:text-[#ff529a] flex items-center gap-1 underline"
               >
                 All Expenses <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
             {recentExpenses.length > 0 ? (
-              <div className="divide-y divide-[#e5e7eb]">
+              <div className="divide-y-2 divide-black">
                 {recentExpenses.slice(0, 5).map((expense) => {
                   const groupName =
                     expense.groupId?.name || expense.group?.name || 'Group';
@@ -238,16 +241,16 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={expense._id}
-                      className="py-3.5 flex items-center justify-between gap-4 transition-colors hover:bg-[#f4f2f0] px-2.5 rounded-[6px]"
+                      className="py-3.5 flex items-center justify-between gap-4 transition-colors hover:bg-[#fffef7] px-2 rounded-[2px]"
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <MemberAvatar name={payerName} size="md" />
                         <div className="min-w-0">
-                          <p className="text-sm font-normal text-[#0c0a08] truncate">
+                          <p className="text-sm font-display font-bold text-black truncate">
                             {expense.title}
                           </p>
-                          <div className="flex flex-wrap items-center gap-1.5 mt-0.5 text-xs text-[#6d6c6b] font-normal">
-                            <span className="text-[#0c0a08]">{groupName}</span>
+                          <div className="flex flex-wrap items-center gap-1.5 mt-0.5 font-mono text-xs text-neutral-600">
+                            <span className="font-bold text-black">{groupName}</span>
                             <span>·</span>
                             <span>Paid by {payerName}</span>
                             <span>·</span>
@@ -257,10 +260,10 @@ export default function DashboardPage() {
                       </div>
 
                       <div className="text-right shrink-0">
-                        <p className="text-base font-normal text-[#0c0a08]">
+                        <p className="text-base font-mono font-bold text-black">
                           {formatCurrency(expense.amount)}
                         </p>
-                        <span className="inline-block text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal mt-0.5">
+                        <span className="inline-block px-1.5 py-0.2 bg-[#ccff00] border border-black text-[9px] font-mono font-bold uppercase rounded-[2px] mt-0.5">
                           {expense.category || 'general'}
                         </span>
                       </div>
@@ -269,124 +272,128 @@ export default function DashboardPage() {
                 })}
               </div>
             ) : (
-              <div className="py-10 text-center text-[#6d6c6b] text-sm font-normal">
+              <div className="py-12 text-center font-mono text-neutral-500 text-xs uppercase">
                 No recent transactions recorded yet.
               </div>
             )}
           </div>
 
-          <div className="pt-4 mt-4 border-t border-[#e5e7eb] text-right">
+          <div className="pt-4 mt-4 border-t-2 border-black text-right">
             <Link to="/expenses/new">
-              <Button size="sm" variant="primary" icon={Plus}>
+              <Button size="sm" variant="yellow" icon={Plus}>
                 Record New Expense
               </Button>
             </Link>
           </div>
         </div>
 
-        {/* Right Column: Your Groups (4 cols) */}
-        <div className="lg:col-span-4 bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6 flex flex-col justify-between">
+        {/* Right Column: Active Groups (4 cols) */}
+        <div className="lg:col-span-4 bg-[#faf7ee] border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#e5e7eb]">
+            <div className="flex items-center justify-between pb-4 mb-4 border-b-2 border-black">
               <div>
-                <h2 className="text-xl sm:text-2xl font-normal text-[#0c0a08] tracking-tight">
-                  Active Groups
+                <h2 className="text-2xl font-display font-black text-black uppercase">
+                  Active Desks
                 </h2>
-                <p className="text-xs text-[#6d6c6b] mt-0.5 font-normal">
-                  Your shared group workspaces
+                <p className="text-xs font-mono text-neutral-600 mt-0.5">
+                  Your shared group ledgers
                 </p>
               </div>
               <Link
                 to="/groups"
-                className="text-xs text-[#0c0a08] hover:underline font-normal"
+                className="font-mono text-xs font-bold uppercase text-black hover:text-[#00f0ff] underline"
               >
                 All Groups
               </Link>
             </div>
 
-            <div className="space-y-2.5">
-              {groups.map((group) => (
-                <Link
-                  key={group._id}
-                  to={`/groups/${group._id}`}
-                  className="block p-3.5 rounded-[10px] bg-[#f4f2f0] border border-transparent hover:border-[#0c0a08] hover:bg-white transition-all duration-150"
-                >
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-normal text-[#0c0a08]">
-                      {group.name}
-                    </h4>
-                    <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
-                      {group.memberCount || group.members?.length || 0} members
-                    </span>
-                  </div>
-                  <div className="mt-2 flex items-center justify-between text-xs text-[#6d6c6b] font-normal">
-                    <span>Inspect Ledger</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#0c0a08]" />
-                  </div>
-                </Link>
-              ))}
+            <div className="space-y-3">
+              {groups.map((group, idx) => {
+                const colors = ['bg-[#ccff00]', 'bg-[#ff529a]', 'bg-[#00f0ff]', 'bg-[#ffb703]'];
+                const cardColor = colors[idx % colors.length];
+
+                return (
+                  <Link
+                    key={group._id}
+                    to={`/groups/${group._id}`}
+                    className="block p-3.5 bg-white border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#000] transition-all"
+                  >
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-display font-bold text-sm text-black uppercase">
+                        {group.name}
+                      </h4>
+                      <span className={`px-1.5 py-0.2 ${cardColor} border border-black font-mono text-[9px] font-bold uppercase rounded-[2px]`}>
+                        {group.memberCount || group.members?.length || 0} members
+                      </span>
+                    </div>
+                    <div className="mt-2 flex items-center justify-between font-mono text-xs text-neutral-600">
+                      <span>Inspect Ledger</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-black" />
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
-          <div className="pt-5 mt-5 border-t border-[#e5e7eb]">
+          <div className="pt-5 mt-5 border-t-2 border-black">
             <Link to="/groups/new" className="block">
-              <SecondaryButton className="w-full text-xs">
+              <Button variant="white" className="w-full text-xs">
                 + Create New Group
-              </SecondaryButton>
+              </Button>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* 5. Monthly Spending Trend Chart */}
+      {/* 5. Monthly Spending Trend Recharts */}
       {monthlyChartData.length > 0 && (
-        <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+        <div className="bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
             <div>
-              <h2 className="text-xl sm:text-2xl font-normal text-[#0c0a08] tracking-tight">
-                Monthly Spending Trend
+              <h2 className="text-2xl font-display font-black text-black uppercase">
+                Monthly Spending Trajectory
               </h2>
-              <p className="text-xs text-[#6d6c6b] mt-0.5 font-normal">
-                Combined group expenditure over recent billing cycles (in ₹)
+              <p className="text-xs font-mono text-neutral-600 mt-0.5">
+                Aggregate billing volume across recent cycles (₹ INR)
               </p>
             </div>
-            <span className="text-[10px] uppercase tracking-[0.018em] text-[#0c0a08] bg-[#e4f222] px-2.5 py-0.5 rounded-[6px] font-normal self-start sm:self-auto">
-              Live Billing Data
+            <span className="px-3 py-1 bg-[#ccff00] border-2 border-black font-mono text-xs font-bold uppercase rounded-[3px] shadow-[2px_2px_0px_#000]">
+              PAISE-PRECISION DATA
             </span>
           </div>
 
-          <div className="h-[260px] w-full">
+          <div className="h-[260px] w-full font-mono">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={monthlyChartData} barSize={32}>
-                <CartesianGrid
-                  strokeDasharray="2 2"
-                  vertical={false}
-                  stroke="#e5e7eb"
-                />
+              <BarChart data={monthlyChartData} barSize={36}>
+                <CartesianGrid strokeDasharray="2 2" vertical={false} stroke="#000000" strokeOpacity={0.15} />
                 <XAxis
                   dataKey="month"
-                  tick={{ fontSize: 11, fill: '#6d6c6b' }}
-                  axisLine={{ stroke: '#e5e7eb' }}
+                  tick={{ fontSize: 11, fill: '#000000', fontFamily: 'Space Mono' }}
+                  axisLine={{ stroke: '#000000', strokeWidth: 2 }}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fontSize: 11, fill: '#6d6c6b' }}
-                  axisLine={false}
+                  tick={{ fontSize: 11, fill: '#000000', fontFamily: 'Space Mono' }}
+                  axisLine={{ stroke: '#000000', strokeWidth: 2 }}
                   tickLine={false}
                   tickFormatter={(v) => `₹${v}`}
                 />
                 <Tooltip
                   formatter={(val) => [`₹${val.toLocaleString('en-IN')}`, 'Expenditure']}
                   contentStyle={{
-                    backgroundColor: '#1a1919',
-                    color: '#ffffff',
-                    borderRadius: '6px',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    fontSize: '11px',
+                    backgroundColor: '#ffffff',
+                    color: '#000000',
+                    borderRadius: '4px',
+                    border: '2px solid #000000',
+                    boxShadow: '4px 4px 0px #000000',
+                    fontFamily: 'Space Mono, monospace',
+                    fontSize: '12px',
+                    fontWeight: 'bold',
                   }}
-                  itemStyle={{ color: '#ffffff' }}
+                  itemStyle={{ color: '#000000' }}
                 />
-                <Bar dataKey="amount" fill="#0c0a08" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="amount" fill="#ccff00" stroke="#000000" strokeWidth={2} />
               </BarChart>
             </ResponsiveContainer>
           </div>

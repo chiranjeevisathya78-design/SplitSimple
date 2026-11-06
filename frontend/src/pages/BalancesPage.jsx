@@ -8,6 +8,7 @@ import {
   TrendingDown,
   Users,
   Handshake,
+  Zap,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { groupService } from '../services';
@@ -57,8 +58,9 @@ export default function BalancesPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
+      <div className="flex items-center justify-center min-h-[60vh] font-mono font-bold">
+        <Loader2 className="w-6 h-6 animate-spin text-black mr-2" />
+        <span>CALCULATING NET BALANCES...</span>
       </div>
     );
   }
@@ -82,153 +84,178 @@ export default function BalancesPage() {
   return (
     <div className="space-y-8">
       {/* Editorial Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#e5e7eb]">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b-3 border-black">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
-            Multi-Group Ledger
+          <span className="px-2.5 py-0.5 bg-[#ccff00] text-black border-2 border-black rounded-[3px] font-mono text-[10px] font-bold uppercase tracking-wider mb-2 inline-block shadow-[2px_2px_0px_#000]">
+            NET ACCOUNTING
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-[40px] text-[#0c0a08] font-normal tracking-tight leading-tight">
-            Balances
+          <h1 className="text-3xl sm:text-5xl font-display font-black text-black tracking-tight uppercase leading-none">
+            MEMBER BALANCES
           </h1>
-          <p className="text-sm text-[#6d6c6b] mt-1 max-w-xl font-normal">
-            Real-time balance breakdown across every active group and individual member.
+          <p className="text-sm font-display text-neutral-700 mt-1 max-w-xl">
+            Real-time net standing across all your registered roommate & trip ledgers.
           </p>
         </div>
 
         <Link to="/settlements">
-          <Button variant="primary" icon={Handshake}>
-            Launch Smart Settlement
+          <Button variant="cyan" icon={Handshake}>
+            Launch Settlement Desk
           </Button>
         </Link>
       </div>
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-        {/* Featured Net Card in Inverted Obsidian */}
+      {/* Top Net Position Stat Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <StatCard
-          variant="dark"
-          label="Your Combined Net Balance"
-          value={`${netOverall >= 0 ? '+' : ''}${formatCurrency(Math.abs(netOverall))}`}
+          variant={netOverall >= 0 ? 'yellow' : 'pink'}
+          label="Your Net Portfolio Standing"
+          value={`${netOverall >= 0 ? '+' : '−'}${formatCurrency(Math.abs(netOverall))}`}
           subtext={
             netOverall > 0
-              ? 'You are net positive across all groups'
+              ? 'You are owed money across all workspaces'
               : netOverall < 0
-              ? 'You have pending repayment obligations'
-              : 'All groups completely balanced at ₹0.00'
+              ? 'You have unsettled debts to flatmates'
+              : 'All accounts settled at zero'
           }
-          badge={
-            netOverall > 0
-              ? 'Net Receivable'
-              : netOverall < 0
-              ? 'Net Payable'
-              : 'Settled'
-          }
+          icon={Scale}
         />
 
-        {/* Paper White: Total You Are Owed */}
         <StatCard
           variant="white"
-          label="Total You Are Owed"
+          label="Incoming to You"
           value={formatCurrency(totalYouAreOwed)}
-          subtext="Pending receivables from group mates"
+          subtext="Total amount others owe to your account"
           icon={TrendingUp}
         />
 
-        {/* Paper White: Total You Owe */}
         <StatCard
-          variant="wash"
-          label="Total You Owe"
+          variant="white"
+          label="Outgoing to Others"
           value={formatCurrency(totalYouOwe)}
-          subtext="Your pending repayment share across groups"
+          subtext="Total amount you owe across groups"
           icon={TrendingDown}
         />
       </div>
 
-      {/* Group-by-Group Balances */}
+      {/* Individual Group Breakdowns */}
       <div className="space-y-6">
-        {groups.map((group) => {
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-display font-black text-black uppercase">
+            Ledger By Workspace
+          </h2>
+          <span className="font-mono text-xs font-bold uppercase px-2.5 py-1 bg-black text-[#ccff00] rounded-[3px]">
+            {groups.length} ACTIVE GROUPS
+          </span>
+        </div>
+
+        {groups.map((group, idx) => {
           const balances = groupBalances[group._id] || [];
+          const colors = ['bg-[#ccff00]', 'bg-[#ff529a]', 'bg-[#00f0ff]', 'bg-[#ff8800]'];
+          const headerColor = colors[idx % colors.length];
+
           return (
             <div
               key={group._id}
-              className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6 transition-colors hover:border-[#0c0a08]"
+              className="bg-white border-3 border-black rounded-[4px] shadow-[6px_6px_0px_#000] overflow-hidden"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-[#e5e7eb] gap-3">
-                <div>
-                  <h3 className="text-xl font-normal text-[#0c0a08] tracking-tight">
-                    {group.name}
-                  </h3>
-                  <p className="text-xs text-[#6d6c6b] mt-0.5 font-normal">
-                    {group.description || `${group.members?.length || 0} participants`}
-                  </p>
+              {/* Group Header Strip */}
+              <div className={`p-4 sm:p-5 ${headerColor} border-b-3 border-black flex flex-wrap items-center justify-between gap-3`}>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-[3px] bg-black text-white flex items-center justify-center font-display font-black text-sm">
+                    {group.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h3 className="font-display font-black text-lg sm:text-xl text-black uppercase">
+                      {group.name}
+                    </h3>
+                    <p className="font-mono text-xs text-neutral-800">
+                      {group.description || `${group.members?.length || 0} participants`}
+                    </p>
+                  </div>
                 </div>
-                <Link
-                  to={`/settlements?groupId=${group._id}`}
-                  className="text-xs text-[#0c0a08] hover:underline flex items-center gap-1.5 font-normal"
-                >
-                  <span>Settle Group Debts</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+
+                <div className="flex items-center gap-3">
+                  <Link to={`/settlements?groupId=${group._id}`}>
+                    <Button size="sm" variant="white" icon={Handshake}>
+                      Settle Group
+                    </Button>
+                  </Link>
+                  <Link to={`/groups/${group._id}`}>
+                    <Button size="sm" variant="black" icon={ArrowRight}>
+                      View Ledger
+                    </Button>
+                  </Link>
+                </div>
               </div>
 
-              {balances.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                  {balances.map((b, idx) => {
-                    const name = b.user?.name || 'Member';
-                    const bal = b.balance;
-                    const isCreditor = bal > 0;
-                    const isDebtor = bal < 0;
+              {/* Members Balances List */}
+              <div className="p-5 sm:p-6 bg-[#fffdf8]">
+                {balances.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {balances.map((b) => {
+                      const memberName = b.user?.name || b.name || 'Member';
+                      const isCurrentUser =
+                        user &&
+                        (b.user?._id?.toString() === user._id?.toString() ||
+                          b.userId?.toString() === user._id?.toString());
+                      const isPositive = b.balance > 0;
+                      const isNegative = b.balance < 0;
 
-                    return (
-                      <div
-                        key={idx}
-                        className={`p-3.5 rounded-[10px] border flex items-center justify-between transition-colors ${
-                          isDebtor
-                            ? 'bg-[#f4f2f0] border-[#e5e7eb]'
-                            : isCreditor
-                            ? 'bg-white border-[#e5e7eb]'
-                            : 'bg-white border-[#e5e7eb]'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <MemberAvatar name={name} size="sm" />
-                          <div>
-                            <p className="text-sm font-normal text-[#0c0a08]">{name}</p>
+                      return (
+                        <div
+                          key={b.user?._id || b.userId || memberName}
+                          className={`p-4 border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000] flex items-center justify-between gap-3 ${
+                            isCurrentUser ? 'bg-[#faf7ee]' : 'bg-white'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <MemberAvatar name={memberName} size="md" />
+                            <div className="min-w-0">
+                              <p className="font-display font-bold text-sm text-black truncate uppercase">
+                                {memberName} {isCurrentUser && '(YOU)'}
+                              </p>
+                              <span
+                                className={`inline-block font-mono text-[9px] font-bold uppercase px-1.5 py-0.2 rounded-[2px] border border-black ${
+                                  isPositive
+                                    ? 'bg-[#00c853] text-black'
+                                    : isNegative
+                                    ? 'bg-[#ff3b30] text-white'
+                                    : 'bg-neutral-200 text-black'
+                                }`}
+                              >
+                                {isPositive
+                                  ? 'CREDITOR'
+                                  : isNegative
+                                  ? 'DEBTOR'
+                                  : 'SETTLED'}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="text-right shrink-0 font-mono">
                             <span
-                              className={`inline-block text-[10px] uppercase tracking-[0.018em] font-normal ${
-                                isCreditor
-                                  ? 'text-[#0c0a08]'
-                                  : isDebtor
-                                  ? 'text-[#b91c1c]'
-                                  : 'text-[#6d6c6b]'
+                              className={`text-base font-bold ${
+                                isPositive
+                                  ? 'text-[#00c853]'
+                                  : isNegative
+                                  ? 'text-[#ff3b30]'
+                                  : 'text-black'
                               }`}
                             >
-                              {isCreditor ? 'Receives' : isDebtor ? 'Owes' : 'Settled'}
+                              {isPositive ? '+' : ''}
+                              {formatCurrency(b.balance)}
                             </span>
                           </div>
                         </div>
-
-                        <div
-                          className={`text-sm font-normal ${
-                            isCreditor
-                              ? 'text-[#0c0a08]'
-                              : isDebtor
-                              ? 'text-[#b91c1c]'
-                              : 'text-[#6d6c6b]'
-                          }`}
-                        >
-                          {bal > 0 ? '+' : ''}
-                          {formatCurrency(bal)}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <p className="text-xs text-[#6d6c6b] py-3 font-normal">
-                  No active expenses recorded in this group yet.
-                </p>
-              )}
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="py-6 text-center font-mono text-xs uppercase text-neutral-500">
+                    No active balances recorded for this workspace.
+                  </div>
+                )}
+              </div>
             </div>
           );
         })}

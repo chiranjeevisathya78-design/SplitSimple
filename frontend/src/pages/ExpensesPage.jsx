@@ -102,52 +102,52 @@ export default function ExpensesPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-[#e5e7eb]">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b-3 border-black">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] block mb-1">
-            Transaction Ledger
+          <span className="px-2.5 py-0.5 bg-[#00f0ff] text-black border-2 border-black rounded-[3px] font-mono text-[10px] font-bold uppercase tracking-wider mb-2 inline-block shadow-[2px_2px_0px_#000]">
+            TRANSACTION LOG
           </span>
-          <h1 className="text-3xl sm:text-4xl font-normal text-[#0c0a08] tracking-tight">
-            Expense Records
+          <h1 className="text-3xl sm:text-5xl font-display font-black text-black tracking-tight uppercase leading-none">
+            EXPENSE LEDGER
           </h1>
-          <p className="text-xs sm:text-sm text-[#6d6c6b] mt-1 max-w-xl">
-            Detailed ledger of all shared costs, categories, and participant shares.
+          <p className="text-sm font-display text-neutral-700 mt-1 max-w-xl">
+            Detailed record of all shared costs, categories, and participant shares.
           </p>
         </div>
 
         <Link to="/expenses/new">
-          <Button variant="primary" size="md" icon={Plus}>
+          <Button variant="yellow" icon={Plus}>
             Record Expense
           </Button>
         </Link>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-4 flex flex-col md:flex-row gap-3 items-center justify-between">
-        <form onSubmit={handleSearchSubmit} className="w-full md:w-80 relative">
-          <Search className="w-4 h-4 text-[#6d6c6b] absolute left-3.5 top-1/2 -translate-y-1/2" />
+      <div className="bg-white border-3 border-black rounded-[4px] p-4 sm:p-5 shadow-[5px_5px_0px_#000] flex flex-col md:flex-row gap-4 items-center justify-between">
+        <form onSubmit={handleSearchSubmit} className="w-full md:w-80 relative font-mono">
+          <Search className="w-4 h-4 text-black absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search by title..."
+            placeholder="SEARCH BY TITLE..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            className="w-full bg-[#f4f2f0] text-xs text-[#0c0a08] placeholder-[#6d6c6b] rounded-[10px] border border-[#e5e7eb] pl-10 pr-4 py-2.5 focus:outline-none focus:border-[#0c0a08]"
+            className="w-full bg-[#faf7ee] text-xs sm:text-sm text-black placeholder-neutral-500 rounded-[4px] border-2 border-black pl-10 pr-4 py-2.5 shadow-[2px_2px_0px_#000] focus:outline-none focus:shadow-[4px_4px_0px_#000] focus:bg-white uppercase font-bold"
           />
         </form>
 
-        <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto font-mono text-xs">
           {/* Group Filter */}
           <select
             value={groupParam}
             onChange={(e) => updateFilter('groupId', e.target.value)}
-            className="bg-[#f4f2f0] text-xs text-[#0c0a08] rounded-[6px] border border-[#e5e7eb] px-3 py-2 focus:outline-none focus:border-[#0c0a08]"
+            className="bg-[#faf7ee] text-xs font-bold uppercase text-black rounded-[4px] border-2 border-black px-3.5 py-2.5 shadow-[2px_2px_0px_#000] focus:outline-none focus:shadow-[4px_4px_0px_#000] cursor-pointer"
           >
-            <option value="">All Groups</option>
+            <option value="">ALL GROUPS</option>
             {groups.map((g) => (
               <option key={g._id} value={g._id}>
-                {g.name}
+                {g.name.toUpperCase()}
               </option>
             ))}
           </select>
@@ -156,12 +156,12 @@ export default function ExpensesPage() {
           <select
             value={categoryParam}
             onChange={(e) => updateFilter('category', e.target.value)}
-            className="bg-[#f4f2f0] text-xs text-[#0c0a08] rounded-[6px] border border-[#e5e7eb] px-3 py-2 focus:outline-none focus:border-[#0c0a08]"
+            className="bg-[#faf7ee] text-xs font-bold uppercase text-black rounded-[4px] border-2 border-black px-3.5 py-2.5 shadow-[2px_2px_0px_#000] focus:outline-none focus:shadow-[4px_4px_0px_#000] cursor-pointer"
           >
-            <option value="">All Categories</option>
+            <option value="">ALL CATEGORIES</option>
             {Object.entries(CATEGORIES).map(([key, cat]) => (
               <option key={key} value={key}>
-                {cat.label}
+                {cat.label.toUpperCase()}
               </option>
             ))}
           </select>
@@ -172,22 +172,23 @@ export default function ExpensesPage() {
                 setSearchInput('');
                 setSearchParams({});
               }}
-              className="text-xs text-[#6d6c6b] hover:text-[#0c0a08] underline px-2"
+              className="text-xs font-mono font-bold uppercase text-[#ff3b30] hover:underline px-2 cursor-pointer"
             >
-              Reset
+              [CLEAR FILTERS]
             </button>
           )}
         </div>
       </div>
 
       {/* Expense List Card */}
-      <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
+      <div className="bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000]">
         {loading ? (
-          <div className="flex items-center justify-center py-16">
-            <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
+          <div className="flex items-center justify-center py-20 font-mono text-sm font-bold">
+            <Loader2 className="w-6 h-6 animate-spin text-black mr-2" />
+            <span>LOADING EXPENSES...</span>
           </div>
         ) : expenses.length > 0 ? (
-          <div className="divide-y divide-[#e5e7eb]">
+          <div className="divide-y-2 divide-black">
             {expenses.map((expense) => {
               const groupName =
                 expense.groupId?.name || expense.group?.name || 'Group';
@@ -197,32 +198,34 @@ export default function ExpensesPage() {
               return (
                 <div
                   key={expense._id}
-                  className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:bg-[#f4f2f0]/60 px-3 rounded-[10px]"
+                  className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#fffef7] px-3 rounded-[2px] transition-colors"
                 >
                   <div className="flex items-center gap-3.5 min-w-0">
                     <MemberAvatar name={payerName} size="md" />
                     <div className="min-w-0">
-                      <p className="text-sm font-normal text-[#0c0a08] truncate">
+                      <p className="text-base font-display font-bold text-black truncate uppercase">
                         {expense.title}
                       </p>
-                      <div className="flex flex-wrap items-center gap-2 mt-0.5 text-xs text-[#6d6c6b]">
-                        <span className="text-[#0c0a08]">{groupName}</span>
+                      <div className="flex flex-wrap items-center gap-2 mt-0.5 font-mono text-xs text-neutral-600">
+                        <span className="font-bold text-black">{groupName}</span>
                         <span>·</span>
                         <span>Paid by {payerName}</span>
                         <span>·</span>
                         <span>{formatDate(expense.date || expense.createdAt)}</span>
                         <span>·</span>
-                        <span className="capitalize">{expense.category || 'other'}</span>
+                        <span className="px-1.5 py-0.2 bg-[#ccff00] border border-black font-bold text-[9px] uppercase rounded-[2px]">
+                          {expense.category || 'general'}
+                        </span>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between sm:justify-end gap-5 shrink-0">
                     <div className="text-right">
-                      <p className="text-base sm:text-lg font-normal text-[#0c0a08]">
+                      <p className="font-mono text-lg font-bold text-black">
                         {formatCurrency(expense.amount)}
                       </p>
-                      <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
+                      <span className="font-mono text-[10px] font-bold uppercase text-neutral-500">
                         {expense.splitType || 'Equal'} ({expense.participants?.length || 0})
                       </span>
                     </div>
@@ -231,7 +234,7 @@ export default function ExpensesPage() {
                       onClick={() => handleDeleteExpense(expense._id)}
                       disabled={isDeleting}
                       title="Delete expense"
-                      className="p-2 text-[#6d6c6b] hover:text-rose-600 hover:bg-rose-50 rounded-[6px] transition"
+                      className="p-2 bg-white text-black hover:bg-[#ff3b30] hover:text-white border-2 border-black rounded-[4px] shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition cursor-pointer"
                     >
                       {isDeleting ? (
                         <Loader2 className="w-4 h-4 animate-spin" />
@@ -245,37 +248,42 @@ export default function ExpensesPage() {
             })}
           </div>
         ) : (
-          <div className="py-16 text-center text-[#6d6c6b]">
-            <Receipt className="w-8 h-8 mx-auto mb-3 text-[#6d6c6b]" />
-            <p className="text-xl font-normal text-[#0c0a08]">
-              No expenses recorded
+          <div className="py-16 text-center font-mono">
+            <Receipt className="w-10 h-10 mx-auto mb-3 text-neutral-400" />
+            <p className="text-xl font-display font-black text-black uppercase">
+              No Expenses Recorded
             </p>
-            <p className="text-xs text-[#6d6c6b] mt-1 max-w-sm mx-auto">
+            <p className="text-xs text-neutral-600 mt-1 max-w-sm mx-auto mb-6">
               {searchParam || categoryParam || groupParam
                 ? 'Try adjusting your search or filters to see more results.'
                 : 'Get started by creating your first group expense.'}
             </p>
+            <Link to="/expenses/new">
+              <Button variant="yellow" icon={Plus}>
+                Record First Expense
+              </Button>
+            </Link>
           </div>
         )}
 
         {/* Pagination controls */}
         {totalPages > 1 && (
-          <div className="pt-5 mt-5 border-t border-[#e5e7eb] flex items-center justify-between text-xs text-[#6d6c6b]">
+          <div className="pt-6 mt-6 border-t-2 border-black flex items-center justify-between font-mono text-xs font-bold uppercase">
             <span>
               Page {pageParam} of {totalPages}
             </span>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <button
                 disabled={pageParam <= 1}
                 onClick={() => updateFilter('page', (pageParam - 1).toString())}
-                className="p-1.5 rounded-[6px] border border-[#e5e7eb] hover:bg-[#f4f2f0] disabled:opacity-40"
+                className="p-2 border-2 border-black bg-white hover:bg-[#ccff00] rounded-[4px] shadow-[2px_2px_0px_#000] disabled:opacity-40 cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 disabled={pageParam >= totalPages}
                 onClick={() => updateFilter('page', (pageParam + 1).toString())}
-                className="p-1.5 rounded-[6px] border border-[#e5e7eb] hover:bg-[#f4f2f0] disabled:opacity-40"
+                className="p-2 border-2 border-black bg-white hover:bg-[#ccff00] rounded-[4px] shadow-[2px_2px_0px_#000] disabled:opacity-40 cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>

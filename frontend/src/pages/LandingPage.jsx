@@ -7,25 +7,22 @@ import {
   Scale,
   Sparkles,
   Check,
-  ShieldCheck,
   Zap,
   Users,
   PieChart,
   ArrowUpRight,
-  Wallet,
-  CheckCircle2,
-  Lock,
-  Layers,
   ChevronRight,
   Menu,
   X,
   CreditCard,
   Handshake,
-  TrendingDown,
   Repeat,
   DollarSign,
-  Smartphone,
-  Eye,
+  Smile,
+  Flame,
+  Award,
+  CircleDot,
+  CheckCircle2,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -36,20 +33,15 @@ const PREVIEW_DATA = {
   bangalore: {
     id: 'bangalore',
     name: 'Bangalore Roommates',
-    badge: 'Indiranagar 3BHK',
+    badge: 'INDIRANAGAR 3BHK',
     desc: 'Monthly rent, cook, utilities, and daily provisions',
-    members: [
-      { name: 'Chiranjeevi S', role: 'Primary Payer', paid: 4000000 },
-      { name: 'Gagan K', role: 'Groceries', paid: 480000 },
-      { name: 'Pranav M', role: 'Electricity', paid: 220000 },
-      { name: 'Chandan R', role: 'Fiber Net', paid: 141500 },
-    ],
+    folderColor: 'bg-[#ccff00]',
     totalSpent: 4841500,
     expenses: [
-      { title: 'Monthly House Rent', amount: 4000000, paidBy: 'Chiranjeevi S', category: 'Rent', date: 'Nov 1' },
-      { title: 'Nature Basket Groceries', amount: 480000, paidBy: 'Gagan K', category: 'Groceries', date: 'Nov 2' },
-      { title: 'BESCOM Electricity Bill', amount: 220000, paidBy: 'Pranav M', category: 'Utilities', date: 'Nov 3' },
-      { title: 'Airtel Xstream Fiber', amount: 141500, paidBy: 'Chandan R', category: 'Utilities', date: 'Nov 4' },
+      { title: 'Monthly House Rent', amount: 4000000, paidBy: 'Chiranjeevi S', category: 'Rent', date: '01 NOV' },
+      { title: 'Nature Basket Groceries', amount: 480000, paidBy: 'Gagan K', category: 'Groceries', date: '02 NOV' },
+      { title: 'BESCOM Electricity Bill', amount: 220000, paidBy: 'Pranav M', category: 'Utilities', date: '03 NOV' },
+      { title: 'Airtel Xstream Fiber', amount: 141500, paidBy: 'Chandan R', category: 'Utilities', date: '04 NOV' },
     ],
     settlementPlan: [
       { from: 'Chandan R', to: 'Chiranjeevi S', amount: 1068875 },
@@ -63,21 +55,15 @@ const PREVIEW_DATA = {
   goa: {
     id: 'goa',
     name: 'Goa Trip 2026',
-    badge: 'Vacation Tab',
+    badge: 'BEACH VILLA TAB',
     desc: 'Beach villa, scooter rentals, dining, and scuba expeditions',
-    members: [
-      { name: 'Chiranjeevi S', role: 'Dining', paid: 980000 },
-      { name: 'Gagan K', role: 'Villa Booking', paid: 4500000 },
-      { name: 'Pranav M', role: 'Beverages', paid: 450000 },
-      { name: 'Chandan R', role: 'Scooters', paid: 750000 },
-      { name: 'Rahul V', role: 'Scuba Diving', paid: 1500000 },
-    ],
+    folderColor: 'bg-[#ff529a]',
     totalSpent: 8180000,
     expenses: [
-      { title: 'Beachfront Villa (3 Nights)', amount: 4500000, paidBy: 'Gagan K', category: 'Stay', date: 'Oct 28' },
-      { title: 'Activa Rentals (5 Scooters)', amount: 750000, paidBy: 'Chandan R', category: 'Transport', date: 'Oct 29' },
-      { title: 'Scuba Diving Expeditions', amount: 1500000, paidBy: 'Rahul V', category: 'Activity', date: 'Oct 30' },
-      { title: 'Fisherman’s Wharf Feast', amount: 980000, paidBy: 'Chiranjeevi S', category: 'Dining', date: 'Oct 31' },
+      { title: 'Beachfront Villa (3 Nights)', amount: 4500000, paidBy: 'Gagan K', category: 'Stay', date: '28 OCT' },
+      { title: 'Activa Rentals (5 Scooters)', amount: 750000, paidBy: 'Chandan R', category: 'Transport', date: '29 OCT' },
+      { title: 'Scuba Diving Expeditions', amount: 1500000, paidBy: 'Rahul V', category: 'Activity', date: '30 OCT' },
+      { title: 'Fisherman’s Wharf Feast', amount: 980000, paidBy: 'Chiranjeevi S', category: 'Dining', date: '31 OCT' },
     ],
     settlementPlan: [
       { from: 'Pranav M', to: 'Gagan K', amount: 1186000 },
@@ -92,20 +78,15 @@ const PREVIEW_DATA = {
   college: {
     id: 'college',
     name: 'College Friends',
-    badge: 'Weekend Group',
+    badge: 'WEEKEND TAB',
     desc: 'IMAX movies, burgers, turf football, and cafe catchups',
-    members: [
-      { name: 'Chiranjeevi S', role: 'Third Wave', paid: 180000 },
-      { name: 'Pranav M', role: 'IMAX Tickets', paid: 280000 },
-      { name: 'Chandan R', role: 'Truffles Burgers', paid: 360000 },
-      { name: 'Rahul V', role: 'Turf Football', paid: 240000 },
-    ],
+    folderColor: 'bg-[#00f0ff]',
     totalSpent: 1060000,
     expenses: [
-      { title: 'Dune IMAX 3D Recliner', amount: 280000, paidBy: 'Pranav M', category: 'Entertainment', date: 'Nov 2' },
-      { title: 'Truffles Burgers & Shakes', amount: 360000, paidBy: 'Chandan R', category: 'Food', date: 'Nov 3' },
-      { title: 'Play Arena Night Turf', amount: 240000, paidBy: 'Rahul V', category: 'Sports', date: 'Nov 3' },
-      { title: 'Third Wave Coffee Catchup', amount: 180000, paidBy: 'Chiranjeevi S', category: 'Cafe', date: 'Nov 4' },
+      { title: 'Dune IMAX 3D Recliner', amount: 280000, paidBy: 'Pranav M', category: 'Movies', date: '02 NOV' },
+      { title: 'Truffles Burgers & Shakes', amount: 360000, paidBy: 'Chandan R', category: 'Dining', date: '03 NOV' },
+      { title: 'Play Arena Night Turf', amount: 240000, paidBy: 'Rahul V', category: 'Sports', date: '03 NOV' },
+      { title: 'Third Wave Coffee Catchup', amount: 180000, paidBy: 'Chiranjeevi S', category: 'Cafe', date: '04 NOV' },
     ],
     settlementPlan: [
       { from: 'Chiranjeevi S', to: 'Chandan R', amount: 85000 },
@@ -132,7 +113,18 @@ export default function LandingPage() {
     setLoadingDemo(true);
     try {
       await login('chiranjeevi@example.com', 'password123');
-      toast.success('Signed in to SplitSimple Demo Workspace');
+      toast.success('★ Entered Demo Workspace!', {
+        icon: '⚡',
+        style: {
+          border: '2px solid black',
+          borderRadius: '4px',
+          boxShadow: '4px 4px 0px #000',
+          background: '#ccff00',
+          color: '#000',
+          fontWeight: 'bold',
+          fontFamily: 'Space Grotesk, sans-serif',
+        },
+      });
       navigate('/dashboard');
     } catch {
       toast.error('Directing to login desk...');
@@ -148,13 +140,16 @@ export default function LandingPage() {
     setSettledRows((prev) => {
       const current = prev[`${activeTab}-${idx}`];
       if (!current) {
-        toast.success('Repayment marked as settled via UPI', {
-          icon: '⚡',
+        toast.success('Repayment marked as SETTLED via UPI!', {
+          icon: '✓',
           style: {
-            borderRadius: '6px',
-            background: '#0c0a08',
-            color: '#fff',
-            fontSize: '12px',
+            border: '2px solid black',
+            borderRadius: '4px',
+            boxShadow: '4px 4px 0px #000',
+            background: '#00f0ff',
+            color: '#000',
+            fontWeight: 'bold',
+            fontFamily: 'Space Mono, monospace',
           },
         });
       }
@@ -166,68 +161,63 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f2f0] text-[#0c0a08] overflow-x-hidden selection:bg-[#e4f222] selection:text-[#0c0a08] antialiased">
+    <div className="min-h-screen bg-[#faf7ee] text-black overflow-x-hidden selection:bg-[#ccff00] selection:text-black antialiased">
       {/* 
-        1. Top Announcement Bar
-        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+        1. SURREAL BRUTALIST TICKER BANNER
       */}
-      <div className="h-9 min-h-[36px] bg-[#0c0a08] text-white border-b border-white/10 text-xs font-normal">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e4f222] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e4f222]" />
-            </span>
-            <span className="text-[11px] sm:text-xs text-white/90">
-              Greedy Settlement Algorithm eliminates up to 75% of circular group transfers
-            </span>
-            <span className="hidden sm:inline text-white/30">|</span>
-            <a
-              href="#algorithm"
-              className="text-[#e4f222] hover:underline hidden sm:inline text-xs transition-colors"
-            >
-              See how it works →
-            </a>
-          </div>
-          <span className="text-[10px] uppercase tracking-wider text-white/50 hidden md:inline">
-            Paise-Precision Ledger v2.4
+      <div className="bg-black text-white border-b-2 border-black py-1.5 overflow-hidden select-none">
+        <div className="flex items-center gap-8 text-xs font-mono font-bold tracking-widest animate-marquee whitespace-nowrap">
+          <span className="flex items-center gap-1.5 text-[#ccff00]">
+            <Sparkles className="w-4 h-4" /> SPLITSIMPLE NEO-BRUTALIST EDITION
           </span>
+          <span className="text-[#ff529a]">★</span>
+          <span className="text-[#00f0ff]">COLLAPSE 10 IOUs INTO 2 DIRECT PAYMENTS</span>
+          <span className="text-[#ccff00]">★</span>
+          <span className="text-[#ff8800]">100% INTEGER PAISE ACCURACY (0.00% DRIFT)</span>
+          <span className="text-[#ff529a]">★</span>
+          <span className="text-white">NO FLOATING-POINT ERRORS</span>
+          <span className="text-[#00f0ff]">★</span>
+          <span className="text-[#ccff00]">GREEDY GRAPH OPTIMIZER ACTIVATED</span>
         </div>
       </div>
 
       {/* 
-        2. Sticky Glass Header
-        Explicit 64px height with flex alignment
+        2. STICKY NEO-BRUTALIST HEADER
       */}
-      <header className="sticky top-0 z-50 bg-[#ffffff]/95 backdrop-blur-md border-b border-[#e5e7eb] transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 min-h-[64px] flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-[#fffdf8] border-b-3 border-black shadow-[0_4px_0_#000000]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-7 h-7 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-bold text-sm shadow-xs group-hover:scale-105 transition-transform shrink-0">
+            <div className="w-8 h-8 rounded-[4px] bg-[#ccff00] text-black border-2 border-black flex items-center justify-center font-display font-black text-base shadow-[2px_2px_0px_#000000] group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[4px_4px_0px_#000000] transition-all">
               S
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-semibold tracking-tight text-[#0c0a08] leading-none">
-                SplitSimple
-              </span>
-              <span className="text-[9px] uppercase tracking-wider text-[#6d6c6b] mt-0.5 leading-none">
-                Expense Desk
+              <div className="flex items-center gap-1.5">
+                <span className="text-lg font-display font-extrabold tracking-tight text-black leading-none">
+                  SplitSimple
+                </span>
+                <span className="px-1.5 py-0.2 bg-[#ff529a] text-white text-[9px] font-mono font-bold uppercase rounded-[2px] border border-black shadow-[1px_1px_0px_#000000]">
+                  v2.4
+                </span>
+              </div>
+              <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-neutral-600 mt-0.5">
+                Surreal Expense Desk
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-sm text-[#6d6c6b]">
-            <a href="#simulator" className="hover:text-[#0c0a08] transition-colors">
+          <nav className="hidden md:flex items-center gap-7 text-xs font-mono font-bold uppercase tracking-wider">
+            <a href="#simulator" className="text-black hover:text-[#ff529a] transition-colors">
               Interactive Demo
             </a>
-            <a href="#algorithm" className="hover:text-[#0c0a08] transition-colors">
+            <a href="#engine" className="text-black hover:text-[#00f0ff] transition-colors">
               Debt Engine
             </a>
-            <a href="#features" className="hover:text-[#0c0a08] transition-colors">
+            <a href="#features" className="text-black hover:text-[#ff8800] transition-colors">
               Features
             </a>
-            <a href="#faq" className="hover:text-[#0c0a08] transition-colors">
+            <a href="#faq" className="text-black hover:text-[#b388ff] transition-colors">
               FAQ
             </a>
           </nav>
@@ -236,14 +226,14 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to="/login"
-              className="px-3.5 py-1.5 text-xs text-[#0c0a08] rounded-[6px] hover:bg-[#f4f2f0] transition-colors font-medium"
+              className="px-4 py-2 font-display text-xs font-bold uppercase tracking-wider text-black bg-white hover:bg-[#faf7ee] border-2 border-black rounded-[4px] shadow-[2px_2px_0px_#000000] hover:shadow-[3px_3px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
             >
               Sign In
             </Link>
             <button
               onClick={handleExploreDemo}
               disabled={loadingDemo}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider bg-[#e4f222] text-[#0c0a08] rounded-[6px] hover:bg-[#d6e41b] active:scale-[0.98] transition-all shadow-xs shrink-0"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-display font-bold uppercase tracking-wider bg-[#ccff00] text-black border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000000] hover:shadow-[5px_5px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000000] transition-all cursor-pointer"
             >
               {loadingDemo ? (
                 <>Connecting...</>
@@ -258,7 +248,7 @@ export default function LandingPage() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-[6px] text-[#0c0a08] hover:bg-[#f4f2f0]"
+            className="md:hidden p-2 bg-[#ccff00] text-black border-2 border-black rounded-[4px] shadow-[2px_2px_0px_#000000]"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -272,43 +262,43 @@ export default function LandingPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white border-b border-[#e5e7eb] px-4 sm:px-6 py-4 space-y-3"
+              className="md:hidden bg-[#fffdf8] border-t-2 border-black px-4 py-4 space-y-3"
             >
               <a
                 href="#simulator"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm text-[#6d6c6b] hover:text-[#0c0a08]"
+                className="block font-mono text-xs font-bold uppercase text-black"
               >
                 Interactive Demo
               </a>
               <a
-                href="#algorithm"
+                href="#engine"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm text-[#6d6c6b] hover:text-[#0c0a08]"
+                className="block font-mono text-xs font-bold uppercase text-black"
               >
                 Debt Engine
               </a>
               <a
                 href="#features"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm text-[#6d6c6b] hover:text-[#0c0a08]"
+                className="block font-mono text-xs font-bold uppercase text-black"
               >
                 Features
               </a>
-              <div className="pt-3 border-t border-[#e5e7eb] flex flex-col gap-2">
+              <div className="pt-3 border-t-2 border-black flex flex-col gap-2">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     handleExploreDemo();
                   }}
-                  className="w-full py-2.5 text-xs font-semibold uppercase tracking-wider bg-[#e4f222] text-[#0c0a08] rounded-[6px] text-center"
+                  className="w-full py-2.5 font-display text-xs font-bold uppercase bg-[#ccff00] text-black border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000000]"
                 >
                   Explore Demo Workspace
                 </button>
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-2.5 text-xs font-medium text-center text-[#0c0a08] border border-[#e5e7eb] rounded-[6px] hover:bg-[#f4f2f0]"
+                  className="w-full py-2.5 font-display text-xs font-bold uppercase text-center bg-white border-2 border-black rounded-[4px] shadow-[2px_2px_0px_#000000]"
                 >
                   Sign In
                 </Link>
@@ -319,146 +309,143 @@ export default function LandingPage() {
       </header>
 
       {/* 
-        3. Hero Section
-        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+        3. HERO SECTION (NEO-BRUTALISM + SURREAL ART)
       */}
-      <section className="relative pt-16 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
-        {/* Subtle grid pattern background */}
-        <div
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{
-            backgroundImage: `radial-gradient(#0c0a08 1px, transparent 1px)`,
-            backgroundSize: '24px 24px',
-          }}
-        />
+      <section className="relative pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
+        {/* Floating Surreal Doodles */}
+        <div className="absolute top-10 left-6 sm:left-16 pointer-events-none opacity-80 animate-surreal-float">
+          <div className="w-14 h-14 rounded-full bg-[#ff529a] border-3 border-black shadow-[4px_4px_0px_#000000] flex items-center justify-center font-display font-black text-xl text-white rotate-12">
+            ₹
+          </div>
+        </div>
+        <div className="absolute top-24 right-8 sm:right-24 pointer-events-none opacity-80 animate-surreal-float" style={{ animationDelay: '1.5s' }}>
+          <div className="px-3 py-1 bg-[#00f0ff] border-2 border-black shadow-[3px_3px_0px_#000000] font-mono font-bold text-xs -rotate-6">
+            ★ PAISE ACCURATE
+          </div>
+        </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Centered Hero Content */}
-          <div className="max-w-3xl mx-auto text-center">
-            {/* Badge */}
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            {/* Top Badge */}
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] bg-white border border-[#e5e7eb] text-xs text-[#0c0a08] shadow-xs mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] bg-[#ccff00] border-2 border-black shadow-[3px_3px_0px_#000000] text-xs font-mono font-bold uppercase tracking-wider"
             >
-              <span className="w-2 h-2 rounded-full bg-[#e4f222]" />
-              <span className="text-[11px] uppercase tracking-wider font-medium text-[#6d6c6b]">
-                Editorial Group Expense Desk
-              </span>
-              <span className="text-xs text-[#e5e7eb]">|</span>
-              <span className="text-[11px] font-medium text-[#0c0a08] flex items-center gap-1">
-                Zero paise rounding error <Sparkles className="w-3 h-3 text-[#0c0a08]" />
-              </span>
+              <Zap className="w-3.5 h-3.5 text-black fill-black" />
+              <span>NEO-BRUTALIST EXPENSE DESK</span>
+              <span className="text-black/40">|</span>
+              <span className="text-[#ff529a] font-black">ZERO ROUNDING DRIFT</span>
             </motion.div>
 
             {/* Main Headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-6xl lg:text-[68px] font-medium tracking-tight text-[#0c0a08] leading-[1.08]"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-4xl sm:text-6xl lg:text-[76px] font-display font-black tracking-tight leading-[1.02] uppercase text-black"
             >
-              Shared expenses. <br />
+              SHARED EXPENSES.{' '}
               <span className="relative inline-block mt-1">
-                <span className="relative z-10">Zero awkward math.</span>
-                <span className="absolute bottom-1 left-0 right-0 h-3 sm:h-4 bg-[#e4f222] -z-0 rounded-xs" />
+                <span className="relative z-10 px-3 bg-[#ccff00] border-3 border-black shadow-[5px_5px_0px_#000000] -rotate-1 inline-block">
+                  ZERO AWKWARD MATH.
+                </span>
               </span>
             </motion.h1>
 
             {/* Subtitle */}
             <motion.p
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-6 text-base sm:text-xl text-[#6d6c6b] max-w-2xl mx-auto leading-relaxed"
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-base sm:text-xl font-display font-medium text-neutral-800 max-w-2xl mx-auto leading-relaxed pt-2"
             >
-              Track roommates, travel tabs, and group dinners with integer precision.
-              Our greedy settlement engine calculates global net balances and collapses
-              circular debt into minimal single-hop payments.
+              Track flatmates, travel tabs, and group dinners on a surreal tactile ledger.
+              The greedy debt engine collapses messy circular debts into minimal 1-hop UPI transfers.
             </motion.p>
 
-            {/* Dual Action Buttons */}
+            {/* Action Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5"
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <button
                 onClick={handleExploreDemo}
                 disabled={loadingDemo}
-                className="w-full sm:w-auto px-7 py-3.5 bg-[#e4f222] hover:bg-[#d9e81b] active:scale-[0.98] text-[#0c0a08] font-semibold text-xs sm:text-sm uppercase tracking-wider rounded-[6px] transition-all flex items-center justify-center gap-2 shadow-xs"
+                className="w-full sm:w-auto px-8 py-4 bg-[#ccff00] hover:bg-[#bbf000] active:translate-x-1 active:translate-y-1 active:shadow-[1px_1px_0px_#000000] text-black font-display font-black text-sm uppercase tracking-wider border-3 border-black rounded-[4px] shadow-[5px_5px_0px_#000000] hover:shadow-[7px_7px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 {loadingDemo ? (
-                  <>Opening Workspace...</>
+                  <>Entering Workspace...</>
                 ) : (
                   <>
-                    Explore Live Demo Workspace <ArrowRight className="w-4 h-4" />
+                    Explore Live Demo Workspace <ArrowRight className="w-5 h-5" />
                   </>
                 )}
               </button>
 
               <Link to="/register" className="w-full sm:w-auto">
-                <button className="w-full px-6 py-3.5 bg-white hover:bg-[#f9f8f6] text-[#0c0a08] border border-[#e5e7eb] font-medium text-xs sm:text-sm rounded-[6px] transition-all flex items-center justify-center gap-2 shadow-xs">
+                <button className="w-full px-8 py-4 bg-[#ff529a] hover:bg-[#f03f89] active:translate-x-1 active:translate-y-1 text-white font-display font-black text-sm uppercase tracking-wider border-3 border-black rounded-[4px] shadow-[5px_5px_0px_#000000] hover:shadow-[7px_7px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer">
                   Create Free Account
                 </button>
               </Link>
             </motion.div>
 
-            {/* Trust points */}
+            {/* Stickers / Trust Strip */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#6d6c6b]"
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="pt-4 flex flex-wrap items-center justify-center gap-3 text-xs font-mono font-bold"
             >
-              <span className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-[#0c0a08]" /> Preloaded with 3 demo groups
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-[#0c0a08]" /> 22 realistic expenses
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-[#0c0a08]" /> Instant UPI mark & settle
-              </span>
+              <div className="px-3 py-1 bg-white border-2 border-black rounded-[3px] shadow-[2px_2px_0px_#000000] flex items-center gap-1.5 rotate-1">
+                <Check className="w-4 h-4 text-[#00c853]" /> 3 PRELOADED GROUPS
+              </div>
+              <div className="px-3 py-1 bg-[#00f0ff] border-2 border-black rounded-[3px] shadow-[2px_2px_0px_#000000] flex items-center gap-1.5 -rotate-1">
+                <Check className="w-4 h-4 text-black" /> 22 REAL EXPENSES
+              </div>
+              <div className="px-3 py-1 bg-[#ffb703] border-2 border-black rounded-[3px] shadow-[2px_2px_0px_#000000] flex items-center gap-1.5 rotate-2">
+                <Check className="w-4 h-4 text-black" /> 1-CLICK UPI SETTLE
+              </div>
             </motion.div>
           </div>
 
           {/* 
-            Interactive Live Simulator Mockup 
-            Fills the 7xl container with exact alignment
+            4. TACTILE INTERACTIVE WORKSPACE DESK (MOCKUP)
           */}
           <motion.div
             id="simulator"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.6 }}
             className="w-full mt-14"
           >
-            <div className="bg-white rounded-[16px] border border-[#e5e7eb] shadow-xs overflow-hidden">
-              {/* Top Chrome Header */}
-              <div className="bg-[#ffffff] border-b border-[#e5e7eb] px-5 py-3.5 flex flex-wrap items-center justify-between gap-3">
+            {/* The Outer Paper Desk Container */}
+            <div className="bg-[#ffffff] border-3 sm:border-4 border-black rounded-[6px] shadow-[8px_8px_0px_#000000] overflow-hidden">
+              {/* Desk Chrome Header */}
+              <div className="bg-[#fffdf8] border-b-3 border-black px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#e5e7eb]" />
-                  <span className="text-[11px] font-mono text-[#6d6c6b] ml-2">
-                    splitsimple.app/workspace/{activeTab}
+                  <div className="w-3.5 h-3.5 rounded-full bg-[#ff3b30] border border-black shadow-[1px_1px_0px_#000]" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-[#ffcc00] border border-black shadow-[1px_1px_0px_#000]" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-[#00c853] border border-black shadow-[1px_1px_0px_#000]" />
+                  <span className="font-mono text-xs font-bold text-black ml-3">
+                    splitsimple.desk / {activeTab}
                   </span>
                 </div>
 
-                {/* Tab Switcher */}
-                <div className="flex items-center gap-1 bg-[#f4f2f0] p-1 rounded-[6px]">
+                {/* Tab Folder Switcher */}
+                <div className="flex items-center gap-2">
                   {Object.values(PREVIEW_DATA).map((tab) => (
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`relative px-3 py-1.5 text-xs rounded-[5px] transition-all font-medium ${
+                      className={`px-3 py-1.5 border-2 border-black font-display font-bold text-xs uppercase transition-all rounded-[3px] cursor-pointer ${
                         activeTab === tab.id
-                          ? 'bg-white text-[#0c0a08] shadow-xs'
-                          : 'text-[#6d6c6b] hover:text-[#0c0a08]'
+                          ? `${tab.folderColor} text-black shadow-[3px_3px_0px_#000000] -translate-y-0.5`
+                          : 'bg-white text-black hover:bg-neutral-100'
                       }`}
                     >
                       {tab.name}
@@ -467,8 +454,8 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* Interactive Workspace Body */}
-              <div className="p-6 sm:p-8">
+              {/* Workspace Content */}
+              <div className="p-5 sm:p-8 bg-[#faf7ee]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeTab}
@@ -480,63 +467,65 @@ export default function LandingPage() {
                   >
                     {/* Left Column: Group Expenses Ledger (7 cols) */}
                     <div className="lg:col-span-7 space-y-6">
-                      <div>
-                        <div className="flex items-center gap-3">
-                          <h2 className="text-2xl font-medium text-[#0c0a08] tracking-tight">
+                      <div className="bg-white border-3 border-black p-5 rounded-[4px] shadow-[4px_4px_0px_#000000] relative">
+                        {/* Washi Tape */}
+                        <div className="absolute -top-3 left-8 w-16 h-4 bg-[#ccff00] border border-black/40 rotate-2 pointer-events-none" />
+
+                        <div className="flex items-center justify-between gap-3 mb-1">
+                          <h2 className="text-2xl font-display font-black text-black uppercase">
                             {preview.name}
                           </h2>
-                          <span className="px-2.5 py-0.5 rounded-[4px] bg-[#e4f222] text-[#0c0a08] text-[10px] font-semibold uppercase tracking-wider">
-                            Active Ledger
+                          <span className="px-2.5 py-0.5 bg-[#ff529a] text-white text-[10px] font-mono font-bold uppercase border-2 border-black shadow-[2px_2px_0px_#000000]">
+                            {preview.badge}
                           </span>
                         </div>
-                        <p className="text-xs text-[#6d6c6b] mt-1">{preview.desc}</p>
-                      </div>
+                        <p className="text-xs font-mono text-neutral-600">{preview.desc}</p>
 
-                      {/* Member chips */}
-                      <div>
-                        <span className="text-[10px] uppercase tracking-wider text-[#6d6c6b] block mb-2 font-medium">
-                          Active Members ({preview.members.length})
-                        </span>
-                        <div className="flex flex-wrap gap-2">
-                          {preview.members.map((m) => (
-                            <div
-                              key={m.name}
-                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[6px] bg-[#f4f2f0] border border-[#e5e7eb] text-xs text-[#0c0a08]"
-                            >
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#0c0a08]" />
-                              <span className="font-medium">{m.name}</span>
-                              <span className="text-[10px] text-[#6d6c6b]">({m.role})</span>
-                            </div>
-                          ))}
+                        {/* Members */}
+                        <div className="mt-4 pt-3 border-t-2 border-black/10">
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-500 block mb-2">
+                            Active Ledger Participants
+                          </span>
+                          <div className="flex flex-wrap gap-2">
+                            {preview.members.map((m) => (
+                              <div
+                                key={m.name}
+                                className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#faf7ee] border-2 border-black rounded-[3px] text-xs font-mono font-bold shadow-[2px_2px_0px_#000000]"
+                              >
+                                <span>{m.name}</span>
+                                <span className="text-[10px] text-neutral-500 font-normal">({m.role})</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
 
-                      {/* Recent Expense Entries */}
-                      <div className="border border-[#e5e7eb] rounded-[10px] overflow-hidden bg-white">
-                        <div className="bg-[#fafaf9] px-4 py-2 border-b border-[#e5e7eb] flex items-center justify-between text-[11px] text-[#6d6c6b] font-medium">
-                          <span>Recent Group Transactions</span>
+                      {/* Recent Transactions List */}
+                      <div className="bg-white border-3 border-black rounded-[4px] shadow-[4px_4px_0px_#000000] overflow-hidden">
+                        <div className="bg-[#ccff00] px-4 py-2.5 border-b-2 border-black flex items-center justify-between font-mono text-xs font-bold uppercase">
+                          <span>Group Expenses</span>
                           <span>Total: {formatCurrency(preview.totalSpent)}</span>
                         </div>
-                        <div className="divide-y divide-[#e5e7eb]">
+                        <div className="divide-y-2 divide-black">
                           {preview.expenses.map((item, idx) => (
                             <div
                               key={idx}
-                              className="p-3.5 hover:bg-[#fafaf9] transition-colors flex items-center justify-between"
+                              className="p-3.5 hover:bg-[#fffef7] transition-colors flex items-center justify-between"
                             >
                               <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-[6px] bg-[#f4f2f0] text-[#0c0a08] flex items-center justify-center">
-                                  <Receipt className="w-4 h-4" />
+                                <div className="w-8 h-8 rounded-[3px] bg-[#00f0ff] border-2 border-black flex items-center justify-center font-mono font-bold text-xs shadow-[2px_2px_0px_#000000]">
+                                  {item.date}
                                 </div>
                                 <div>
-                                  <p className="text-xs sm:text-sm font-medium text-[#0c0a08]">
+                                  <p className="text-sm font-display font-bold text-black">
                                     {item.title}
                                   </p>
-                                  <p className="text-[11px] text-[#6d6c6b]">
-                                    Paid by <strong className="font-medium text-[#0c0a08]">{item.paidBy}</strong> · {item.category} · {item.date}
+                                  <p className="text-[11px] font-mono text-neutral-600">
+                                    Paid by <strong className="font-bold text-black">{item.paidBy}</strong> · {item.category}
                                   </p>
                                 </div>
                               </div>
-                              <span className="text-xs sm:text-sm font-medium text-[#0c0a08]">
+                              <span className="text-sm font-mono font-bold text-black">
                                 {formatCurrency(item.amount)}
                               </span>
                             </div>
@@ -545,79 +534,68 @@ export default function LandingPage() {
                       </div>
                     </div>
 
-                    {/* Right Column: Greedy Settlement Engine (5 cols) */}
-                    <div className="lg:col-span-5 bg-[#1a1919] text-white rounded-[14px] p-6 flex flex-col justify-between border border-white/10 shadow-lg">
+                    {/* Right Column: Smart Greedy Settlement Engine (5 cols) */}
+                    <div className="lg:col-span-5 bg-[#000000] text-white border-3 border-black rounded-[4px] p-6 flex flex-col justify-between shadow-[6px_6px_0px_#000000]">
                       <div>
                         {/* Box Header */}
-                        <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                        <div className="flex items-center justify-between pb-4 border-b-2 border-white/20">
                           <div>
-                            <span className="text-[10px] uppercase tracking-wider text-[#e4f222] font-semibold">
-                              Greedy Debt Engine
+                            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ccff00]">
+                              GREEDY DEBT ENGINE
                             </span>
-                            <h3 className="text-lg font-medium text-white tracking-tight">
+                            <h3 className="text-xl font-display font-black text-white uppercase tracking-tight">
                               Optimized Repayments
                             </h3>
                           </div>
-                          <div className="text-right">
-                            <span className="inline-block px-2 py-0.5 rounded-[4px] bg-[#e4f222] text-[#0c0a08] text-[10px] font-bold uppercase tracking-wider">
-                              -{preview.reductionPercent} Transfers
-                            </span>
-                          </div>
+                          <span className="px-2 py-1 bg-[#ff529a] text-white text-[10px] font-mono font-bold uppercase border border-white shadow-[2px_2px_0px_#fff]">
+                            -{preview.reductionPercent} HOPS
+                          </span>
                         </div>
 
                         {/* Explanation */}
-                        <p className="text-xs text-white/70 mt-3 mb-5 leading-relaxed">
-                          Instead of <strong className="text-white font-medium">{preview.iouCount} messy peer-to-peer IOUs</strong>, 
-                          the greedy algorithm finds maximum debtors and creditors to settle all balances in just{' '}
-                          <strong className="text-[#e4f222] font-medium">{preview.optimizedCount} direct transfers</strong>.
+                        <p className="text-xs font-mono text-neutral-300 mt-3 mb-5 leading-relaxed">
+                          Collapses <strong className="text-white font-bold">{preview.iouCount} tangled IOUs</strong> into{' '}
+                          <strong className="text-[#ccff00] font-bold">{preview.optimizedCount} single-hop transfers</strong>.
                         </p>
 
-                        {/* Repayment Action List */}
-                        <div className="space-y-2.5">
+                        {/* Repayment List */}
+                        <div className="space-y-3">
                           {preview.settlementPlan.map((step, idx) => {
                             const isSettled = settledRows[`${activeTab}-${idx}`];
                             return (
                               <motion.div
                                 key={idx}
                                 layout
-                                className={`p-3.5 rounded-[8px] border transition-all ${
+                                className={`p-3.5 rounded-[4px] border-2 transition-all ${
                                   isSettled
-                                    ? 'bg-white/5 border-emerald-500/40 opacity-75'
-                                    : 'bg-white/10 border-white/10 hover:border-white/20'
+                                    ? 'bg-neutral-900 border-[#00c853] opacity-80'
+                                    : 'bg-[#1a1a1a] border-white/30 hover:border-white'
                                 }`}
                               >
-                                <div className="flex items-center justify-between text-xs">
+                                <div className="flex items-center justify-between font-mono text-xs">
                                   <div className="flex items-center gap-1.5 flex-wrap">
-                                    <span className="font-medium text-white">{step.from}</span>
-                                    <span className="text-[#e4f222] font-bold">→ pays →</span>
-                                    <span className="font-medium text-white">{step.to}</span>
+                                    <span className="font-bold text-white">{step.from}</span>
+                                    <span className="text-[#ccff00] font-bold">→ PAYS →</span>
+                                    <span className="font-bold text-white">{step.to}</span>
                                   </div>
-                                  <span className="font-semibold text-[#e4f222] text-sm ml-2">
+                                  <span className="font-bold text-[#ccff00] text-sm ml-2">
                                     {formatCurrency(step.amount)}
                                   </span>
                                 </div>
 
                                 <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between">
-                                  <span className="text-[10px] text-white/50">
-                                    {isSettled ? '✓ Confirmed on UPI' : 'Pending repayment'}
+                                  <span className="text-[10px] font-mono text-neutral-400">
+                                    {isSettled ? '✓ CONFIRMED VIA UPI' : 'Pending transfer'}
                                   </span>
                                   <button
                                     onClick={() => handleToggleSettle(idx)}
-                                    className={`text-[11px] px-2.5 py-1 rounded-[4px] transition-colors font-medium flex items-center gap-1 ${
+                                    className={`text-[11px] font-mono font-bold uppercase px-3 py-1 rounded-[3px] border-2 transition-all cursor-pointer ${
                                       isSettled
-                                        ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30'
-                                        : 'bg-white/15 hover:bg-white/25 text-white'
+                                        ? 'bg-[#00c853] text-black border-black shadow-[2px_2px_0px_#fff]'
+                                        : 'bg-[#ccff00] text-black border-black shadow-[2px_2px_0px_#fff] hover:bg-[#bbf000]'
                                     }`}
                                   >
-                                    {isSettled ? (
-                                      <>
-                                        <Check className="w-3 h-3" /> Settled
-                                      </>
-                                    ) : (
-                                      <>
-                                        Mark Settled <ArrowRight className="w-3 h-3" />
-                                      </>
-                                    )}
+                                    {isSettled ? 'SETTLED ✓' : 'MARK SETTLED →'}
                                   </button>
                                 </div>
                               </motion.div>
@@ -626,20 +604,20 @@ export default function LandingPage() {
                         </div>
                       </div>
 
-                      {/* Bottom CTA in Preview */}
-                      <div className="pt-6 mt-6 border-t border-white/10">
-                        <div className="flex items-center justify-between mb-3 text-xs">
-                          <span className="text-white/60">Net Group Volume:</span>
-                          <span className="text-base font-semibold text-white">
+                      {/* Bottom Box CTA */}
+                      <div className="pt-6 mt-6 border-t-2 border-white/20">
+                        <div className="flex items-center justify-between mb-3 font-mono text-xs">
+                          <span className="text-neutral-400">Group Expenditure:</span>
+                          <span className="text-lg font-bold text-white">
                             {formatCurrency(preview.totalSpent)}
                           </span>
                         </div>
                         <button
                           onClick={handleExploreDemo}
                           disabled={loadingDemo}
-                          className="w-full py-2.5 bg-[#e4f222] hover:bg-[#d9e81b] text-[#0c0a08] font-semibold text-xs uppercase tracking-wider rounded-[6px] transition-all flex items-center justify-center gap-1.5"
+                          className="w-full py-3 bg-[#ccff00] hover:bg-[#bbf000] text-black font-display font-black text-xs uppercase tracking-wider border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#ffffff] hover:shadow-[5px_5px_0px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer"
                         >
-                          Launch Interactive Workspace <ArrowRight className="w-3.5 h-3.5" />
+                          LAUNCH FULL DESK <ArrowRight className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
@@ -652,324 +630,248 @@ export default function LandingPage() {
       </section>
 
       {/* 
-        4. Live Stats Strip (#1a1919 Obsidian Band)
-        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+        5. STATS BAND (NEO-BRUTALIST NUMBERS)
       */}
-      <section className="bg-[#1a1919] text-white py-14 border-y border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="text-[10px] uppercase tracking-wider text-[#6d6c6b] mb-1 font-medium">
+      <section className="bg-black text-white border-y-3 border-black py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center md:text-left">
+          <div className="border-l-3 border-[#ccff00] pl-4">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
               Transactions Settled
             </p>
-            <p className="text-3xl sm:text-4xl font-semibold text-white">
-              ₹1.53 Lakh+
+            <p className="text-3xl sm:text-4xl font-display font-black text-white">
+              ₹1.53 LAKH+
             </p>
-            <p className="text-xs text-white/50 mt-1">Across demo and active flats</p>
-          </motion.div>
+            <p className="font-mono text-xs text-neutral-400 mt-1">Real group volume</p>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <p className="text-[10px] uppercase tracking-wider text-[#6d6c6b] mb-1 font-medium">
-              Debt Step Reduction
+          <div className="border-l-3 border-[#ff529a] pl-4">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
+              Transfer Reduction
             </p>
-            <p className="text-3xl sm:text-4xl font-semibold text-[#e4f222]">
-              -75% Transfers
+            <p className="text-3xl sm:text-4xl font-display font-black text-[#ff529a]">
+              -75% HOPS
             </p>
-            <p className="text-xs text-white/50 mt-1">No circular payment loops</p>
-          </motion.div>
+            <p className="font-mono text-xs text-neutral-400 mt-1">Zero circular debts</p>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <p className="text-[10px] uppercase tracking-wider text-[#6d6c6b] mb-1 font-medium">
-              Accounting Precision
+          <div className="border-l-3 border-[#00f0ff] pl-4">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
+              Rounding Drift
             </p>
-            <p className="text-3xl sm:text-4xl font-semibold text-white">
-              0.00% Drift
+            <p className="text-3xl sm:text-4xl font-display font-black text-[#00f0ff]">
+              0.00% DRIFT
             </p>
-            <p className="text-xs text-white/50 mt-1">Strict integer paise ledger</p>
-          </motion.div>
+            <p className="font-mono text-xs text-neutral-400 mt-1">Integer paise precision</p>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <p className="text-[10px] uppercase tracking-wider text-[#6d6c6b] mb-1 font-medium">
-              Settlement Speed
+          <div className="border-l-3 border-[#ff8800] pl-4">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
+              Settlement Engine
             </p>
-            <p className="text-3xl sm:text-4xl font-semibold text-white">
-              Instant UPI
+            <p className="text-3xl sm:text-4xl font-display font-black text-[#ff8800]">
+              INSTANT UPI
             </p>
-            <p className="text-xs text-white/50 mt-1">1-click ledger clearance</p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 
-        5. Settlement Algorithm Deep-Dive
-        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
-      */}
-      <section id="algorithm" className="py-20 md:py-24 bg-white border-b border-[#e5e7eb]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-6 space-y-6"
-            >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-[#f4f2f0] border border-[#e5e7eb] text-[11px] uppercase tracking-wider text-[#0c0a08] font-medium">
-                <Scale className="w-3.5 h-3.5 text-[#0c0a08]" /> The Greedy Debt Engine
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-medium text-[#0c0a08] tracking-tight leading-[1.15]">
-                How we turn 10 tangled IOUs <br />
-                into 2 direct transfers.
-              </h2>
-
-              <p className="text-sm sm:text-base text-[#6d6c6b] leading-relaxed">
-                When 5 friends travel or share an apartment, everyone pays for different bills.
-                Normal apps force person A to pay person B, who then pays person C.
-                SplitSimple calculates each participant's global net balance (Total Paid − Total Owed)
-                and repeatedly matches the largest net debtor with the largest net creditor.
-              </p>
-
-              <div className="space-y-4 pt-2">
-                <div className="flex items-start gap-3.5">
-                  <div className="w-6 h-6 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                    1
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-[#0c0a08]">
-                      Global Net Balance Calculation
-                    </h4>
-                    <p className="text-xs text-[#6d6c6b] mt-0.5">
-                      Sum all transactions in integer paise. Net creditors have positive balances, net debtors have negative balances.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5">
-                  <div className="w-6 h-6 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                    2
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-[#0c0a08]">
-                      Greedy Flow Minimization
-                    </h4>
-                    <p className="text-xs text-[#6d6c6b] mt-0.5">
-                      Transfer min(|max_debtor|, max_creditor) in a single direct step until all balances equal zero. Guaranteed at most N - 1 transactions.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5">
-                  <div className="w-6 h-6 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                    3
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-[#0c0a08]">
-                      Zero Rounding Drift Guarantee
-                    </h4>
-                    <p className="text-xs text-[#6d6c6b] mt-0.5">
-                      No floating point Javascript IEEE-754 bugs. 100 paise = 1 INR strictly tracked throughout the database.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right Comparison Box */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-6 bg-[#f4f2f0] rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8"
-            >
-              <h3 className="text-base font-semibold text-[#0c0a08] mb-4">
-                Real-World Debt Comparison
-              </h3>
-
-              {/* Before: Chaotic */}
-              <div className="bg-white rounded-[10px] border border-[#e5e7eb] p-4 mb-4">
-                <div className="flex items-center justify-between mb-2.5">
-                  <span className="text-xs font-semibold text-rose-600 flex items-center gap-1.5">
-                    <Repeat className="w-3.5 h-3.5" /> Without SplitSimple (6 Circular IOUs)
-                  </span>
-                  <span className="text-[10px] px-2 py-0.5 bg-rose-50 text-rose-700 rounded font-medium">
-                    High Friction
-                  </span>
-                </div>
-                <div className="space-y-1.5 text-xs text-[#6d6c6b]">
-                  <p className="flex justify-between">
-                    <span>• Chandan owes Pranav</span> <span>₹2,400.00</span>
-                  </p>
-                  <p className="flex justify-between">
-                    <span>• Pranav owes Chiranjeevi</span> <span>₹5,800.00</span>
-                  </p>
-                  <p className="flex justify-between">
-                    <span>• Gagan owes Chandan</span> <span>₹1,200.00</span>
-                  </p>
-                  <p className="flex justify-between">
-                    <span>• Rahul owes Gagan</span> <span>₹3,500.00</span>
-                  </p>
-                  <p className="flex justify-between">
-                    <span>• Chandan owes Chiranjeevi</span> <span>₹4,100.00</span>
-                  </p>
-                </div>
-              </div>
-
-              {/* After: Clean */}
-              <div className="bg-[#1a1919] text-white rounded-[10px] p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-[#e4f222] flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5" /> With SplitSimple Greedy Engine
-                  </span>
-                  <span className="text-[10px] px-2 py-0.5 bg-[#e4f222] text-[#0c0a08] rounded font-bold uppercase">
-                    2 Direct Payments
-                  </span>
-                </div>
-
-                <div className="space-y-2 text-xs">
-                  <div className="p-2.5 bg-white/10 rounded-[6px] flex items-center justify-between">
-                    <span className="text-white">Chandan R pays Chiranjeevi S</span>
-                    <span className="font-semibold text-[#e4f222]">₹8,550.00</span>
-                  </div>
-                  <div className="p-2.5 bg-white/10 rounded-[6px] flex items-center justify-between">
-                    <span className="text-white">Gagan K pays Chiranjeevi S</span>
-                    <span className="font-semibold text-[#e4f222]">₹4,200.00</span>
-                  </div>
-                </div>
-
-                <div className="mt-3 pt-3 border-t border-white/10 text-[11px] text-white/70 flex items-center justify-between">
-                  <span>Result: Everyone settled to 0</span>
-                  <span className="text-[#e4f222]">✓ 4 payments eliminated</span>
-                </div>
-              </div>
-            </motion.div>
+            <p className="font-mono text-xs text-neutral-400 mt-1">1-click ledger clearance</p>
           </div>
         </div>
       </section>
 
       {/* 
-        6. Key Features Grid
-        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+        6. THE DEBT ENGINE COMPARISON (SURREAL WEB OF IOUs VS GREEDY FLOW)
       */}
-      <section id="features" className="py-20 md:py-24 bg-[#f4f2f0]">
+      <section id="engine" className="py-20 md:py-24 bg-white border-b-3 border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-xl mx-auto mb-16">
-            <span className="text-[10px] uppercase tracking-wider text-[#6d6c6b] font-medium">
-              Enterprise Ledger Standards
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left Content */}
+            <div className="lg:col-span-6 space-y-6">
+              <span className="px-3 py-1 bg-[#ccff00] border-2 border-black rounded-[3px] text-xs font-mono font-bold uppercase shadow-[2px_2px_0px_#000]">
+                ★ GREEDY DEBT MINIMIZATION ALGORITHM
+              </span>
+
+              <h2 className="text-3xl sm:text-5xl font-display font-black text-black tracking-tight uppercase leading-[1.05]">
+                FROM A CHAOTIC WEB OF IOUs <br />
+                TO DIRECT BANK TRANSFERS.
+              </h2>
+
+              <p className="text-base font-display text-neutral-800 leading-relaxed">
+                When 5 roommates split rent, electricity, and weekend dining, naive calculations create a web of 10 circular payments where person A pays B, B pays C, and C pays A.
+                SplitSimple computes the net balance of every person and repeatedly resolves maximum creditors with maximum debtors.
+              </p>
+
+              <div className="space-y-4 pt-2 font-mono">
+                <div className="flex items-start gap-3 p-3 bg-[#faf7ee] border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000]">
+                  <div className="w-7 h-7 bg-[#ccff00] border-2 border-black flex items-center justify-center font-bold text-xs shrink-0">
+                    1
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-black uppercase text-xs">Global Net Balance Calculation</h4>
+                    <p className="text-xs text-neutral-600 mt-0.5">Every participant gets a single number: Total Paid − Total Owed.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 bg-[#faf7ee] border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000]">
+                  <div className="w-7 h-7 bg-[#ff529a] text-white border-2 border-black flex items-center justify-center font-bold text-xs shrink-0">
+                    2
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-black uppercase text-xs">Greedy Flow Pairing</h4>
+                    <p className="text-xs text-neutral-600 mt-0.5">Matches the max debtor with max creditor. Cuts transfers by up to 75%.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 bg-[#faf7ee] border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000]">
+                  <div className="w-7 h-7 bg-[#00f0ff] border-2 border-black flex items-center justify-center font-bold text-xs shrink-0">
+                    3
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-black uppercase text-xs">Zero Rounding Drift Guarantee</h4>
+                    <p className="text-xs text-neutral-600 mt-0.5">Every share is stored in integer paise. No decimal floating-point errors.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Comparison Box */}
+            <div className="lg:col-span-6 bg-[#faf7ee] border-3 border-black rounded-[6px] p-6 sm:p-8 shadow-[6px_6px_0px_#000000]">
+              <div className="space-y-6">
+                {/* Before: Chaotic */}
+                <div className="bg-white border-2 border-black rounded-[4px] p-4 shadow-[3px_3px_0px_#000]">
+                  <div className="flex items-center justify-between mb-3 border-b-2 border-black pb-2">
+                    <span className="font-mono text-xs font-bold text-[#ff3b30] uppercase flex items-center gap-1.5">
+                      <Repeat className="w-4 h-4" /> WITHOUT SPLITSIMPLE (6 TANGLED IOUs)
+                    </span>
+                    <span className="px-2 py-0.5 bg-rose-100 text-[#ff3b30] font-mono text-[10px] font-bold border border-black">
+                      HIGH FRICTION
+                    </span>
+                  </div>
+                  <div className="space-y-1.5 font-mono text-xs text-neutral-700">
+                    <p className="flex justify-between"><span>• Chandan owes Pranav</span> <span>₹2,400.00</span></p>
+                    <p className="flex justify-between"><span>• Pranav owes Chiranjeevi</span> <span>₹5,800.00</span></p>
+                    <p className="flex justify-between"><span>• Gagan owes Chandan</span> <span>₹1,200.00</span></p>
+                    <p className="flex justify-between"><span>• Rahul owes Gagan</span> <span>₹3,500.00</span></p>
+                    <p className="flex justify-between"><span>• Chandan owes Chiranjeevi</span> <span>₹4,100.00</span></p>
+                  </div>
+                </div>
+
+                {/* After: Clean */}
+                <div className="bg-black text-white border-2 border-black rounded-[4px] p-4 shadow-[4px_4px_0px_#000]">
+                  <div className="flex items-center justify-between mb-3 border-b-2 border-white/20 pb-2">
+                    <span className="font-mono text-xs font-bold text-[#ccff00] uppercase flex items-center gap-1.5">
+                      <Sparkles className="w-4 h-4" /> WITH SPLITSIMPLE GREEDY ENGINE
+                    </span>
+                    <span className="px-2 py-0.5 bg-[#ccff00] text-black font-mono text-[10px] font-bold border border-black">
+                      2 DIRECT PAYMENTS
+                    </span>
+                  </div>
+                  <div className="space-y-2 font-mono text-xs">
+                    <div className="p-2.5 bg-neutral-900 border border-white/20 rounded-[3px] flex items-center justify-between">
+                      <span>Chandan R pays Chiranjeevi S</span>
+                      <span className="font-bold text-[#ccff00]">₹8,550.00</span>
+                    </div>
+                    <div className="p-2.5 bg-neutral-900 border border-white/20 rounded-[3px] flex items-center justify-between">
+                      <span>Gagan K pays Chiranjeevi S</span>
+                      <span className="font-bold text-[#ccff00]">₹4,200.00</span>
+                    </div>
+                  </div>
+                  <div className="mt-3 pt-2 border-t border-white/10 font-mono text-[11px] text-neutral-400 flex items-center justify-between">
+                    <span>Result: Everyone settled to zero</span>
+                    <span className="text-[#00c853] font-bold">✓ 4 transfers eliminated</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 
+        7. THREE KEY PILLARS (BRUTALIST CARDS)
+      */}
+      <section id="features" className="py-20 md:py-24 bg-[#faf7ee]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-xl mx-auto mb-16 space-y-2">
+            <span className="px-3 py-1 bg-black text-white text-xs font-mono font-bold uppercase border-2 border-black shadow-[2px_2px_0px_#ccff00]">
+              CORE ARCHITECTURE
             </span>
-            <h2 className="text-3xl sm:text-4xl font-medium text-[#0c0a08] tracking-tight mt-1">
-              Engineered like an editorial trading desk.
+            <h2 className="text-3xl sm:text-5xl font-display font-black text-black uppercase tracking-tight">
+              ENGINEERED LIKE A FINANCIAL DESK.
             </h2>
-            <p className="text-sm text-[#6d6c6b] mt-2">
+            <p className="text-sm font-display text-neutral-700">
               Clean separation between ledgers, member contributions, and settlement executions.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Feature 1 */}
-            <motion.div
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.2 }}
-              className="bg-white rounded-[14px] border border-[#e5e7eb] p-6 flex flex-col justify-between shadow-xs"
-            >
+            {/* Pillar 1 */}
+            <div className="bg-[#ccff00] border-3 border-black p-6 rounded-[4px] shadow-[6px_6px_0px_#000000] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#000000] transition-all">
               <div>
-                <div className="w-10 h-10 rounded-[6px] bg-[#f4f2f0] flex items-center justify-center text-[#0c0a08] mb-5">
-                  <Receipt className="w-5 h-5" />
+                <div className="w-12 h-12 bg-white border-2 border-black rounded-[4px] flex items-center justify-center text-black mb-6 shadow-[3px_3px_0px_#000]">
+                  <Receipt className="w-6 h-6" />
                 </div>
-                <h3 className="text-base font-semibold text-[#0c0a08]">
+                <h3 className="text-xl font-display font-black text-black uppercase">
                   Integer Paise Accounting
                 </h3>
-                <p className="text-xs text-[#6d6c6b] mt-2 leading-relaxed">
+                <p className="text-xs font-mono text-neutral-900 mt-2 leading-relaxed">
                   Every split, custom share, and reimbursement is handled in integer paise.
                   Never worry about fractions of a rupee drifting across months of house tabs.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-[#e5e7eb] text-[10px] uppercase tracking-wider text-[#6d6c6b]">
-                Standard Banking Math
+              <div className="mt-6 pt-4 border-t-2 border-black font-mono text-xs font-bold uppercase">
+                [ 100 PAISE = ₹1.00 EXACT ]
               </div>
-            </motion.div>
+            </div>
 
-            {/* Feature 2 */}
-            <motion.div
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.2 }}
-              className="bg-white rounded-[14px] border border-[#e5e7eb] p-6 flex flex-col justify-between shadow-xs"
-            >
+            {/* Pillar 2 */}
+            <div className="bg-[#ff529a] text-white border-3 border-black p-6 rounded-[4px] shadow-[6px_6px_0px_#000000] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#000000] transition-all">
               <div>
-                <div className="w-10 h-10 rounded-[6px] bg-[#e4f222] flex items-center justify-center text-[#0c0a08] mb-5">
-                  <Handshake className="w-5 h-5" />
+                <div className="w-12 h-12 bg-black border-2 border-white rounded-[4px] flex items-center justify-center text-[#ccff00] mb-6 shadow-[3px_3px_0px_#fff]">
+                  <Handshake className="w-6 h-6" />
                 </div>
-                <h3 className="text-base font-semibold text-[#0c0a08]">
+                <h3 className="text-xl font-display font-black text-white uppercase">
                   Greedy Debt Minimization
                 </h3>
-                <p className="text-xs text-[#6d6c6b] mt-2 leading-relaxed">
+                <p className="text-xs font-mono text-neutral-100 mt-2 leading-relaxed">
                   Instantly collapses multi-person circular debts into the minimum possible transfers.
                   Save your group from sending 15 confused UPI payments after a vacation.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-[#e5e7eb] text-[10px] uppercase tracking-wider text-[#0c0a08] font-medium">
-                Minimal Transfers
+              <div className="mt-6 pt-4 border-t-2 border-white/30 font-mono text-xs font-bold uppercase text-[#ccff00]">
+                [ MIN-FLOW GRAPH ALGORITHM ]
               </div>
-            </motion.div>
+            </div>
 
-            {/* Feature 3 */}
-            <motion.div
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.2 }}
-              className="bg-white rounded-[14px] border border-[#e5e7eb] p-6 flex flex-col justify-between shadow-xs"
-            >
+            {/* Pillar 3 */}
+            <div className="bg-[#00f0ff] border-3 border-black p-6 rounded-[4px] shadow-[6px_6px_0px_#000000] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#000000] transition-all">
               <div>
-                <div className="w-10 h-10 rounded-[6px] bg-[#f4f2f0] flex items-center justify-center text-[#0c0a08] mb-5">
-                  <PieChart className="w-5 h-5" />
+                <div className="w-12 h-12 bg-white border-2 border-black rounded-[4px] flex items-center justify-center text-black mb-6 shadow-[3px_3px_0px_#000]">
+                  <PieChart className="w-6 h-6" />
                 </div>
-                <h3 className="text-base font-semibold text-[#0c0a08]">
-                  Category Analytics & Trends
+                <h3 className="text-xl font-display font-black text-black uppercase">
+                  Multi-Category Analytics
                 </h3>
-                <p className="text-xs text-[#6d6c6b] mt-2 leading-relaxed">
+                <p className="text-xs font-mono text-neutral-900 mt-2 leading-relaxed">
                   Visualize group spending across Rent, Groceries, Dining, Travel, and Utilities.
-                  Export transparent ledger summaries whenever a roommate moves out.
+                  Export transparent ledger summaries whenever a flatmate moves out.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-[#e5e7eb] text-[10px] uppercase tracking-wider text-[#6d6c6b]">
-                Interactive Breakdown
+              <div className="mt-6 pt-4 border-t-2 border-black font-mono text-xs font-bold uppercase">
+                [ INTERACTIVE RECHARTS ]
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* 
-        7. Frequently Asked Questions
-        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+        8. FREQUENTLY ASKED QUESTIONS (ACCORDION)
       */}
-      <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-[#e5e7eb]">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-[10px] uppercase tracking-wider text-[#6d6c6b] font-medium">
-              Questions & Answers
+      <section id="faq" className="py-20 bg-white border-t-3 border-black">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 space-y-2">
+            <span className="px-3 py-1 bg-[#ffb703] border-2 border-black text-xs font-mono font-bold uppercase shadow-[2px_2px_0px_#000]">
+              QUESTIONS & ANSWERS
             </span>
-            <h2 className="text-3xl font-medium text-[#0c0a08] tracking-tight mt-1">
+            <h2 className="text-3xl sm:text-4xl font-display font-black text-black uppercase">
               Frequently Asked Questions
             </h2>
           </div>
@@ -995,18 +897,16 @@ export default function LandingPage() {
             ].map((faq, idx) => (
               <div
                 key={idx}
-                className="border border-[#e5e7eb] rounded-[8px] overflow-hidden bg-white"
+                className="border-2 sm:border-3 border-black rounded-[4px] overflow-hidden bg-[#faf7ee] shadow-[3px_3px_0px_#000]"
               >
                 <button
                   onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                  className="w-full p-4 text-left flex items-center justify-between text-sm font-medium text-[#0c0a08] hover:bg-[#fafaf9] transition-colors"
+                  className="w-full p-4 text-left flex items-center justify-between text-sm sm:text-base font-display font-bold text-black hover:bg-[#fffef7] transition-colors cursor-pointer"
                 >
                   <span>{faq.q}</span>
-                  <ChevronRight
-                    className={`w-4 h-4 text-[#6d6c6b] transition-transform duration-200 ${
-                      activeFaq === idx ? 'rotate-90' : ''
-                    }`}
-                  />
+                  <div className="w-6 h-6 rounded-[3px] bg-[#ccff00] border-2 border-black flex items-center justify-center font-mono font-bold text-sm shrink-0 ml-2">
+                    {activeFaq === idx ? '−' : '+'}
+                  </div>
                 </button>
                 <AnimatePresence>
                   {activeFaq === idx && (
@@ -1015,7 +915,7 @@ export default function LandingPage() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="px-4 pb-4 text-xs text-[#6d6c6b] leading-relaxed border-t border-[#e5e7eb] pt-3"
+                      className="px-4 pb-4 font-mono text-xs text-neutral-800 leading-relaxed border-t-2 border-black pt-3 bg-white"
                     >
                       {faq.a}
                     </motion.div>
@@ -1028,19 +928,18 @@ export default function LandingPage() {
       </section>
 
       {/* 
-        8. Final High-Contrast CTA Banner
-        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+        9. BOTTOM SURREAL CTA DESK
       */}
-      <section className="py-20 bg-[#0c0a08] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <span className="inline-block px-3 py-1 rounded-[4px] bg-[#e4f222] text-[#0c0a08] text-xs font-semibold uppercase tracking-wider">
-            Ready to simplify group tabs?
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white leading-tight">
-            Stop arguing over shared bills. <br />
-            Start settling with mathematical precision.
+      <section className="py-20 bg-[#ccff00] text-black border-t-3 border-black">
+        <div className="max-w-4xl mx-auto px-4 text-center space-y-6">
+          <div className="inline-block px-4 py-1 bg-black text-white text-xs font-mono font-bold uppercase rounded-[3px] border-2 border-black shadow-[3px_3px_0px_#ffffff]">
+            READY TO SIMPLIFY GROUP TABS?
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-display font-black tracking-tight uppercase leading-tight">
+            STOP ARGUING OVER SHARED BILLS. <br />
+            START SETTLING WITH MATHEMATICAL CERTAINTY.
           </h2>
-          <p className="text-sm sm:text-base text-white/70 max-w-xl mx-auto">
+          <p className="text-base font-display font-medium text-neutral-900 max-w-xl mx-auto">
             Try the demo workspace in 5 seconds or create a new flat ledger for your roommates.
           </p>
 
@@ -1048,13 +947,13 @@ export default function LandingPage() {
             <button
               onClick={handleExploreDemo}
               disabled={loadingDemo}
-              className="w-full sm:w-auto px-7 py-3.5 bg-[#e4f222] hover:bg-[#d9e81b] text-[#0c0a08] font-semibold text-xs uppercase tracking-wider rounded-[6px] transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-4 bg-black hover:bg-neutral-900 text-white font-display font-black text-xs uppercase tracking-wider border-3 border-black rounded-[4px] shadow-[4px_4px_0px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              Explore Live Demo <ArrowRight className="w-4 h-4" />
+              EXPLORE LIVE DEMO <ArrowRight className="w-4 h-4" />
             </button>
             <Link to="/register" className="w-full sm:w-auto">
-              <button className="w-full px-7 py-3.5 bg-transparent hover:bg-white/10 text-white border border-white/20 font-medium text-xs uppercase tracking-wider rounded-[6px] transition-all">
-                Create Free Account
+              <button className="w-full px-8 py-4 bg-white hover:bg-neutral-100 text-black border-3 border-black font-display font-black text-xs uppercase tracking-wider rounded-[4px] shadow-[4px_4px_0px_#000000] transition-all cursor-pointer">
+                CREATE FREE ACCOUNT
               </button>
             </Link>
           </div>
@@ -1062,43 +961,42 @@ export default function LandingPage() {
       </section>
 
       {/* 
-        9. Footer
-        Standard max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+        10. NEO-BRUTALIST FOOTER
       */}
-      <footer className="bg-[#1a1919] text-white py-12 border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 text-xs text-[#6d6c6b]">
+      <footer className="bg-black text-white py-12 border-t-3 border-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 font-mono text-xs">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-[5px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-bold text-xs">
+            <div className="w-7 h-7 rounded-[4px] bg-[#ccff00] text-black border-2 border-black flex items-center justify-center font-display font-black text-sm">
               S
             </div>
             <div>
-              <span className="font-semibold text-white">SplitSimple</span>
-              <p className="text-[10px] text-[#6d6c6b] uppercase tracking-wider mt-0.5">
-                Editorial Expense Desk
+              <span className="font-display font-bold text-white text-sm">SplitSimple</span>
+              <p className="text-[10px] text-neutral-400 uppercase tracking-wider mt-0.5">
+                Surreal Brutalist Expense Desk
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-6">
-            <a href="#simulator" className="hover:text-white transition-colors">
-              Interactive Demo
+          <div className="flex flex-wrap items-center gap-6 font-bold uppercase">
+            <a href="#simulator" className="hover:text-[#ccff00] transition-colors">
+              Demo Desk
             </a>
-            <a href="#algorithm" className="hover:text-white transition-colors">
+            <a href="#engine" className="hover:text-[#ff529a] transition-colors">
               Debt Engine
             </a>
-            <a href="#features" className="hover:text-white transition-colors">
+            <a href="#features" className="hover:text-[#00f0ff] transition-colors">
               Features
             </a>
-            <Link to="/login" className="hover:text-white transition-colors">
+            <Link to="/login" className="hover:text-[#ff8800] transition-colors">
               Sign In
             </Link>
-            <Link to="/register" className="hover:text-white transition-colors">
+            <Link to="/register" className="hover:text-[#b388ff] transition-colors">
               Register
             </Link>
           </div>
 
-          <div className="text-[11px] text-white/50">
-            © {new Date().getFullYear()} SplitSimple · Built for roommates & group trips
+          <div className="text-[11px] text-neutral-400">
+            © {new Date().getFullYear()} SplitSimple · Built for Roommates & Friends
           </div>
         </div>
       </footer>

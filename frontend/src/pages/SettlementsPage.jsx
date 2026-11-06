@@ -8,6 +8,8 @@ import {
   ArrowRight,
   Loader2,
   AlertCircle,
+  Zap,
+  Sparkles,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { settlementService, groupService } from '../services';
@@ -89,62 +91,68 @@ export default function SettlementsPage() {
         amount: amountRupees,
       });
 
-      const settlementId = createRes.data?.data?.settlement?._id || createRes.data?.settlement?._id;
+      const newSettlement =
+        createRes.data?.data?.settlement || createRes.data?.settlement || createRes.data;
 
-      if (settlementId) {
-        await settlementService.markPaid(settlementId);
+      if (newSettlement && newSettlement._id) {
+        await settlementService.markPaid(newSettlement._id);
       }
 
-      toast.success(`Settlement of ₹${amountRupees.toFixed(2)} recorded as paid!`);
-      await fetchSettlementData(selectedGroup);
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to complete settlement');
+      toast.success('Repayment marked as SETTLED via UPI!', {
+        icon: '✓',
+        style: {
+          border: '2px solid black',
+          borderRadius: '4px',
+          boxShadow: '4px 4px 0px #000',
+          background: '#00f0ff',
+          color: '#000',
+          fontWeight: 'bold',
+          fontFamily: 'Space Grotesk, sans-serif',
+        },
+      });
+      fetchSettlementData(selectedGroup);
+    } catch {
+      toast.error('Failed to record settlement');
     } finally {
       setProcessingId(null);
     }
   };
 
-  if (loadingGroups) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
-      </div>
-    );
-  }
+  const currentGroupName =
+    groups.find((g) => g._id === selectedGroup)?.name || 'Selected Group';
 
   const transactions = optimized?.transactions || [];
-  const currentBalances = optimized?.currentBalances || [];
-  const totalOutstanding = optimized?.totalOutstanding || 0;
 
   return (
     <div className="space-y-8">
-      {/* Editorial Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#e5e7eb]">
+      {/* Header and Group Selector */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b-3 border-black">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.018em] text-[#0c0a08] px-2 py-0.5 rounded-[6px] bg-[#e4f222] inline-block mb-1 font-normal">
-            Greedy Simplification Engine
+          <span className="px-2.5 py-0.5 bg-[#ccff00] text-black border-2 border-black rounded-[3px] font-mono text-[10px] font-bold uppercase tracking-wider mb-2 inline-block shadow-[2px_2px_0px_#000]">
+            GREEDY SIMPLIFICATION ENGINE
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-[40px] text-[#0c0a08] font-normal tracking-tight leading-tight">
-            Smart Settlement
+          <h1 className="text-3xl sm:text-5xl font-display font-black text-black tracking-tight uppercase leading-none">
+            SMART SETTLEMENT
           </h1>
-          <p className="text-sm text-[#6d6c6b] mt-1 max-w-xl font-normal">
+          <p className="text-sm font-display text-neutral-700 mt-1 max-w-xl">
             Calculates minimal payments to completely clear all group debts with zero balance drift.
           </p>
         </div>
 
         {/* Group Selector Dropdown */}
-        <div className="w-full md:w-72">
-          <label className="block text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1 font-normal">
-            Active Workspace
+        <div className="w-full md:w-72 font-mono">
+          <label className="block text-[10px] font-bold uppercase tracking-wider text-black mb-1.5">
+            ACTIVE WORKSPACE
           </label>
           <select
             value={selectedGroup}
             onChange={handleGroupSelect}
-            className="w-full bg-white text-[#0c0a08] text-sm rounded-[10px] border border-[#e5e7eb] py-2.5 px-3.5 focus:outline-none focus:border-[#0c0a08] font-normal"
+            disabled={loadingGroups}
+            className="w-full bg-white text-xs sm:text-sm font-bold uppercase text-black border-3 border-black rounded-[4px] p-2.5 shadow-[3px_3px_0px_#000] focus:outline-none focus:shadow-[5px_5px_0px_#000] cursor-pointer"
           >
             {groups.map((g) => (
               <option key={g._id} value={g._id}>
-                {g.name}
+                {g.name.toUpperCase()}
               </option>
             ))}
           </select>
@@ -152,218 +160,173 @@ export default function SettlementsPage() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-20">
-          <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
+        <div className="flex items-center justify-center py-20 font-mono text-sm font-bold">
+          <Loader2 className="w-6 h-6 animate-spin text-black mr-2" />
+          <span>RUNNING GREEDY FLOW SOLVER...</span>
         </div>
       ) : (
-        <>
-          {/* Optimization Summary Bar */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            <div className="bg-[#1a1919] text-white rounded-[16px] border border-white/10 p-5 sm:p-6">
-              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
-                Total Outstanding Debt
-              </span>
-              <p className="text-3xl sm:text-4xl font-normal text-white mt-1 leading-none">
-                {formatCurrency(totalOutstanding)}
-              </p>
-              <p className="text-xs text-[#6d6c6b] mt-2 font-normal">Across all debtor members in this group</p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left Column: Optimized Repayments (7 cols) */}
+          <div className="lg:col-span-7 bg-[#000000] text-white border-3 sm:border-4 border-black rounded-[4px] p-6 sm:p-8 shadow-[8px_8px_0px_#000000] flex flex-col justify-between relative overflow-hidden">
+            {/* Washi Tape */}
+            <div className="absolute -top-3 left-8 w-16 h-4 bg-[#ccff00] border border-black/40 rotate-1 pointer-events-none" />
+
+            <div>
+              <div className="flex items-center justify-between pb-4 border-b-2 border-white/20 mb-6">
+                <div>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ccff00]">
+                    OPTIMIZED REPAYMENTS
+                  </span>
+                  <h3 className="text-2xl font-display font-black text-white uppercase">
+                    {currentGroupName}
+                  </h3>
+                </div>
+                <span className="px-2.5 py-1 bg-[#ff529a] text-white font-mono text-xs font-bold uppercase border-2 border-white shadow-[2px_2px_0px_#fff]">
+                  GREEDY FLOW
+                </span>
+              </div>
+
+              {transactions.length > 0 ? (
+                <div className="space-y-4">
+                  {transactions.map((tx, idx) => {
+                    const fromName = tx.from?.name || 'Member';
+                    const toName = tx.to?.name || 'Member';
+                    const isProcessing =
+                      processingId === `${tx.from?._id || tx.from}-${tx.to?._id || tx.to}`;
+
+                    return (
+                      <div
+                        key={idx}
+                        className="p-4 sm:p-5 bg-neutral-900 border-2 border-white/20 hover:border-[#ccff00] rounded-[4px] shadow-[4px_4px_0px_#ccff00] transition-all"
+                      >
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <div className="flex items-center gap-3">
+                            <MemberAvatar name={fromName} size="md" />
+                            <div className="font-mono text-xs">
+                              <span className="font-bold text-white text-sm">{fromName}</span>
+                              <span className="mx-2 text-[#ccff00] font-bold">→ PAYS →</span>
+                              <span className="font-bold text-white text-sm">{toName}</span>
+                            </div>
+                          </div>
+
+                          <div className="text-right sm:text-right">
+                            <span className="text-xl font-display font-black text-[#ccff00]">
+                              {formatCurrency(tx.amount)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+                          <span className="font-mono text-[10px] text-neutral-400">
+                            Send via GPay / PhonePe / Paytm / UPI
+                          </span>
+                          <button
+                            onClick={() => handleSettleTransaction(tx)}
+                            disabled={isProcessing}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#ccff00] hover:bg-[#bbf000] active:translate-x-0.5 active:translate-y-0.5 text-black font-mono text-xs font-bold uppercase border-2 border-black rounded-[3px] shadow-[2px_2px_0px_#fff] cursor-pointer"
+                          >
+                            {isProcessing ? (
+                              <>
+                                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                <span>Recording...</span>
+                              </>
+                            ) : (
+                              <>
+                                <span>Mark Settled</span>
+                                <ArrowRight className="w-3 h-3" />
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="py-16 text-center font-mono">
+                  <div className="w-12 h-12 bg-[#00c853] border-2 border-white rounded-full flex items-center justify-center text-black mx-auto mb-3 font-bold text-xl">
+                    ✓
+                  </div>
+                  <h4 className="font-display font-black text-2xl text-white uppercase">
+                    All Settled Up!
+                  </h4>
+                  <p className="text-xs text-neutral-400 mt-1 max-w-sm mx-auto">
+                    Every member in {currentGroupName} has a zero net balance. No pending repayments!
+                  </p>
+                </div>
+              )}
             </div>
 
-            <div className="bg-white text-[#0c0a08] rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
-              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
-                Optimized Transactions
+            {/* Bottom Algorithm Guarantee */}
+            <div className="pt-6 mt-8 border-t-2 border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono text-xs">
+              <span className="text-neutral-400">Greedy Transfer Guarantee:</span>
+              <span className="text-[#00f0ff] font-bold">
+                COLLAPSED INTO AT MOST N − 1 PAYMENTS
               </span>
-              <p className="text-3xl sm:text-4xl font-normal text-[#0c0a08] mt-1 leading-none">
-                {transactions.length} Payment{transactions.length === 1 ? '' : 's'}
-              </p>
-              <p className="text-xs text-[#6d6c6b] mt-2 font-normal">
-                {transactions.length === 0
-                  ? 'All accounts are balanced'
-                  : 'Minimal transfers calculated by greedy algorithm'}
-              </p>
-            </div>
-
-            <div className="bg-[#f4f2f0] rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
-              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
-                Balance Conservation
-              </span>
-              <p className="text-3xl sm:text-4xl font-normal text-[#0c0a08] mt-1 leading-none">
-                Exact Paise
-              </p>
-              <p className="text-xs text-[#6d6c6b] mt-2 font-normal">Zero floating-point arithmetic drift</p>
             </div>
           </div>
 
-          {/* Recommended Repayment Plan */}
-          <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
-            <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#e5e7eb]">
-              <div>
-                <h2 className="text-xl sm:text-2xl font-normal text-[#0c0a08] tracking-tight">
-                  Recommended Repayment Plan
-                </h2>
-                <p className="text-xs text-[#6d6c6b] mt-0.5 font-normal">
-                  Follow these transfers to settle all obligations with the fewest payments possible
-                </p>
+          {/* Right Column: Settlement History (5 cols) */}
+          <div className="lg:col-span-5 bg-white border-3 border-black rounded-[4px] p-6 sm:p-8 shadow-[6px_6px_0px_#000] flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between pb-4 border-b-2 border-black mb-4">
+                <div>
+                  <h3 className="font-display font-black text-xl text-black uppercase">
+                    Recorded History
+                  </h3>
+                  <p className="font-mono text-xs text-neutral-600">
+                    Past payments confirmed in this workspace
+                  </p>
+                </div>
+                <span className="px-2 py-0.5 bg-[#00f0ff] border-2 border-black font-mono text-[10px] font-bold uppercase rounded-[2px] shadow-[2px_2px_0px_#000]">
+                  {history.length} CLEARED
+                </span>
               </div>
-            </div>
 
-            {transactions.length > 0 ? (
-              <div className="space-y-3">
-                {transactions.map((tx, idx) => {
-                  const fromName = tx.from?.name || 'Member';
-                  const toName = tx.to?.name || 'Member';
-                  const isProcessing =
-                    processingId === `${tx.from?._id || tx.from}-${tx.to?._id || tx.to}`;
+              {history.length > 0 ? (
+                <div className="divide-y-2 divide-black">
+                  {history.map((item) => {
+                    const fromName = item.from?.name || 'Member';
+                    const toName = item.to?.name || 'Member';
 
-                  return (
-                    <div
-                      key={idx}
-                      className="p-4 rounded-[10px] bg-[#f4f2f0] border border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:border-[#0c0a08]"
-                    >
-                      <div className="flex items-center gap-3">
-                        <MemberAvatar name={fromName} size="md" />
+                    return (
+                      <div key={item._id} className="py-3.5 flex items-center justify-between gap-3">
                         <div>
-                          <div className="flex items-center gap-2 text-sm font-normal text-[#0c0a08]">
+                          <div className="font-mono text-xs font-bold text-black flex items-center gap-1">
                             <span>{fromName}</span>
-                            <span className="text-xs text-[#6d6c6b]">pays</span>
-                            <span className="text-[#0c0a08] underline underline-offset-4">{toName}</span>
+                            <span className="text-[#00c853]">→ PAID →</span>
+                            <span>{toName}</span>
                           </div>
-                          <p className="text-xs text-[#6d6c6b] mt-0.5 font-normal">
-                            Direct settlement transfer
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between sm:justify-end gap-5">
-                        <div className="text-right">
-                          <p className="text-xl sm:text-2xl font-normal text-[#0c0a08]">
-                            {formatCurrency(tx.amount)}
-                          </p>
-                          <span className="text-[10px] text-[#6d6c6b] uppercase tracking-[0.018em]">
-                            Full Settlement
+                          <span className="font-mono text-[10px] text-neutral-500 mt-0.5 block">
+                            {formatDate(item.createdAt)} · VIA UPI
                           </span>
                         </div>
 
-                        <Button
-                          variant="primary"
-                          size="sm"
-                          loading={isProcessing}
-                          onClick={() => handleSettleTransaction(tx)}
-                          icon={CheckCircle2}
-                        >
-                          Mark as Paid
-                        </Button>
+                        <div className="text-right font-mono">
+                          <span className="font-bold text-sm text-black">
+                            {formatCurrency(item.amount)}
+                          </span>
+                          <span className="block text-[9px] font-bold text-[#00c853] uppercase">
+                            [SETTLED ✓]
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="py-10 text-center">
-                <div className="w-10 h-10 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center mx-auto mb-2">
-                  <CheckCircle2 className="w-5 h-5" />
+                    );
+                  })}
                 </div>
-                <h3 className="text-xl font-normal text-[#0c0a08] tracking-tight">
-                  All Debts Settled
-                </h3>
-                <p className="text-xs text-[#6d6c6b] mt-1 max-w-sm mx-auto font-normal">
-                  Every member in this group is currently balanced at ₹0.00. No repayments required!
-                </p>
-              </div>
-            )}
-          </div>
+              ) : (
+                <div className="py-16 text-center font-mono text-xs uppercase text-neutral-500">
+                  No cleared settlements logged yet.
+                </div>
+              )}
+            </div>
 
-          {/* Member Current Net Balances */}
-          <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
-            <h3 className="text-xl sm:text-2xl font-normal text-[#0c0a08] tracking-tight mb-1">
-              Member Ledger Balances
-            </h3>
-            <p className="text-xs text-[#6d6c6b] mb-4 font-normal">
-              Individual net status in this group (positive = receives money, negative = owes money)
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {currentBalances.map((item, i) => {
-                const name = item.user?.name || 'Member';
-                const bal = item.balance;
-                const isCreditor = bal > 0;
-                const isDebtor = bal < 0;
-
-                return (
-                  <div
-                    key={i}
-                    className="p-3.5 rounded-[10px] bg-[#f4f2f0] border border-[#e5e7eb] flex items-center justify-between"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <MemberAvatar name={name} size="sm" />
-                      <div>
-                        <p className="text-sm font-normal text-[#0c0a08]">{name}</p>
-                        <p className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
-                          {isCreditor ? 'Owed' : isDebtor ? 'Owes' : 'Balanced'}
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      className={`text-sm font-normal ${
-                        isCreditor
-                          ? 'text-[#0c0a08]'
-                          : isDebtor
-                          ? 'text-[#b91c1c]'
-                          : 'text-[#6d6c6b]'
-                      }`}
-                    >
-                      {bal > 0 ? '+' : ''}
-                      {formatCurrency(bal)}
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="pt-6 mt-6 border-t-2 border-black font-mono text-xs text-neutral-600 flex items-center justify-between">
+              <span>Automatic Ledger Credit</span>
+              <span className="font-bold text-black">PAISE RECONCILED</span>
             </div>
           </div>
-
-          {/* Settlement History Log */}
-          {history.length > 0 && (
-            <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6">
-              <h3 className="text-xl sm:text-2xl font-normal text-[#0c0a08] tracking-tight mb-1">
-                Completed Settlements
-              </h3>
-              <p className="text-xs text-[#6d6c6b] mb-4 font-normal">
-                Verified payment receipts recorded in this group ledger
-              </p>
-
-              <div className="divide-y divide-[#e5e7eb]">
-                {history.map((h) => (
-                  <div
-                    key={h._id}
-                    className="py-3 flex items-center justify-between text-sm"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-[6px] bg-[#f4f2f0] border border-[#e5e7eb] flex items-center justify-center text-[#0c0a08]">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-normal text-[#0c0a08]">
-                          {h.from?.name || 'Member'} paid {h.to?.name || 'Member'}
-                        </p>
-                        <p className="text-xs text-[#6d6c6b]">
-                          {formatDate(h.settledAt || h.createdAt)}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-normal text-[#0c0a08]">
-                        {formatCurrency(h.amount)}
-                      </p>
-                      <span className="text-[10px] text-[#0c0a08] uppercase tracking-[0.018em]">
-                        Paid & Verified
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </>
+        </div>
       )}
     </div>
   );

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, ArrowRight, Sparkles } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
-import { Button, SecondaryButton } from '../components/Button';
+import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 
 export default function LoginPage() {
@@ -26,7 +26,18 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
-      toast.success('Signed in successfully');
+      toast.success('Signed in to SplitSimple!', {
+        icon: '⚡',
+        style: {
+          border: '2px solid black',
+          borderRadius: '4px',
+          boxShadow: '4px 4px 0px #000',
+          background: '#ccff00',
+          color: '#000',
+          fontWeight: 'bold',
+          fontFamily: 'Space Grotesk, sans-serif',
+        },
+      });
       navigate('/dashboard');
     } catch (err) {
       toast.error(err?.response?.data?.message || err.message || 'Login failed');
@@ -41,50 +52,54 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f4f2f0] px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-[#faf7ee] px-4 py-12 antialiased">
       <div className="w-full max-w-md">
         {/* Brand Logo */}
         <Link
           to="/"
-          className="flex items-center justify-center gap-2 text-xl font-normal text-[#0c0a08] mb-8"
+          className="flex items-center justify-center gap-2.5 text-xl font-display font-black text-black mb-8 uppercase"
         >
-          <div className="w-6 h-6 rounded-[6px] bg-[#e4f222] text-[#0c0a08] flex items-center justify-center font-normal text-xs">
+          <div className="w-8 h-8 rounded-[4px] bg-[#ccff00] text-black border-2 border-black flex items-center justify-center text-sm shadow-[2px_2px_0px_#000]">
             S
           </div>
           <span>SplitSimple</span>
         </Link>
 
-        {/* Ramp Content Card: 16px radius, Paper #ffffff, Hairline #e5e7eb border, no shadow */}
-        <div className="bg-white rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8">
-          <div className="text-left">
-            <h2 className="text-2xl font-normal text-[#0c0a08] tracking-tight">
-              Sign in to ledger
+        {/* Neo-Brutalist Form Card */}
+        <div className="bg-white border-3 sm:border-4 border-black rounded-[4px] p-6 sm:p-8 shadow-[8px_8px_0px_#000000] relative">
+          {/* Washi Tape */}
+          <div className="absolute -top-3 left-10 w-20 h-5 bg-[#ccff00] border border-black/40 rotate-1 pointer-events-none" />
+
+          <div className="text-left mb-6">
+            <span className="px-2 py-0.5 bg-[#00f0ff] border-2 border-black font-mono text-[9px] font-bold uppercase shadow-[2px_2px_0px_#000] inline-block mb-1">
+              DESK AUTHENTICATION
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-display font-black text-black uppercase tracking-tight">
+              SIGN IN TO LEDGER
             </h2>
-            <p className="mt-1 text-xs text-[#6d6c6b] font-normal">
-              Enter credentials to access group ledgers and settlement desks
+            <p className="font-mono text-xs text-neutral-600 mt-1">
+              Enter credentials to access group workspaces and settlement engine
             </p>
           </div>
 
           {/* Quick Demo Credentials Autofill */}
-          <div className="mt-5 p-3 rounded-[10px] bg-[#f4f2f0] border border-[#e5e7eb] text-xs">
-            <div className="flex items-center gap-1.5 font-normal text-[#0c0a08] mb-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#e4f222]" />
-              <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
-                Preloaded Demo Desks:
-              </span>
+          <div className="p-3.5 rounded-[4px] bg-[#faf7ee] border-2 border-black text-xs font-mono mb-5 shadow-[3px_3px_0px_#000]">
+            <div className="flex items-center gap-1.5 font-bold uppercase text-black mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#ccff00] border border-black animate-pulse" />
+              <span>1-CLICK DEMO ACCOUNTS:</span>
             </div>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {[
-                { name: 'Chiranjeevi (Admin)', email: 'chiranjeevi@example.com' },
-                { name: 'Gagan', email: 'gagan@example.com' },
-                { name: 'Pranav', email: 'pranav@example.com' },
-                { name: 'Chandan', email: 'chandan@example.com' },
+                { name: 'Chiranjeevi (Admin)', email: 'chiranjeevi@example.com', color: 'bg-[#ccff00]' },
+                { name: 'Gagan', email: 'gagan@example.com', color: 'bg-[#ff529a] text-white' },
+                { name: 'Pranav', email: 'pranav@example.com', color: 'bg-[#00f0ff]' },
+                { name: 'Chandan', email: 'chandan@example.com', color: 'bg-[#ffb703]' },
               ].map((acc) => (
                 <button
                   key={acc.email}
                   type="button"
                   onClick={() => handleFillDemo(acc.email)}
-                  className="px-2.5 py-1 rounded-[6px] bg-white border border-[#e5e7eb] hover:border-[#0c0a08] text-[11px] font-normal text-[#0c0a08] transition-colors"
+                  className={`px-2.5 py-1 rounded-[3px] border-2 border-black font-mono font-bold text-[11px] shadow-[2px_2px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_#000] transition-all cursor-pointer ${acc.color}`}
                 >
                   {acc.name}
                 </button>
@@ -92,7 +107,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               label="Email Address"
               id="email"
@@ -117,24 +132,24 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              variant="primary"
+              variant="yellow"
               loading={loading}
               className="w-full mt-2"
               icon={ArrowRight}
             >
-              Sign In
+              Sign In to Desk
             </Button>
           </form>
         </div>
 
         {/* Footer link */}
-        <p className="mt-5 text-center text-xs text-[#6d6c6b] font-normal">
-          Don't have an account?{' '}
+        <p className="mt-6 text-center font-mono text-xs font-bold uppercase text-black">
+          Need a workspace?{' '}
           <Link
             to="/register"
-            className="text-[#0c0a08] underline underline-offset-4 font-normal"
+            className="text-black underline decoration-2 decoration-[#ccff00] underline-offset-4"
           >
-            Create one for free
+            Create account for free →
           </Link>
         </p>
       </div>

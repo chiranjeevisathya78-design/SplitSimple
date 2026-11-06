@@ -6,7 +6,7 @@ import {
   Loader2,
   Search,
   ArrowRight,
-  Receipt,
+  Folder,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { groupService } from '../services';
@@ -41,65 +41,72 @@ export default function GroupsPage() {
   return (
     <div className="space-y-8">
       {/* Editorial Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-[#e5e7eb]">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b-3 border-black">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] font-normal">
-            Shared Spaces
+          <span className="px-2.5 py-0.5 bg-[#ff529a] text-white border-2 border-black rounded-[3px] font-mono text-[10px] font-bold uppercase tracking-wider mb-2 inline-block shadow-[2px_2px_0px_#000]">
+            SHARED SPACES
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-[40px] text-[#0c0a08] font-normal tracking-tight leading-tight">
-            Groups
+          <h1 className="text-3xl sm:text-5xl font-display font-black text-black tracking-tight uppercase leading-none">
+            WORKSPACE GROUPS
           </h1>
-          <p className="text-sm text-[#6d6c6b] mt-1 max-w-xl font-normal">
-            Manage your roommates, travel groups, and shared expense desks.
+          <p className="text-sm font-display text-neutral-700 mt-1 max-w-xl">
+            Manage your flatmates, vacation tabs, and shared expense ledgers.
           </p>
         </div>
 
         <Link to="/groups/new">
-          <Button variant="primary" icon={Plus}>
+          <Button variant="yellow" icon={Plus}>
             Create Group
           </Button>
         </Link>
       </div>
 
-      {/* Search Bar (10px Radius Input) */}
-      <div className="max-w-md relative">
-        <Search className="w-4 h-4 text-[#6d6c6b] absolute left-3.5 top-1/2 -translate-y-1/2" />
+      {/* Search Bar */}
+      <div className="max-w-md relative font-mono">
+        <Search className="w-4 h-4 text-black absolute left-3.5 top-1/2 -translate-y-1/2" />
         <input
           type="text"
-          placeholder="Filter groups by name..."
+          placeholder="FILTER GROUPS BY NAME..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full bg-white text-sm text-[#0c0a08] placeholder-[#6d6c6b]/60 rounded-[10px] border border-[#e5e7eb] pl-10 pr-4 py-2.5 focus:outline-none focus:border-[#0c0a08] font-normal"
+          className="w-full bg-white text-xs sm:text-sm text-black placeholder-neutral-400 border-2 border-black rounded-[4px] pl-10 pr-4 py-2.5 shadow-[3px_3px_0px_#000] focus:outline-none focus:shadow-[5px_5px_0px_#000] focus:bg-[#fffef7] uppercase font-bold"
         />
       </div>
 
-      {/* Groups Grid (16px Radius Content Cards, Hairline Borders) */}
+      {/* Groups Grid */}
       {loading ? (
-        <div className="flex items-center justify-center py-20">
-          <Loader2 className="w-6 h-6 animate-spin text-[#0c0a08]" />
+        <div className="flex items-center justify-center py-20 font-mono text-sm font-bold">
+          <Loader2 className="w-6 h-6 animate-spin text-black mr-2" />
+          <span>LOADING GROUPS...</span>
         </div>
       ) : filtered.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {filtered.map((group) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.map((group, idx) => {
             const memberCount = group.members?.length || 0;
+            const tapeColors = ['bg-[#ccff00]', 'bg-[#ff529a]', 'bg-[#00f0ff]', 'bg-[#ff8800]'];
+            const tapeColor = tapeColors[idx % tapeColors.length];
+
             return (
               <Link
                 key={group._id}
                 to={`/groups/${group._id}`}
-                className="bg-white rounded-[16px] border border-[#e5e7eb] p-5 sm:p-6 flex flex-col justify-between transition-colors hover:border-[#0c0a08]"
+                className="bg-white border-3 border-black rounded-[4px] p-6 flex flex-col justify-between shadow-[5px_5px_0px_#000000] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#000000] transition-all relative group"
               >
+                {/* Washi Tape */}
+                <div className={`absolute -top-3 left-6 w-14 h-4 ${tapeColor} border border-black/40 rotate-1 pointer-events-none`} />
+
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-2">
-                    <h3 className="text-xl font-normal text-[#0c0a08] tracking-tight">
+                    <h3 className="text-xl font-display font-black text-black uppercase tracking-tight group-hover:text-[#ff529a] transition-colors">
                       {group.name}
                     </h3>
-                    <span className="text-[10px] uppercase tracking-[0.018em] px-2 py-0.5 rounded-[6px] bg-[#f4f2f0] text-[#6d6c6b] border border-[#e5e7eb] font-normal shrink-0">
-                      {memberCount} member{memberCount === 1 ? '' : 's'}
+                    <span className="px-2 py-0.5 bg-black text-[#ccff00] font-mono text-[10px] font-bold uppercase rounded-[2px] border border-black shrink-0">
+                      {memberCount} {memberCount === 1 ? 'MEMBER' : 'MEMBERS'}
                     </span>
                   </div>
 
                   {group.description && (
-                    <p className="text-xs text-[#6d6c6b] line-clamp-2 mb-4 font-normal">
+                    <p className="font-mono text-xs text-neutral-600 line-clamp-2 mb-4">
                       {group.description}
                     </p>
                   )}
@@ -113,34 +120,34 @@ export default function GroupsPage() {
                       />
                     ))}
                     {memberCount > 5 && (
-                      <span className="text-[10px] text-[#6d6c6b] pl-1 font-normal">
+                      <span className="font-mono text-[11px] font-bold text-neutral-600 pl-1">
                         +{memberCount - 5}
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-[#e5e7eb] flex items-center justify-between text-xs text-[#6d6c6b] font-normal">
+                <div className="pt-4 border-t-2 border-black flex items-center justify-between font-mono text-xs font-bold uppercase text-black">
                   <span>Open Ledger</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#0c0a08]" />
+                  <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
             );
           })}
         </div>
       ) : (
-        <div className="text-center py-16 bg-white rounded-[16px] border border-[#e5e7eb] p-8">
-          <Users className="w-8 h-8 text-[#6d6c6b] mx-auto mb-3" />
-          <h3 className="text-lg font-normal text-[#0c0a08]">
-            No groups found
+        <div className="text-center py-16 bg-white border-3 border-black rounded-[4px] p-8 shadow-[6px_6px_0px_#000]">
+          <Folder className="w-10 h-10 text-neutral-400 mx-auto mb-3" />
+          <h3 className="text-xl font-display font-black text-black uppercase">
+            No Groups Found
           </h3>
-          <p className="text-xs text-[#6d6c6b] mt-1 mb-5">
+          <p className="font-mono text-xs text-neutral-600 mt-1 mb-6">
             {search
               ? 'Try adjusting your search criteria.'
               : 'Create your first group to start splitting shared expenses.'}
           </p>
           <Link to="/groups/new">
-            <Button variant="primary" icon={Plus}>
+            <Button variant="yellow" icon={Plus}>
               Create New Group
             </Button>
           </Link>

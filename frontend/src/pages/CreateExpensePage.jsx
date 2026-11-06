@@ -159,7 +159,18 @@ export default function CreateExpensePage() {
         participants: payloadParticipants,
       });
 
-      toast.success('Expense recorded successfully in ledger!');
+      toast.success('Expense recorded in ledger!', {
+        icon: '⚡',
+        style: {
+          border: '2px solid black',
+          borderRadius: '4px',
+          boxShadow: '4px 4px 0px #000',
+          background: '#ccff00',
+          color: '#000',
+          fontWeight: 'bold',
+          fontFamily: 'Space Grotesk, sans-serif',
+        },
+      });
       navigate('/expenses');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to record expense');
@@ -171,26 +182,29 @@ export default function CreateExpensePage() {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       {/* Header */}
-      <div className="pb-5 border-b border-[#e5e7eb]">
+      <div>
         <Link
           to="/expenses"
-          className="text-xs text-[#6d6c6b] hover:text-[#0c0a08] inline-flex items-center gap-1.5 mb-2 transition"
+          className="font-mono text-xs font-bold uppercase text-black hover:text-[#ff529a] inline-flex items-center gap-1.5 mb-2 transition"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Expenses</span>
         </Link>
-        <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] block mb-1">
-          New Entry
+        <span className="px-2 py-0.5 bg-[#ccff00] border-2 border-black font-mono text-[10px] font-bold uppercase shadow-[2px_2px_0px_#000] inline-block mb-1">
+          NEW TRANSACTION
         </span>
-        <h1 className="text-3xl font-normal text-[#0c0a08] tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-display font-black text-black tracking-tight uppercase leading-none">
           Record Shared Expense
         </h1>
+        <p className="text-sm font-display text-neutral-700 mt-1">
+          Enter expense details, select participant shares, and update group balances.
+        </p>
       </div>
 
       {/* Main Expense Form Card */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8 space-y-6"
+        className="bg-white border-3 border-black rounded-[4px] p-6 sm:p-8 space-y-6 shadow-[6px_6px_0px_#000000]"
       >
         {/* Title and Amount */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -206,11 +220,11 @@ export default function CreateExpensePage() {
           </div>
 
           <div>
-            <label className="block text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1.5 font-normal">
+            <label className="block font-mono text-xs font-bold uppercase tracking-wider text-black mb-1.5">
               Amount (₹ INR) *
             </label>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-[#6d6c6b] text-sm">
+            <div className="relative font-mono">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-black font-bold text-sm">
                 ₹
               </span>
               <input
@@ -221,7 +235,7 @@ export default function CreateExpensePage() {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 required
-                className="w-full bg-[#ffffff] text-[#0c0a08] placeholder-[#6d6c6b] text-sm rounded-[10px] border border-[#e5e7eb] py-2.5 pl-8 pr-3.5 focus:outline-none focus:border-[#0c0a08]"
+                className="w-full bg-white text-black placeholder-neutral-400 font-bold text-sm border-2 border-black rounded-[4px] py-2.5 pl-8 pr-3.5 shadow-[2px_2px_0px_#000] focus:outline-none focus:shadow-[4px_4px_0px_#000] focus:bg-[#fffef7]"
               />
             </div>
           </div>
@@ -234,7 +248,7 @@ export default function CreateExpensePage() {
             id="group"
             value={selectedGroup}
             onChange={(e) => setSelectedGroup(e.target.value)}
-            options={groups.map((g) => ({ value: g._id, label: g.name }))}
+            options={groups.map((g) => ({ value: g._id, label: g.name.toUpperCase() }))}
             required
           />
 
@@ -243,7 +257,7 @@ export default function CreateExpensePage() {
             id="paidBy"
             value={paidBy}
             onChange={(e) => setPaidBy(e.target.value)}
-            options={groupMembers.map((m) => ({ value: m._id, label: m.name }))}
+            options={groupMembers.map((m) => ({ value: m._id, label: m.name.toUpperCase() }))}
             required
           />
         </div>
@@ -257,7 +271,7 @@ export default function CreateExpensePage() {
             onChange={(e) => setCategory(e.target.value)}
             options={Object.entries(CATEGORIES).map(([key, cat]) => ({
               value: key,
-              label: cat.label,
+              label: cat.label.toUpperCase(),
             }))}
             required
           />
@@ -273,18 +287,18 @@ export default function CreateExpensePage() {
         </div>
 
         {/* Split Type Selector */}
-        <div className="pt-4 border-t border-[#e5e7eb]">
-          <span className="block text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-2 font-normal">
+        <div className="pt-4 border-t-2 border-black">
+          <span className="block font-mono text-xs font-bold uppercase tracking-wider text-black mb-2">
             Splitting Method
           </span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => setSplitType('equal')}
-              className={`px-4 py-2 rounded-[6px] text-xs font-normal transition-all ${
+              className={`px-4 py-2 border-2 border-black rounded-[4px] font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
                 splitType === 'equal'
-                  ? 'bg-[#0c0a08] text-white'
-                  : 'bg-[#f4f2f0] text-[#6d6c6b] border border-[#e5e7eb] hover:text-[#0c0a08]'
+                  ? 'bg-[#ccff00] text-black shadow-[3px_3px_0px_#000] -translate-y-0.5'
+                  : 'bg-white text-black hover:bg-neutral-100'
               }`}
             >
               Equal Split
@@ -292,10 +306,10 @@ export default function CreateExpensePage() {
             <button
               type="button"
               onClick={() => setSplitType('custom')}
-              className={`px-4 py-2 rounded-[6px] text-xs font-normal transition-all ${
+              className={`px-4 py-2 border-2 border-black rounded-[4px] font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
                 splitType === 'custom'
-                  ? 'bg-[#0c0a08] text-white'
-                  : 'bg-[#f4f2f0] text-[#6d6c6b] border border-[#e5e7eb] hover:text-[#0c0a08]'
+                  ? 'bg-[#ff529a] text-white shadow-[3px_3px_0px_#000] -translate-y-0.5'
+                  : 'bg-white text-black hover:bg-neutral-100'
               }`}
             >
               Custom Amounts
@@ -304,19 +318,19 @@ export default function CreateExpensePage() {
         </div>
 
         {/* Participants Selection & Breakdown */}
-        <div className="bg-[#f4f2f0] rounded-[12px] p-5 space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b]">
+        <div className="bg-[#faf7ee] border-2 border-black rounded-[4px] p-5 space-y-3 shadow-[3px_3px_0px_#000]">
+          <div className="flex items-center justify-between font-mono text-xs">
+            <span className="font-bold uppercase text-black">
               Participants ({selectedParticipants.length} selected)
             </span>
             {splitType === 'equal' && parsedAmount > 0 && selectedParticipants.length > 0 && (
-              <span className="text-xs text-[#0c0a08]">
-                ₹{(parsedAmount / selectedParticipants.length).toFixed(2)} per person
+              <span className="px-2 py-0.5 bg-[#ccff00] border border-black font-bold">
+                ₹{(parsedAmount / selectedParticipants.length).toFixed(2)} / PERSON
               </span>
             )}
           </div>
 
-          <div className="divide-y divide-[#e5e7eb] bg-white rounded-[10px] border border-[#e5e7eb] px-3">
+          <div className="divide-y-2 divide-black bg-white border-2 border-black rounded-[4px] px-3">
             {groupMembers.map((member) => {
               const isSelected = selectedParticipants.includes(member._id);
               const customVal = customShares[member._id] || '';
@@ -326,25 +340,25 @@ export default function CreateExpensePage() {
                   key={member._id}
                   className="py-3 flex items-center justify-between gap-4"
                 >
-                  <label className="flex items-center gap-3 cursor-pointer">
+                  <label className="flex items-center gap-3 cursor-pointer select-none">
                     <input
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => toggleParticipant(member._id)}
-                      className="w-4 h-4 rounded-[4px] text-[#0c0a08] focus:ring-0"
+                      className="w-4 h-4 rounded-[2px] border-2 border-black text-black focus:ring-0 cursor-pointer"
                     />
                     <MemberAvatar name={member.name} size="sm" />
                     <div>
-                      <p className="text-xs sm:text-sm font-normal text-[#0c0a08]">
+                      <p className="font-display font-bold text-sm text-black">
                         {member.name}
                       </p>
-                      <p className="text-[10px] text-[#6d6c6b]">{member.email}</p>
+                      <p className="font-mono text-[10px] text-neutral-600">{member.email}</p>
                     </div>
                   </label>
 
                   {splitType === 'custom' && isSelected && (
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-xs text-[#6d6c6b]">₹</span>
+                    <div className="flex items-center gap-1.5 font-mono">
+                      <span className="font-bold text-xs">₹</span>
                       <input
                         type="number"
                         step="0.01"
@@ -353,7 +367,7 @@ export default function CreateExpensePage() {
                         onChange={(e) =>
                           handleCustomShareChange(member._id, e.target.value)
                         }
-                        className="w-24 bg-[#f4f2f0] text-right text-xs rounded-[6px] border border-[#e5e7eb] py-1.5 px-2.5 focus:outline-none focus:border-[#0c0a08]"
+                        className="w-24 bg-[#faf7ee] text-right font-mono font-bold text-xs rounded-[3px] border-2 border-black py-1 px-2 focus:outline-none focus:bg-white"
                       />
                     </div>
                   )}
@@ -364,20 +378,20 @@ export default function CreateExpensePage() {
 
           {/* Custom sum validation banner */}
           {splitType === 'custom' && (
-            <div className="pt-2 flex items-center justify-between text-xs">
-              <span className="text-[#6d6c6b]">
-                Total Allocated: ₹{customSum.toFixed(2)} / ₹{parsedAmount.toFixed(2)}
+            <div className="pt-2 flex items-center justify-between font-mono text-xs font-bold">
+              <span>
+                ALLOCATED: ₹{customSum.toFixed(2)} / ₹{parsedAmount.toFixed(2)}
               </span>
               <span
-                className={`font-normal ${
+                className={`px-2 py-0.5 border border-black rounded-[2px] ${
                   Math.abs(customDifference) <= 0.01
-                    ? 'text-emerald-700'
-                    : 'text-rose-600'
+                    ? 'bg-[#00c853] text-black'
+                    : 'bg-[#ff3b30] text-white'
                 }`}
               >
                 {Math.abs(customDifference) <= 0.01
-                  ? '✓ Exact match'
-                  : `Difference: ₹${customDifference.toFixed(2)}`}
+                  ? '✓ EXACT MATCH'
+                  : `DIFF: ₹${customDifference.toFixed(2)}`}
               </span>
             </div>
           )}
@@ -385,26 +399,26 @@ export default function CreateExpensePage() {
 
         {/* Description textarea */}
         <div>
-          <label className="block text-[10px] uppercase tracking-[0.018em] text-[#6d6c6b] mb-1.5 font-normal">
-            Notes / Description (Optional)
+          <label className="block font-mono text-xs font-bold uppercase tracking-wider text-black mb-1.5">
+            Notes / Itemized Receipt (Optional)
           </label>
           <textarea
             rows="3"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Add any extra notes or itemized details..."
-            className="w-full bg-white text-[#0c0a08] placeholder-[#6d6c6b] text-xs rounded-[10px] border border-[#e5e7eb] p-3 focus:outline-none focus:border-[#0c0a08]"
+            placeholder="Add any extra notes, bill items, or restaurant breakdown..."
+            className="w-full bg-white text-black placeholder-neutral-400 font-mono text-xs sm:text-sm rounded-[4px] border-2 border-black p-3 shadow-[2px_2px_0px_#000] focus:outline-none focus:shadow-[4px_4px_0px_#000] focus:bg-[#fffef7]"
           />
         </div>
 
         {/* Submit Button */}
-        <div className="pt-4 flex items-center justify-end gap-3 border-t border-[#e5e7eb]">
+        <div className="pt-4 flex items-center justify-end gap-3 border-t-2 border-black">
           <Link to="/expenses">
             <SecondaryButton>Cancel</SecondaryButton>
           </Link>
           <Button
             type="submit"
-            variant="primary"
+            variant="yellow"
             loading={submitting}
             icon={Receipt}
           >
