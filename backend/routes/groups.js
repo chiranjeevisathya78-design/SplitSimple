@@ -8,6 +8,8 @@ const {
   getGroup,
   updateGroup,
   deleteGroup,
+  joinDemo,
+  addMember,
 } = require('../controllers/groupController');
 const {
   getBalances,
@@ -44,6 +46,9 @@ router.put(
   validate,
   updateGroup
 );
+
+router.post('/join-demo', joinDemo);
+router.post('/:id/members', addMember);
 
 router.delete('/:id', deleteGroup);
 

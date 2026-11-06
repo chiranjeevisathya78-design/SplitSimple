@@ -36,6 +36,21 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Serve frontend dist or redirect root to Vite dev server so localhost:5000 always opens the app
+const path = require('path');
+const frontendDist = path.join(__dirname, '../frontend/dist');
+if (require('fs').existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.redirect('http://localhost:5173/');
+  });
+}
+
 // Error handler
 app.use(errorHandler);
 

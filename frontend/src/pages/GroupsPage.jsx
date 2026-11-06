@@ -141,21 +141,42 @@ export default function GroupsPage() {
           })}
         </div>
       ) : (
-        <div className="text-center py-16 glass-brutal-card p-8">
-          <Folder className="w-10 h-10 text-neutral-400 mx-auto mb-3" />
-          <h3 className="text-xl font-display font-black text-black uppercase">
-            No Groups Found
-          </h3>
-          <p className="font-mono text-xs text-neutral-600 mt-1 mb-6">
-            {search
-              ? 'Try adjusting your search criteria.'
-              : 'Create your first group to start splitting shared expenses.'}
-          </p>
-          <Link to="/groups/new">
-            <Button variant="yellow" icon={Plus}>
-              Create New Group
-            </Button>
-          </Link>
+        <div className="text-center py-16 glass-brutal-card p-8 space-y-4">
+          <div className="w-16 h-16 rounded-[12px] bg-gradient-to-b from-[#ccff00] to-[#b8f000] border-3 border-black mx-auto flex items-center justify-center font-black text-2xl shadow-[4px_5px_0px_#000]">
+            <Folder className="w-8 h-8 text-black" />
+          </div>
+          <div className="space-y-1">
+            <h3 className="text-2xl font-display font-black text-black uppercase">
+              No Groups Found
+            </h3>
+            <p className="font-mono text-xs text-neutral-600 max-w-sm mx-auto">
+              {search
+                ? 'Try adjusting your search criteria.'
+                : 'Create your first group workspace or connect to the sample flatmate ledgers.'}
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <Link to="/groups/new">
+              <Button variant="yellow" icon={Plus}>
+                Create New Group
+              </Button>
+            </Link>
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  await groupService.joinDemo();
+                  toast.success('★ Linked to Bangalore & Goa sample workspaces!', { icon: '⚡' });
+                  fetchGroups();
+                } catch {
+                  toast.error('Failed to link sample workspaces');
+                }
+              }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-b from-[#33f5ff] to-[#00d9e6] hover:brightness-105 active:translate-x-0.5 active:translate-y-0.5 text-black border-2 border-black rounded-[8px] font-mono text-xs font-bold uppercase shadow-[3px_4px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)] cursor-pointer transition-all"
+            >
+              <span>⚡ 1-Click Link Sample Groups</span>
+            </button>
+          </div>
         </div>
       )}
     </div>

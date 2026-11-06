@@ -98,7 +98,7 @@ const PREVIEW_DATA = {
 };
 
 export default function LandingPage() {
-  const { login } = useAuth();
+  const { login, user, logout } = useAuth();
   const navigate = useNavigate();
   const [loadingDemo, setLoadingDemo] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -224,25 +224,45 @@ export default function LandingPage() {
 
           {/* Right Header CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              to="/login"
-              className="px-4 py-2 font-display text-xs font-bold uppercase tracking-wider text-black bg-white/80 hover:bg-white border-2 border-black rounded-[8px] shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.9)] hover:shadow-[3px_4px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all cursor-pointer"
-            >
-              Sign In
-            </Link>
-            <button
-              onClick={handleExploreDemo}
-              disabled={loadingDemo}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-display font-bold uppercase tracking-wider bg-gradient-to-b from-[#d8ff26] to-[#b8f000] text-black border-2 border-black rounded-[8px] shadow-[3px_4px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)] hover:shadow-[5px_6px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer"
-            >
-              {loadingDemo ? (
-                <>Connecting...</>
-              ) : (
-                <>
-                  Explore Demo <ArrowRight className="w-3.5 h-3.5" />
-                </>
-              )}
-            </button>
+            {user ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="px-4 py-2 font-display text-xs font-black uppercase tracking-wider bg-black text-[#ccff00] hover:bg-neutral-800 border-2 border-black rounded-[8px] shadow-[2px_3px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  <Sparkles size={14} className="text-[#ccff00]" />
+                  <span>Go to Dashboard →</span>
+                </Link>
+                <button
+                  onClick={logout}
+                  className="px-3 py-2 font-display text-xs font-bold uppercase tracking-wider text-black bg-white/80 hover:bg-white border-2 border-black rounded-[8px] shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition cursor-pointer"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="px-4 py-2 font-display text-xs font-bold uppercase tracking-wider text-black bg-white/80 hover:bg-white border-2 border-black rounded-[8px] shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.9)] hover:shadow-[3px_4px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all cursor-pointer"
+                >
+                  Sign In
+                </Link>
+                <button
+                  onClick={handleExploreDemo}
+                  disabled={loadingDemo}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-xs font-display font-bold uppercase tracking-wider bg-gradient-to-b from-[#d8ff26] to-[#b8f000] text-black border-2 border-black rounded-[8px] shadow-[3px_4px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)] hover:shadow-[5px_6px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer"
+                >
+                  {loadingDemo ? (
+                    <>Connecting...</>
+                  ) : (
+                    <>
+                      Explore Demo <ArrowRight className="w-3.5 h-3.5" />
+                    </>
+                  )}
+                </button>
+              </>
+            )}
           </div>
 
           {/* Mobile hamburger */}
@@ -318,6 +338,50 @@ export default function LandingPage() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
+            {/* Authenticated Welcome Banner if user is logged in */}
+            {user && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="mb-4 p-3.5 bg-gradient-to-r from-[#d8ff26]/90 via-[#33f5ff]/90 to-[#ff4d8d]/90 border-2 border-black rounded-[10px] shadow-[4px_4px_0px_#000] flex flex-wrap items-center justify-between gap-3 text-left"
+              >
+                <div className="flex items-center gap-2 font-mono text-xs font-black text-black">
+                  <span className="w-2.5 h-2.5 rounded-full bg-black animate-pulse" />
+                  <span>WELCOME BACK, {user.name.toUpperCase()}! YOUR EXPENSE DESK IS READY.</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Link
+                    to="/dashboard"
+                    className="px-3.5 py-1.5 bg-black text-[#ccff00] hover:bg-neutral-800 font-mono text-xs font-black uppercase rounded-[6px] border border-black shadow-[2px_2px_0px_#000] transition active:translate-x-0.5 active:translate-y-0.5"
+                  >
+                    Open Live Dashboard →
+                  </Link>
+                  <button
+                    onClick={logout}
+                    className="px-2.5 py-1.5 bg-white text-black hover:bg-neutral-100 font-mono text-xs font-bold uppercase rounded-[6px] border-2 border-black shadow-[2px_2px_0px_#000] transition cursor-pointer"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Maximalist Top Stickers Row */}
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <span className="px-3 py-1 bg-gradient-to-r from-[#ccff00] to-[#b8f000] border-2 border-black font-mono text-[10px] font-black uppercase rounded-[6px] shadow-[2px_2px_0px_#000] -rotate-1">
+                ✦ 100% INTEGER PAISE
+              </span>
+              <span className="px-3 py-1 bg-gradient-to-r from-[#ff3377] to-[#e62266] text-white border-2 border-black font-mono text-[10px] font-black uppercase rounded-[6px] shadow-[2px_2px_0px_#000] rotate-1">
+                🔥 GREEDY MIN-FLOW
+              </span>
+              <span className="px-3 py-1 bg-gradient-to-r from-[#00f0ff] to-[#00d9e6] border-2 border-black font-mono text-[10px] font-black uppercase rounded-[6px] shadow-[2px_2px_0px_#000] -rotate-2">
+                ★ ZERO LEAKAGE
+              </span>
+              <span className="px-3 py-1 bg-gradient-to-r from-[#ffb703] to-[#ff9900] border-2 border-black font-mono text-[10px] font-black uppercase rounded-[6px] shadow-[2px_2px_0px_#000] rotate-2">
+                ⚡ MAXIMALIST DESK
+              </span>
+            </div>
+
             {/* Top Skeuo-Glass Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}

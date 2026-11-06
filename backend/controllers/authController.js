@@ -82,18 +82,21 @@ exports.getMe = async (req, res) => {
   });
 };
 
-// GET /api/auth/users/search?email=...
+// GET /api/auth/users/search?email=... or ?q=...
 exports.searchUsers = async (req, res, next) => {
   try {
-    const { email } = req.query;
-    if (!email || email.length < 3) {
-      throw new AppError('Search query must be at least 3 characters', 400);
+    const query = (req.query.q || req.query.email || '').trim();
+
+    let filter = { _id: { $ne: req.user._id } };
+
+    if (query && query.length > 0) {
+      filter.$or = [
+        { name: { $regex: query, $options: 'i' } },
+        { email: { $regex: query, $options: 'i' } },
+      ];
     }
 
-    const users = await User.find({
-      email: { $regex: email, $options: 'i' },
-      _id: { $ne: req.user._id }, // Exclude current user
-    })
+    const users = await User.find(filter)
       .select('name email')
       .limit(10);
 

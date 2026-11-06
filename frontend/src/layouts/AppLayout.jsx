@@ -132,6 +132,15 @@ export default function AppLayout() {
 
             {/* Right: Demo Reset & Profile Controls */}
             <div className="hidden sm:flex items-center gap-3 shrink-0">
+              {/* Link to Public Landing */}
+              <Link
+                to="/"
+                title="View Public Landing Page"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/85 hover:bg-white text-black border-2 border-black rounded-[6px] font-mono text-xs font-bold uppercase tracking-wider shadow-[2px_3px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.7)] hover:shadow-[3px_4px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
+              >
+                <span>✦ Public Landing</span>
+              </Link>
+
               {/* Reset Demo Button */}
               <button
                 onClick={handleResetDemo}

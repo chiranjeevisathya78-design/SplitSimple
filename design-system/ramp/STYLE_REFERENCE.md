@@ -69,3 +69,4 @@ Ramp operates as a black-and-white editorial system punctuated by a single highl
 - **Section gap:** 64-128px
 - **Card padding:** 20-24px
 - **Element gap:** 8px
+

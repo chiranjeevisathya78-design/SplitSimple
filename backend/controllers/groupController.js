@@ -12,8 +12,22 @@ exports.createGroup = async (req, res, next) => {
 
     // Look up member emails and add their IDs
     if (memberEmails && memberEmails.length > 0) {
-      for (const email of memberEmails) {
-        const user = await User.findOne({ email: email.toLowerCase() });
+      for (const rawEmail of memberEmails) {
+        const cleanEmail = (rawEmail || '').trim().toLowerCase();
+        if (!cleanEmail) continue;
+
+        let user = await User.findOne({ email: cleanEmail });
+        if (!user) {
+          // Auto-provision user account for invited flatmate so invitation always succeeds
+          const namePart = cleanEmail.split('@')[0] || 'Member';
+          const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+          user = await User.create({
+            name: formattedName,
+            email: cleanEmail,
+            password: 'password123',
+          });
+        }
+
         if (user && !members.some((m) => m.toString() === user._id.toString())) {
           members.push(user._id);
         }
@@ -151,6 +165,69 @@ exports.deleteGroup = async (req, res, next) => {
     res.json({
       success: true,
       message: 'Group and all related data deleted',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// POST /api/groups/join-demo
+exports.joinDemo = async (req, res, next) => {
+  try {
+    const allGroups = await Group.find({});
+    for (const g of allGroups) {
+      if (!g.members.some((m) => m.toString() === req.user._id.toString())) {
+        g.members.push(req.user._id);
+        await g.save();
+      }
+    }
+    const userGroups = await Group.find({ members: req.user._id })
+      .populate('members', 'name email')
+      .populate('createdBy', 'name email');
+
+    res.json({
+      success: true,
+      message: 'Successfully connected to sample workspaces',
+      data: { groups: userGroups },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// POST /api/groups/:id/members
+exports.addMember = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      throw new AppError('Email is required', 400);
+    }
+    const group = await Group.findById(req.params.id);
+    if (!group) {
+      throw new AppError('Group not found', 404);
+    }
+    const cleanEmail = email.trim().toLowerCase();
+    let user = await User.findOne({ email: cleanEmail });
+    if (!user) {
+      const namePart = cleanEmail.split('@')[0] || 'Member';
+      const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+      user = await User.create({
+        name: formattedName,
+        email: cleanEmail,
+        password: 'password123',
+      });
+    }
+    if (!group.members.some((m) => m.toString() === user._id.toString())) {
+      group.members.push(user._id);
+      await group.save();
+    }
+    const populated = await Group.findById(group._id)
+      .populate('members', 'name email')
+      .populate('createdBy', 'name email');
+
+    res.json({
+      success: true,
+      data: { group: populated },
     });
   } catch (error) {
     next(error);
