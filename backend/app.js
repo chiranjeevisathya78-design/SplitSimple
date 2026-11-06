@@ -33,15 +33,14 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Root / Health check
-app.get('/', (req, res) => {
-  res.json({
-    name: 'SplitSimple API',
-    status: 'online',
-    timestamp: new Date().toISOString(),
-  });
-});
+// Serve frontend static files if built
+const path = require('path');
+const frontendDist = path.join(__dirname, '../frontend/dist');
+if (require('fs').existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+}
 
+// Health check
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -56,6 +55,22 @@ app.use('/api/expenses', expenseRoutes);
 app.use('/api/settlements', settlementRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/demo', demoRoutes);
+
+// SPA fallback for frontend client routes
+if (require('fs').existsSync(frontendDist)) {
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.json({
+      name: 'SplitSimple API',
+      status: 'online',
+      timestamp: new Date().toISOString(),
+    });
+  });
+}
 
 // Error handler middleware
 app.use(errorHandler);

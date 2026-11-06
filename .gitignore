@@ -25,3 +25,6 @@ Thumbs.db
 # Railway / deploy artifacts
 *.lock.local
 
+
+cloudflared.exe
+
