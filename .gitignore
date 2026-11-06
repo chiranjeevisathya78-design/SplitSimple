@@ -6,6 +6,7 @@ build/
 # Environment
 .env
 .env.local
+.env.production
 
 # Database
 backend/data/
@@ -18,6 +19,9 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
-
 # Local MongoDB data
 .data/
+
+# Railway / deploy artifacts
+*.lock.local
+

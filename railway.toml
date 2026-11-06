@@ -1,0 +1,16 @@
+# Railway Deployment Configuration
+# Single service: backend serves both API + built frontend
+
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend"
+
+[deploy]
+startCommand = "node backend/server.js"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
+
+[[services]]
+name = "splitsimple"
