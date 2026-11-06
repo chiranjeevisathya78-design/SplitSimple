@@ -69,7 +69,7 @@ export default function GroupsPage() {
           placeholder="FILTER GROUPS BY NAME..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full bg-white text-xs sm:text-sm text-black placeholder-neutral-400 border-2 border-black rounded-[4px] pl-10 pr-4 py-2.5 shadow-[3px_3px_0px_#000] focus:outline-none focus:shadow-[5px_5px_0px_#000] focus:bg-[#fffef7] uppercase font-bold"
+          className="w-full bg-white/85 backdrop-blur-md text-xs sm:text-sm text-black placeholder-neutral-500 border-[2.5px] border-black rounded-[8px] pl-10 pr-4 py-2.5 shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.9),3px_3px_0px_#000] focus:outline-none focus:shadow-[4px_4px_0px_#000] focus:bg-white uppercase font-bold transition-all"
         />
       </div>
 
@@ -83,24 +83,29 @@ export default function GroupsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((group, idx) => {
             const memberCount = group.members?.length || 0;
-            const tapeColors = ['bg-[#ccff00]', 'bg-[#ff529a]', 'bg-[#00f0ff]', 'bg-[#ff8800]'];
+            const tapeColors = [
+              'bg-gradient-to-r from-[#ccff00] to-[#b8f000]',
+              'bg-gradient-to-r from-[#ff3377] to-[#e62266] text-white',
+              'bg-gradient-to-r from-[#00f0ff] to-[#00d9e6]',
+              'bg-gradient-to-r from-[#ffb703] to-[#ff9900]',
+            ];
             const tapeColor = tapeColors[idx % tapeColors.length];
 
             return (
               <Link
                 key={group._id}
                 to={`/groups/${group._id}`}
-                className="bg-white border-3 border-black rounded-[4px] p-6 flex flex-col justify-between shadow-[5px_5px_0px_#000000] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#000000] transition-all relative group"
+                className="glass-brutal-card-hover p-6 flex flex-col justify-between relative group"
               >
-                {/* Washi Tape */}
-                <div className={`absolute -top-3 left-6 w-14 h-4 ${tapeColor} border border-black/40 rotate-1 pointer-events-none`} />
+                {/* Accent Line */}
+                <div className={`absolute top-0 left-6 right-6 h-[3px] rounded-b-[3px] ${tapeColor}`} />
 
                 <div>
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <h3 className="text-xl font-display font-black text-black uppercase tracking-tight group-hover:text-[#ff529a] transition-colors">
+                  <div className="flex items-start justify-between gap-3 mb-2 pt-1">
+                    <h3 className="text-xl font-display font-black text-black uppercase tracking-tight group-hover:text-[#ff3377] transition-colors">
                       {group.name}
                     </h3>
-                    <span className="px-2 py-0.5 bg-black text-[#ccff00] font-mono text-[10px] font-bold uppercase rounded-[2px] border border-black shrink-0">
+                    <span className="px-2 py-0.5 bg-black text-[#ccff00] font-mono text-[10px] font-bold uppercase rounded-[4px] border border-black shrink-0 shadow-[1px_1px_0px_#000]">
                       {memberCount} {memberCount === 1 ? 'MEMBER' : 'MEMBERS'}
                     </span>
                   </div>
@@ -127,7 +132,7 @@ export default function GroupsPage() {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t-2 border-black flex items-center justify-between font-mono text-xs font-bold uppercase text-black">
+                <div className="pt-4 border-t-2 border-black/15 flex items-center justify-between font-mono text-xs font-bold uppercase text-black">
                   <span>Open Ledger</span>
                   <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -136,7 +141,7 @@ export default function GroupsPage() {
           })}
         </div>
       ) : (
-        <div className="text-center py-16 bg-white border-3 border-black rounded-[4px] p-8 shadow-[6px_6px_0px_#000]">
+        <div className="text-center py-16 glass-brutal-card p-8">
           <Folder className="w-10 h-10 text-neutral-400 mx-auto mb-3" />
           <h3 className="text-xl font-display font-black text-black uppercase">
             No Groups Found

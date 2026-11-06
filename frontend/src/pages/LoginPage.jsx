@@ -52,26 +52,33 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#faf7ee] px-4 py-12 antialiased">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 antialiased relative">
+      {/* Ambient glass refraction orbs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[10%] left-[5%] w-[300px] h-[300px] rounded-full bg-[#ccff00]/30 blur-[80px]" />
+        <div className="absolute bottom-[15%] right-[10%] w-[250px] h-[250px] rounded-full bg-[#ff3377]/25 blur-[80px]" />
+        <div className="absolute top-[60%] left-[50%] w-[200px] h-[200px] rounded-full bg-[#00f0ff]/20 blur-[80px]" />
+      </div>
+
+      <div className="w-full max-w-md relative z-10">
         {/* Brand Logo */}
         <Link
           to="/"
           className="flex items-center justify-center gap-2.5 text-xl font-display font-black text-black mb-8 uppercase"
         >
-          <div className="w-8 h-8 rounded-[4px] bg-[#ccff00] text-black border-2 border-black flex items-center justify-center text-sm shadow-[2px_2px_0px_#000]">
+          <div className="w-8 h-8 rounded-[8px] bg-gradient-to-b from-[#e0ff40] to-[#b8f000] text-black border-2 border-black flex items-center justify-center text-sm shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)]">
             S
           </div>
           <span>SplitSimple</span>
         </Link>
 
-        {/* Neo-Brutalist Form Card */}
-        <div className="bg-white border-3 sm:border-4 border-black rounded-[4px] p-6 sm:p-8 shadow-[8px_8px_0px_#000000] relative">
-          {/* Washi Tape */}
-          <div className="absolute -top-3 left-10 w-20 h-5 bg-[#ccff00] border border-black/40 rotate-1 pointer-events-none" />
+        {/* Glassmorphic Form Card */}
+        <div className="glass-brutal-card p-6 sm:p-8 relative">
+          {/* Specular gloss */}
+          <div className="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-[10px]" />
 
-          <div className="text-left mb-6">
-            <span className="px-2 py-0.5 bg-[#00f0ff] border-2 border-black font-mono text-[9px] font-bold uppercase shadow-[2px_2px_0px_#000] inline-block mb-1">
+          <div className="relative z-10 text-left mb-6">
+            <span className="px-2.5 py-0.5 bg-gradient-to-r from-[#00f0ff] to-[#00d9e6] border-2 border-black rounded-[6px] font-mono text-[9px] font-bold uppercase shadow-[2px_2px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.8)] inline-block mb-1">
               DESK AUTHENTICATION
             </span>
             <h2 className="text-2xl sm:text-3xl font-display font-black text-black uppercase tracking-tight">
@@ -83,23 +90,23 @@ export default function LoginPage() {
           </div>
 
           {/* Quick Demo Credentials Autofill */}
-          <div className="p-3.5 rounded-[4px] bg-[#faf7ee] border-2 border-black text-xs font-mono mb-5 shadow-[3px_3px_0px_#000]">
+          <div className="relative z-10 p-3.5 rounded-[10px] bg-white/60 backdrop-blur-md border-2 border-black text-xs font-mono mb-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8),3px_3px_0px_#000]">
             <div className="flex items-center gap-1.5 font-bold uppercase text-black mb-2">
               <span className="w-2 h-2 rounded-full bg-[#ccff00] border border-black animate-pulse" />
               <span>1-CLICK DEMO ACCOUNTS:</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {[
-                { name: 'Chiranjeevi (Admin)', email: 'chiranjeevi@example.com', color: 'bg-[#ccff00]' },
-                { name: 'Gagan', email: 'gagan@example.com', color: 'bg-[#ff529a] text-white' },
-                { name: 'Pranav', email: 'pranav@example.com', color: 'bg-[#00f0ff]' },
-                { name: 'Chandan', email: 'chandan@example.com', color: 'bg-[#ffb703]' },
+                { name: 'Chiranjeevi (Admin)', email: 'chiranjeevi@example.com', color: 'bg-gradient-to-b from-[#e0ff40] to-[#b8f000]' },
+                { name: 'Gagan', email: 'gagan@example.com', color: 'bg-gradient-to-b from-[#ff4d8d] to-[#e62266] text-white' },
+                { name: 'Pranav', email: 'pranav@example.com', color: 'bg-gradient-to-b from-[#33f5ff] to-[#00d9e6]' },
+                { name: 'Chandan', email: 'chandan@example.com', color: 'bg-gradient-to-b from-[#ffc837] to-[#ff9900]' },
               ].map((acc) => (
                 <button
                   key={acc.email}
                   type="button"
                   onClick={() => handleFillDemo(acc.email)}
-                  className={`px-2.5 py-1 rounded-[3px] border-2 border-black font-mono font-bold text-[11px] shadow-[2px_2px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_#000] transition-all cursor-pointer ${acc.color}`}
+                  className={`px-2.5 py-1 rounded-[6px] border-2 border-black font-mono font-bold text-[11px] shadow-[2px_2px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.7)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_#000] transition-all cursor-pointer ${acc.color}`}
                 >
                   {acc.name}
                 </button>

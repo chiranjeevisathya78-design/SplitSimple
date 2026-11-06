@@ -225,20 +225,20 @@ export default function GroupDetailPage() {
       )}
 
       {/* Tab Navigation */}
-      <div className="flex flex-wrap items-center gap-2 border-b-2 border-black pb-3">
+      <div className="flex flex-wrap items-center gap-2 border-b-2 border-black/20 pb-3">
         {[
-          { key: 'overview', label: 'OVERVIEW', color: 'bg-[#ccff00]' },
-          { key: 'expenses', label: `EXPENSES (${expenses.length})`, color: 'bg-[#ff529a]' },
-          { key: 'members', label: `MEMBERS (${group.members?.length || 0})`, color: 'bg-[#00f0ff]' },
-          { key: 'balances', label: 'BALANCES', color: 'bg-[#ff8800]' },
+          { key: 'overview', label: 'OVERVIEW', activeClass: 'bg-gradient-to-b from-[#e0ff40] to-[#b8f000] text-black shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)]' },
+          { key: 'expenses', label: `EXPENSES (${expenses.length})`, activeClass: 'bg-gradient-to-b from-[#ff4d8d] to-[#e62266] text-white shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.6)]' },
+          { key: 'members', label: `MEMBERS (${group.members?.length || 0})`, activeClass: 'bg-gradient-to-b from-[#33f5ff] to-[#00d9e6] text-black shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)]' },
+          { key: 'balances', label: 'BALANCES', activeClass: 'bg-gradient-to-b from-[#ffc837] to-[#ff9900] text-black shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)]' },
         ].map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-2 border-2 border-black font-mono text-xs font-bold uppercase rounded-[4px] transition-all cursor-pointer ${
+            className={`px-4 py-2 border-2 border-black font-mono text-xs font-bold uppercase rounded-[8px] transition-all cursor-pointer ${
               activeTab === tab.key
-                ? `${tab.color} text-black shadow-[3px_3px_0px_#000] -translate-y-0.5`
-                : 'bg-white text-black hover:bg-neutral-100'
+                ? `${tab.activeClass} -translate-y-0.5`
+                : 'bg-white/70 backdrop-blur-md text-black hover:bg-white shadow-[1px_2px_0px_#000]'
             }`}
           >
             {tab.label}
@@ -250,7 +250,7 @@ export default function GroupDetailPage() {
       {activeTab === 'overview' && (
         <div className="space-y-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="bg-[#ccff00] border-3 border-black p-5 rounded-[4px] shadow-[5px_5px_0px_#000]">
+            <div className="glass-brutal-card p-5 relative overflow-hidden bg-gradient-to-br from-[#e0ff40]/90 to-[#b8f000]/90">
               <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-black">
                 TOTAL GROUP SPENT
               </span>
@@ -262,7 +262,7 @@ export default function GroupDetailPage() {
               </p>
             </div>
 
-            <div className="bg-[#00f0ff] border-3 border-black p-5 rounded-[4px] shadow-[5px_5px_0px_#000]">
+            <div className="glass-brutal-card p-5 relative overflow-hidden bg-gradient-to-br from-[#33f5ff]/90 to-[#00d9e6]/90">
               <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-black">
                 WORKSPACE PARTICIPANTS
               </span>
@@ -274,7 +274,7 @@ export default function GroupDetailPage() {
               </p>
             </div>
 
-            <div className="bg-white border-3 border-black p-5 rounded-[4px] shadow-[5px_5px_0px_#000]">
+            <div className="glass-brutal-card p-5 relative overflow-hidden">
               <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-black">
                 SETTLEMENT STATUS
               </span>
@@ -283,7 +283,7 @@ export default function GroupDetailPage() {
               </p>
               <Link
                 to={`/settlements?groupId=${group._id}`}
-                className="font-mono text-xs font-bold text-black hover:text-[#ff529a] underline mt-2 block"
+                className="font-mono text-xs font-bold text-black hover:text-[#ff3377] underline mt-2 block"
               >
                 Inspect Settlement Plan →
               </Link>
@@ -291,7 +291,7 @@ export default function GroupDetailPage() {
           </div>
 
           {/* Members Strip */}
-          <div className="bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000]">
+          <div className="glass-brutal-card p-6">
             <h3 className="font-display font-black text-xl text-black uppercase mb-4">
               Registered Group Members
             </h3>
@@ -301,7 +301,7 @@ export default function GroupDetailPage() {
                 return (
                   <div
                     key={memberUser._id}
-                    className="p-3 bg-[#faf7ee] border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000] flex items-center gap-3"
+                    className="p-3.5 glass-brutal-card-hover flex items-center gap-3"
                   >
                     <MemberAvatar name={memberUser.name} size="md" />
                     <div className="min-w-0">
@@ -322,8 +322,8 @@ export default function GroupDetailPage() {
 
       {/* Tab 2: Expenses List */}
       {activeTab === 'expenses' && (
-        <div className="bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000]">
-          <div className="flex items-center justify-between pb-4 mb-4 border-b-2 border-black">
+        <div className="glass-brutal-card p-6">
+          <div className="flex items-center justify-between pb-4 mb-4 border-b-2 border-black/15">
             <h3 className="font-display font-black text-xl text-black uppercase">
               Group Expenses ({expenses.length})
             </h3>
@@ -335,13 +335,13 @@ export default function GroupDetailPage() {
           </div>
 
           {expenses.length > 0 ? (
-            <div className="divide-y-2 divide-black">
+            <div className="divide-y-2 divide-black/15">
               {expenses.map((expense) => {
                 const payerName = expense.paidBy?.name || 'Member';
                 return (
                   <div
                     key={expense._id}
-                    className="py-3.5 flex items-center justify-between gap-4 hover:bg-[#fffef7] px-2 rounded-[2px]"
+                    className="py-3.5 flex items-center justify-between gap-4 hover:bg-white/60 px-3 rounded-[8px] transition-all"
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <MemberAvatar name={payerName} size="md" />
@@ -381,11 +381,11 @@ export default function GroupDetailPage() {
 
       {/* Tab 3: Members Detail */}
       {activeTab === 'members' && (
-        <div className="bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000]">
+        <div className="glass-brutal-card p-6">
           <h3 className="font-display font-black text-xl text-black uppercase mb-4">
             Members & Roles
           </h3>
-          <div className="divide-y-2 divide-black">
+          <div className="divide-y-2 divide-black/15">
             {group.members?.map((m) => {
               const memberUser = m.user || m;
               const isLead = memberUser._id === group.createdBy || memberUser._id === group.createdBy?._id;
@@ -401,7 +401,7 @@ export default function GroupDetailPage() {
                     </div>
                   </div>
                   {isLead && (
-                    <span className="px-2 py-0.5 bg-[#ccff00] border-2 border-black font-mono text-[10px] font-bold uppercase rounded-[2px] shadow-[2px_2px_0px_#000]">
+                    <span className="px-2 py-0.5 bg-gradient-to-r from-[#ccff00] to-[#b8f000] border-2 border-black font-mono text-[10px] font-bold uppercase rounded-[4px] shadow-[2px_2px_0px_#000]">
                       WORKSPACE CREATOR
                     </span>
                   )}
@@ -414,8 +414,8 @@ export default function GroupDetailPage() {
 
       {/* Tab 4: Balances */}
       {activeTab === 'balances' && (
-        <div className="bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000]">
-          <div className="flex items-center justify-between pb-4 mb-4 border-b-2 border-black">
+        <div className="glass-brutal-card p-6">
+          <div className="flex items-center justify-between pb-4 mb-4 border-b-2 border-black/15">
             <h3 className="font-display font-black text-xl text-black uppercase">
               Member Net Positions
             </h3>
@@ -426,7 +426,7 @@ export default function GroupDetailPage() {
             </Link>
           </div>
 
-          <div className="divide-y-2 divide-black">
+          <div className="divide-y-2 divide-black/15">
             {balances.map((b) => {
               const isPositive = b.balance > 0;
               const isNegative = b.balance < 0;
@@ -441,7 +441,7 @@ export default function GroupDetailPage() {
                   <div className="text-right">
                     <span
                       className={`font-mono text-base font-bold ${
-                        isPositive ? 'text-[#00c853]' : isNegative ? 'text-[#ff3b30]' : 'text-black'
+                        isPositive ? 'text-[#00c853]' : isNegative ? 'text-[#ff3377]' : 'text-black'
                       }`}
                     >
                       {isPositive ? '+' : ''}

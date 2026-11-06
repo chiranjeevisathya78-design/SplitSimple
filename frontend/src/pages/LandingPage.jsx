@@ -18,11 +18,9 @@ import {
   Handshake,
   Repeat,
   DollarSign,
-  Smile,
-  Flame,
-  Award,
-  CircleDot,
+  ShieldCheck,
   CheckCircle2,
+  CircleDollarSign,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -35,7 +33,7 @@ const PREVIEW_DATA = {
     name: 'Bangalore Roommates',
     badge: 'INDIRANAGAR 3BHK',
     desc: 'Monthly rent, cook, utilities, and daily provisions',
-    folderColor: 'bg-[#ccff00]',
+    folderGradient: 'from-[#d8ff26] to-[#b8f000]',
     totalSpent: 4841500,
     expenses: [
       { title: 'Monthly House Rent', amount: 4000000, paidBy: 'Chiranjeevi S', category: 'Rent', date: '01 NOV' },
@@ -57,7 +55,7 @@ const PREVIEW_DATA = {
     name: 'Goa Trip 2026',
     badge: 'BEACH VILLA TAB',
     desc: 'Beach villa, scooter rentals, dining, and scuba expeditions',
-    folderColor: 'bg-[#ff529a]',
+    folderGradient: 'from-[#ff4d8d] to-[#e62266]',
     totalSpent: 8180000,
     expenses: [
       { title: 'Beachfront Villa (3 Nights)', amount: 4500000, paidBy: 'Gagan K', category: 'Stay', date: '28 OCT' },
@@ -80,7 +78,7 @@ const PREVIEW_DATA = {
     name: 'College Friends',
     badge: 'WEEKEND TAB',
     desc: 'IMAX movies, burgers, turf football, and cafe catchups',
-    folderColor: 'bg-[#00f0ff]',
+    folderGradient: 'from-[#33f5ff] to-[#00d9e6]',
     totalSpent: 1060000,
     expenses: [
       { title: 'Dune IMAX 3D Recliner', amount: 280000, paidBy: 'Pranav M', category: 'Movies', date: '02 NOV' },
@@ -113,13 +111,13 @@ export default function LandingPage() {
     setLoadingDemo(true);
     try {
       await login('chiranjeevi@example.com', 'password123');
-      toast.success('★ Entered Demo Workspace!', {
+      toast.success('★ Entered SplitSimple Glass Desk!', {
         icon: '⚡',
         style: {
           border: '2px solid black',
-          borderRadius: '4px',
-          boxShadow: '4px 4px 0px #000',
-          background: '#ccff00',
+          borderRadius: '8px',
+          boxShadow: '4px 4px 0px #000, inset 0 1px 1px rgba(255,255,255,0.8)',
+          background: 'linear-gradient(180deg, #d8ff26 0%, #b8f000 100%)',
           color: '#000',
           fontWeight: 'bold',
           fontFamily: 'Space Grotesk, sans-serif',
@@ -144,9 +142,9 @@ export default function LandingPage() {
           icon: '✓',
           style: {
             border: '2px solid black',
-            borderRadius: '4px',
-            boxShadow: '4px 4px 0px #000',
-            background: '#00f0ff',
+            borderRadius: '8px',
+            boxShadow: '4px 4px 0px #000, inset 0 1px 1px rgba(255,255,255,0.8)',
+            background: 'linear-gradient(180deg, #33f5ff 0%, #00d9e6 100%)',
             color: '#000',
             fontWeight: 'bold',
             fontFamily: 'Space Mono, monospace',
@@ -161,34 +159,36 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf7ee] text-black overflow-x-hidden selection:bg-[#ccff00] selection:text-black antialiased">
+    <div className="min-h-screen text-black overflow-x-hidden selection:bg-[#ccff00] selection:text-black antialiased relative">
       {/* 
-        1. SURREAL BRUTALIST TICKER BANNER
+        1. TOP GLASSMARQUEE ANNOUNCEMENT
       */}
-      <div className="bg-black text-white border-b-2 border-black py-1.5 overflow-hidden select-none">
-        <div className="flex items-center gap-8 text-xs font-mono font-bold tracking-widest animate-marquee whitespace-nowrap">
+      <div className="bg-black/90 backdrop-blur-md text-white border-b-2 border-black py-1.5 overflow-hidden select-none shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+        <div className="flex items-center gap-8 text-xs font-mono font-bold tracking-widest animate-skeuo-marquee whitespace-nowrap">
           <span className="flex items-center gap-1.5 text-[#ccff00]">
-            <Sparkles className="w-4 h-4" /> SPLITSIMPLE NEO-BRUTALIST EDITION
+            <Sparkles className="w-4 h-4" /> SKEUO-NEU-BRUTALIST GLASS INTERFACE
           </span>
-          <span className="text-[#ff529a]">★</span>
-          <span className="text-[#00f0ff]">COLLAPSE 10 IOUs INTO 2 DIRECT PAYMENTS</span>
+          <span className="text-[#ff3377]">★</span>
+          <span className="text-[#00f0ff]">3D TACTILE PUSH-BUTTONS & FROSTED BEVELS</span>
           <span className="text-[#ccff00]">★</span>
-          <span className="text-[#ff8800]">100% INTEGER PAISE ACCURACY (0.00% DRIFT)</span>
-          <span className="text-[#ff529a]">★</span>
-          <span className="text-white">NO FLOATING-POINT ERRORS</span>
+          <span className="text-[#ff7700]">100% INTEGER PAISE ACCURACY (0.00% DRIFT)</span>
+          <span className="text-[#ff3377]">★</span>
+          <span className="text-white">GREEDY DEBT MIN-FLOW SOLVER</span>
           <span className="text-[#00f0ff]">★</span>
-          <span className="text-[#ccff00]">GREEDY GRAPH OPTIMIZER ACTIVATED</span>
+          <span className="text-[#ccff00]">COLLAPSE 10 IOUs INTO 2 DIRECT TRANSFERS</span>
         </div>
       </div>
 
       {/* 
-        2. STICKY NEO-BRUTALIST HEADER
+        2. FROSTED GLASS & BRUTALIST STICKY HEADER
       */}
-      <header className="sticky top-0 z-50 bg-[#fffdf8] border-b-3 border-black shadow-[0_4px_0_#000000]">
+      <header className="sticky top-0 z-50 bg-white/75 backdrop-blur-2xl border-b-[2.5px] border-black shadow-[0_4px_16px_rgba(0,0,0,0.06),0_4px_0px_#000000]">
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/70 pointer-events-none" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-[4px] bg-[#ccff00] text-black border-2 border-black flex items-center justify-center font-display font-black text-base shadow-[2px_2px_0px_#000000] group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[4px_4px_0px_#000000] transition-all">
+            <div className="w-8 h-8 rounded-[8px] bg-gradient-to-b from-[#d8ff26] to-[#b8f000] text-black border-2 border-black flex items-center justify-center font-display font-black text-base shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)] group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[4px_5px_0px_#000] transition-all">
               S
             </div>
             <div className="flex flex-col">
@@ -196,28 +196,28 @@ export default function LandingPage() {
                 <span className="text-lg font-display font-extrabold tracking-tight text-black leading-none">
                   SplitSimple
                 </span>
-                <span className="px-1.5 py-0.2 bg-[#ff529a] text-white text-[9px] font-mono font-bold uppercase rounded-[2px] border border-black shadow-[1px_1px_0px_#000000]">
-                  v2.4
+                <span className="px-1.5 py-0.2 bg-gradient-to-b from-[#ff4d8d] to-[#e62266] text-white text-[9px] font-mono font-bold uppercase rounded-[4px] border border-black shadow-[1px_1px_0px_#000]">
+                  GLASS
                 </span>
               </div>
               <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-neutral-600 mt-0.5">
-                Surreal Expense Desk
+                Tactile Expense Desk
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-7 text-xs font-mono font-bold uppercase tracking-wider">
-            <a href="#simulator" className="text-black hover:text-[#ff529a] transition-colors">
+            <a href="#simulator" className="text-black hover:text-[#ff3377] transition-colors">
               Interactive Demo
             </a>
             <a href="#engine" className="text-black hover:text-[#00f0ff] transition-colors">
               Debt Engine
             </a>
-            <a href="#features" className="text-black hover:text-[#ff8800] transition-colors">
+            <a href="#features" className="text-black hover:text-[#ff7700] transition-colors">
               Features
             </a>
-            <a href="#faq" className="text-black hover:text-[#b388ff] transition-colors">
+            <a href="#faq" className="text-black hover:text-[#a855f7] transition-colors">
               FAQ
             </a>
           </nav>
@@ -226,14 +226,14 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to="/login"
-              className="px-4 py-2 font-display text-xs font-bold uppercase tracking-wider text-black bg-white hover:bg-[#faf7ee] border-2 border-black rounded-[4px] shadow-[2px_2px_0px_#000000] hover:shadow-[3px_3px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+              className="px-4 py-2 font-display text-xs font-bold uppercase tracking-wider text-black bg-white/80 hover:bg-white border-2 border-black rounded-[8px] shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.9)] hover:shadow-[3px_4px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all cursor-pointer"
             >
               Sign In
             </Link>
             <button
               onClick={handleExploreDemo}
               disabled={loadingDemo}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-display font-bold uppercase tracking-wider bg-[#ccff00] text-black border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000000] hover:shadow-[5px_5px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000000] transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-display font-bold uppercase tracking-wider bg-gradient-to-b from-[#d8ff26] to-[#b8f000] text-black border-2 border-black rounded-[8px] shadow-[3px_4px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)] hover:shadow-[5px_6px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer"
             >
               {loadingDemo ? (
                 <>Connecting...</>
@@ -248,7 +248,7 @@ export default function LandingPage() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 bg-[#ccff00] text-black border-2 border-black rounded-[4px] shadow-[2px_2px_0px_#000000]"
+            className="md:hidden p-2 bg-gradient-to-b from-[#d8ff26] to-[#b8f000] text-black border-2 border-black rounded-[8px] shadow-[2px_3px_0px_#000]"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -262,7 +262,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-[#fffdf8] border-t-2 border-black px-4 py-4 space-y-3"
+              className="md:hidden bg-white/95 backdrop-blur-2xl border-t-2 border-black px-4 py-4 space-y-3"
             >
               <a
                 href="#simulator"
@@ -291,14 +291,14 @@ export default function LandingPage() {
                     setMobileMenuOpen(false);
                     handleExploreDemo();
                   }}
-                  className="w-full py-2.5 font-display text-xs font-bold uppercase bg-[#ccff00] text-black border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000000]"
+                  className="w-full py-2.5 font-display text-xs font-bold uppercase bg-gradient-to-b from-[#d8ff26] to-[#b8f000] text-black border-2 border-black rounded-[8px] shadow-[3px_4px_0px_#000]"
                 >
                   Explore Demo Workspace
                 </button>
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-2.5 font-display text-xs font-bold uppercase text-center bg-white border-2 border-black rounded-[4px] shadow-[2px_2px_0px_#000000]"
+                  className="w-full py-2.5 font-display text-xs font-bold uppercase text-center bg-white border-2 border-black rounded-[8px] shadow-[2px_3px_0px_#000]"
                 >
                   Sign In
                 </Link>
@@ -309,34 +309,26 @@ export default function LandingPage() {
       </header>
 
       {/* 
-        3. HERO SECTION (NEO-BRUTALISM + SURREAL ART)
+        3. HERO SECTION (SKEUO-NEU-BRUTALIST GLASS HERO)
       */}
-      <section className="relative pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
-        {/* Floating Surreal Doodles */}
-        <div className="absolute top-10 left-6 sm:left-16 pointer-events-none opacity-80 animate-surreal-float">
-          <div className="w-14 h-14 rounded-full bg-[#ff529a] border-3 border-black shadow-[4px_4px_0px_#000000] flex items-center justify-center font-display font-black text-xl text-white rotate-12">
-            ₹
-          </div>
-        </div>
-        <div className="absolute top-24 right-8 sm:right-24 pointer-events-none opacity-80 animate-surreal-float" style={{ animationDelay: '1.5s' }}>
-          <div className="px-3 py-1 bg-[#00f0ff] border-2 border-black shadow-[3px_3px_0px_#000000] font-mono font-bold text-xs -rotate-6">
-            ★ PAISE ACCURATE
-          </div>
-        </div>
+      <section className="relative pt-14 pb-16 sm:pt-24 sm:pb-24 overflow-hidden">
+        {/* Ambient floating glass orbs */}
+        <div className="absolute top-12 left-10 w-24 h-24 rounded-full bg-gradient-to-br from-[#d8ff26]/30 to-transparent blur-xl pointer-events-none" />
+        <div className="absolute top-36 right-16 w-32 h-32 rounded-full bg-gradient-to-br from-[#00f0ff]/30 to-transparent blur-xl pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            {/* Top Badge */}
+            {/* Top Skeuo-Glass Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] bg-[#ccff00] border-2 border-black shadow-[3px_3px_0px_#000000] text-xs font-mono font-bold uppercase tracking-wider"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[30px] bg-white/80 backdrop-blur-xl border-2 border-black shadow-[3px_4px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.95)] text-xs font-mono font-bold uppercase tracking-wider"
             >
               <Zap className="w-3.5 h-3.5 text-black fill-black" />
-              <span>NEO-BRUTALIST EXPENSE DESK</span>
-              <span className="text-black/40">|</span>
-              <span className="text-[#ff529a] font-black">ZERO ROUNDING DRIFT</span>
+              <span>SKEUO-NEU-BRUTALIST GLASS DESK</span>
+              <span className="text-black/30">|</span>
+              <span className="text-[#ff3377] font-black">INTEGER PAISE ACCURACY</span>
             </motion.div>
 
             {/* Main Headline */}
@@ -348,7 +340,7 @@ export default function LandingPage() {
             >
               SHARED EXPENSES.{' '}
               <span className="relative inline-block mt-1">
-                <span className="relative z-10 px-3 bg-[#ccff00] border-3 border-black shadow-[5px_5px_0px_#000000] -rotate-1 inline-block">
+                <span className="relative z-10 px-4 py-1 bg-gradient-to-r from-[#d8ff26] to-[#a8f000] border-3 border-black rounded-[12px] shadow-[6px_6px_0px_#000,inset_0_2px_1px_rgba(255,255,255,0.8)] -rotate-1 inline-block">
                   ZERO AWKWARD MATH.
                 </span>
               </span>
@@ -361,8 +353,8 @@ export default function LandingPage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-base sm:text-xl font-display font-medium text-neutral-800 max-w-2xl mx-auto leading-relaxed pt-2"
             >
-              Track flatmates, travel tabs, and group dinners on a surreal tactile ledger.
-              The greedy debt engine collapses messy circular debts into minimal 1-hop UPI transfers.
+              Track flatmates, vacation tabs, and dinner tabs on a tactile frosted glass ledger.
+              The greedy debt engine collapses messy circular transfers into minimal 1-hop UPI payments.
             </motion.p>
 
             {/* Action Buttons */}
@@ -375,7 +367,7 @@ export default function LandingPage() {
               <button
                 onClick={handleExploreDemo}
                 disabled={loadingDemo}
-                className="w-full sm:w-auto px-8 py-4 bg-[#ccff00] hover:bg-[#bbf000] active:translate-x-1 active:translate-y-1 active:shadow-[1px_1px_0px_#000000] text-black font-display font-black text-sm uppercase tracking-wider border-3 border-black rounded-[4px] shadow-[5px_5px_0px_#000000] hover:shadow-[7px_7px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-b from-[#d8ff26] to-[#b8f000] active:translate-x-1 active:translate-y-1 text-black font-display font-black text-sm uppercase tracking-wider border-3 border-black rounded-[10px] shadow-[5px_6px_0px_#000,inset_0_2px_1px_rgba(255,255,255,0.85)] hover:shadow-[7px_8px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 {loadingDemo ? (
                   <>Entering Workspace...</>
@@ -387,33 +379,33 @@ export default function LandingPage() {
               </button>
 
               <Link to="/register" className="w-full sm:w-auto">
-                <button className="w-full px-8 py-4 bg-[#ff529a] hover:bg-[#f03f89] active:translate-x-1 active:translate-y-1 text-white font-display font-black text-sm uppercase tracking-wider border-3 border-black rounded-[4px] shadow-[5px_5px_0px_#000000] hover:shadow-[7px_7px_0px_#000000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                <button className="w-full px-8 py-4 bg-gradient-to-b from-[#ff4d8d] to-[#e62266] active:translate-x-1 active:translate-y-1 text-white font-display font-black text-sm uppercase tracking-wider border-3 border-black rounded-[10px] shadow-[5px_6px_0px_#000,inset_0_2px_1px_rgba(255,255,255,0.5)] hover:shadow-[7px_8px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer">
                   Create Free Account
                 </button>
               </Link>
             </motion.div>
 
-            {/* Stickers / Trust Strip */}
+            {/* Tactile Skeuo Pills */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               className="pt-4 flex flex-wrap items-center justify-center gap-3 text-xs font-mono font-bold"
             >
-              <div className="px-3 py-1 bg-white border-2 border-black rounded-[3px] shadow-[2px_2px_0px_#000000] flex items-center gap-1.5 rotate-1">
+              <div className="px-3 py-1 bg-white/80 backdrop-blur-md border-2 border-black rounded-[20px] shadow-[2px_3px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.9)] flex items-center gap-1.5 rotate-1">
                 <Check className="w-4 h-4 text-[#00c853]" /> 3 PRELOADED GROUPS
               </div>
-              <div className="px-3 py-1 bg-[#00f0ff] border-2 border-black rounded-[3px] shadow-[2px_2px_0px_#000000] flex items-center gap-1.5 -rotate-1">
+              <div className="px-3 py-1 bg-gradient-to-r from-[#33f5ff] to-[#00d9e6] border-2 border-black rounded-[20px] shadow-[2px_3px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.8)] flex items-center gap-1.5 -rotate-1">
                 <Check className="w-4 h-4 text-black" /> 22 REAL EXPENSES
               </div>
-              <div className="px-3 py-1 bg-[#ffb703] border-2 border-black rounded-[3px] shadow-[2px_2px_0px_#000000] flex items-center gap-1.5 rotate-2">
+              <div className="px-3 py-1 bg-gradient-to-r from-[#ffc837] to-[#ff9900] border-2 border-black rounded-[20px] shadow-[2px_3px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.8)] flex items-center gap-1.5 rotate-2">
                 <Check className="w-4 h-4 text-black" /> 1-CLICK UPI SETTLE
               </div>
             </motion.div>
           </div>
 
           {/* 
-            4. TACTILE INTERACTIVE WORKSPACE DESK (MOCKUP)
+            4. FROSTED GLASS & BRUTALIST DESK MOCKUP
           */}
           <motion.div
             id="simulator"
@@ -423,29 +415,32 @@ export default function LandingPage() {
             transition={{ duration: 0.6 }}
             className="w-full mt-14"
           >
-            {/* The Outer Paper Desk Container */}
-            <div className="bg-[#ffffff] border-3 sm:border-4 border-black rounded-[6px] shadow-[8px_8px_0px_#000000] overflow-hidden">
+            {/* The Glass Brutalist Main Frame */}
+            <div className="bg-white/80 backdrop-blur-2xl border-3 sm:border-4 border-black rounded-[16px] shadow-[8px_10px_0px_#000000,0_24px_48px_rgba(0,0,0,0.1),inset_0_2px_1.5px_rgba(255,255,255,0.95)] overflow-hidden">
+              {/* Gloss Top Specular Sheen */}
+              <div className="h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none" />
+
               {/* Desk Chrome Header */}
-              <div className="bg-[#fffdf8] border-b-3 border-black px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+              <div className="bg-white/60 backdrop-blur-xl border-b-3 border-black px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <div className="w-3.5 h-3.5 rounded-full bg-[#ff3b30] border border-black shadow-[1px_1px_0px_#000]" />
                   <div className="w-3.5 h-3.5 rounded-full bg-[#ffcc00] border border-black shadow-[1px_1px_0px_#000]" />
                   <div className="w-3.5 h-3.5 rounded-full bg-[#00c853] border border-black shadow-[1px_1px_0px_#000]" />
                   <span className="font-mono text-xs font-bold text-black ml-3">
-                    splitsimple.desk / {activeTab}
+                    splitsimple.app/workspace/{activeTab}
                   </span>
                 </div>
 
-                {/* Tab Folder Switcher */}
+                {/* Tactile 3D Tab Switcher */}
                 <div className="flex items-center gap-2">
                   {Object.values(PREVIEW_DATA).map((tab) => (
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`px-3 py-1.5 border-2 border-black font-display font-bold text-xs uppercase transition-all rounded-[3px] cursor-pointer ${
+                      className={`px-3 py-1.5 border-2 border-black font-display font-bold text-xs uppercase transition-all rounded-[6px] cursor-pointer ${
                         activeTab === tab.id
-                          ? `${tab.folderColor} text-black shadow-[3px_3px_0px_#000000] -translate-y-0.5`
-                          : 'bg-white text-black hover:bg-neutral-100'
+                          ? `bg-gradient-to-b ${tab.folderGradient} text-black shadow-[3px_4px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.8)] -translate-y-0.5`
+                          : 'bg-white/70 hover:bg-white text-black'
                       }`}
                     >
                       {tab.name}
@@ -455,7 +450,7 @@ export default function LandingPage() {
               </div>
 
               {/* Workspace Content */}
-              <div className="p-5 sm:p-8 bg-[#faf7ee]">
+              <div className="p-5 sm:p-8 bg-neutral-100/40 backdrop-blur-md">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeTab}
@@ -467,15 +462,12 @@ export default function LandingPage() {
                   >
                     {/* Left Column: Group Expenses Ledger (7 cols) */}
                     <div className="lg:col-span-7 space-y-6">
-                      <div className="bg-white border-3 border-black p-5 rounded-[4px] shadow-[4px_4px_0px_#000000] relative">
-                        {/* Washi Tape */}
-                        <div className="absolute -top-3 left-8 w-16 h-4 bg-[#ccff00] border border-black/40 rotate-2 pointer-events-none" />
-
+                      <div className="bg-white/90 backdrop-blur-xl border-3 border-black p-5 rounded-[10px] shadow-[4px_5px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.95)] relative">
                         <div className="flex items-center justify-between gap-3 mb-1">
                           <h2 className="text-2xl font-display font-black text-black uppercase">
                             {preview.name}
                           </h2>
-                          <span className="px-2.5 py-0.5 bg-[#ff529a] text-white text-[10px] font-mono font-bold uppercase border-2 border-black shadow-[2px_2px_0px_#000000]">
+                          <span className="px-2.5 py-0.5 bg-gradient-to-r from-[#ff4d8d] to-[#e62266] text-white text-[10px] font-mono font-bold uppercase border-2 border-black rounded-[4px] shadow-[2px_2px_0px_#000]">
                             {preview.badge}
                           </span>
                         </div>
@@ -490,7 +482,7 @@ export default function LandingPage() {
                             {preview.members.map((m) => (
                               <div
                                 key={m.name}
-                                className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#faf7ee] border-2 border-black rounded-[3px] text-xs font-mono font-bold shadow-[2px_2px_0px_#000000]"
+                                className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border-2 border-black rounded-[6px] text-xs font-mono font-bold shadow-[2px_2px_0px_#000]"
                               >
                                 <span>{m.name}</span>
                                 <span className="text-[10px] text-neutral-500 font-normal">({m.role})</span>
@@ -501,19 +493,19 @@ export default function LandingPage() {
                       </div>
 
                       {/* Recent Transactions List */}
-                      <div className="bg-white border-3 border-black rounded-[4px] shadow-[4px_4px_0px_#000000] overflow-hidden">
-                        <div className="bg-[#ccff00] px-4 py-2.5 border-b-2 border-black flex items-center justify-between font-mono text-xs font-bold uppercase">
-                          <span>Group Expenses</span>
+                      <div className="bg-white/90 backdrop-blur-xl border-3 border-black rounded-[10px] shadow-[4px_5px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.95)] overflow-hidden">
+                        <div className="bg-gradient-to-r from-[#d8ff26] to-[#b8f000] px-4 py-2.5 border-b-2 border-black flex items-center justify-between font-mono text-xs font-bold uppercase">
+                          <span>Group Transactions</span>
                           <span>Total: {formatCurrency(preview.totalSpent)}</span>
                         </div>
                         <div className="divide-y-2 divide-black">
                           {preview.expenses.map((item, idx) => (
                             <div
                               key={idx}
-                              className="p-3.5 hover:bg-[#fffef7] transition-colors flex items-center justify-between"
+                              className="p-3.5 hover:bg-white transition-colors flex items-center justify-between"
                             >
                               <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-[3px] bg-[#00f0ff] border-2 border-black flex items-center justify-center font-mono font-bold text-xs shadow-[2px_2px_0px_#000000]">
+                                <div className="w-8 h-8 rounded-[6px] bg-gradient-to-b from-[#33f5ff] to-[#00d9e6] border-2 border-black flex items-center justify-center font-mono font-bold text-xs shadow-[2px_2px_0px_#000]">
                                   {item.date}
                                 </div>
                                 <div>
@@ -535,7 +527,7 @@ export default function LandingPage() {
                     </div>
 
                     {/* Right Column: Smart Greedy Settlement Engine (5 cols) */}
-                    <div className="lg:col-span-5 bg-[#000000] text-white border-3 border-black rounded-[4px] p-6 flex flex-col justify-between shadow-[6px_6px_0px_#000000]">
+                    <div className="lg:col-span-5 bg-[#0e0f17]/95 backdrop-blur-2xl text-white border-3 border-black rounded-[10px] p-6 flex flex-col justify-between shadow-[6px_7px_0px_#000,inset_0_1px_1.5px_rgba(255,255,255,0.25)]">
                       <div>
                         {/* Box Header */}
                         <div className="flex items-center justify-between pb-4 border-b-2 border-white/20">
@@ -547,7 +539,7 @@ export default function LandingPage() {
                               Optimized Repayments
                             </h3>
                           </div>
-                          <span className="px-2 py-1 bg-[#ff529a] text-white text-[10px] font-mono font-bold uppercase border border-white shadow-[2px_2px_0px_#fff]">
+                          <span className="px-2 py-1 bg-gradient-to-r from-[#ff4d8d] to-[#e62266] text-white text-[10px] font-mono font-bold uppercase border border-white rounded-[4px] shadow-[2px_2px_0px_#fff]">
                             -{preview.reductionPercent} HOPS
                           </span>
                         </div>
@@ -566,10 +558,10 @@ export default function LandingPage() {
                               <motion.div
                                 key={idx}
                                 layout
-                                className={`p-3.5 rounded-[4px] border-2 transition-all ${
+                                className={`p-3.5 rounded-[8px] border-2 transition-all ${
                                   isSettled
                                     ? 'bg-neutral-900 border-[#00c853] opacity-80'
-                                    : 'bg-[#1a1a1a] border-white/30 hover:border-white'
+                                    : 'bg-white/10 backdrop-blur-md border-white/30 hover:border-white'
                                 }`}
                               >
                                 <div className="flex items-center justify-between font-mono text-xs">
@@ -589,10 +581,10 @@ export default function LandingPage() {
                                   </span>
                                   <button
                                     onClick={() => handleToggleSettle(idx)}
-                                    className={`text-[11px] font-mono font-bold uppercase px-3 py-1 rounded-[3px] border-2 transition-all cursor-pointer ${
+                                    className={`text-[11px] font-mono font-bold uppercase px-3 py-1 rounded-[6px] border-2 transition-all cursor-pointer ${
                                       isSettled
                                         ? 'bg-[#00c853] text-black border-black shadow-[2px_2px_0px_#fff]'
-                                        : 'bg-[#ccff00] text-black border-black shadow-[2px_2px_0px_#fff] hover:bg-[#bbf000]'
+                                        : 'bg-gradient-to-b from-[#d8ff26] to-[#b8f000] text-black border-black shadow-[2px_3px_0px_#fff] hover:brightness-105'
                                     }`}
                                   >
                                     {isSettled ? 'SETTLED ✓' : 'MARK SETTLED →'}
@@ -615,7 +607,7 @@ export default function LandingPage() {
                         <button
                           onClick={handleExploreDemo}
                           disabled={loadingDemo}
-                          className="w-full py-3 bg-[#ccff00] hover:bg-[#bbf000] text-black font-display font-black text-xs uppercase tracking-wider border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#ffffff] hover:shadow-[5px_5px_0px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                          className="w-full py-3 bg-gradient-to-b from-[#d8ff26] to-[#b8f000] text-black font-display font-black text-xs uppercase tracking-wider border-2 border-black rounded-[8px] shadow-[3px_4px_0px_#ffffff] hover:shadow-[5px_6px_0px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer"
                         >
                           LAUNCH FULL DESK <ArrowRight className="w-4 h-4" />
                         </button>
@@ -630,9 +622,9 @@ export default function LandingPage() {
       </section>
 
       {/* 
-        5. STATS BAND (NEO-BRUTALIST NUMBERS)
+        5. STATS BAND (FROSTED GLASS SKEUOMORPHIC NUMBERS)
       */}
-      <section className="bg-black text-white border-y-3 border-black py-12 px-4 sm:px-6 lg:px-8">
+      <section className="bg-black/90 backdrop-blur-xl text-white border-y-3 border-black py-12 px-4 sm:px-6 lg:px-8 shadow-[0_8px_20px_rgba(0,0,0,0.3)]">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center md:text-left">
           <div className="border-l-3 border-[#ccff00] pl-4">
             <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
@@ -644,11 +636,11 @@ export default function LandingPage() {
             <p className="font-mono text-xs text-neutral-400 mt-1">Real group volume</p>
           </div>
 
-          <div className="border-l-3 border-[#ff529a] pl-4">
+          <div className="border-l-3 border-[#ff3377] pl-4">
             <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
               Transfer Reduction
             </p>
-            <p className="text-3xl sm:text-4xl font-display font-black text-[#ff529a]">
+            <p className="text-3xl sm:text-4xl font-display font-black text-[#ff3377]">
               -75% HOPS
             </p>
             <p className="font-mono text-xs text-neutral-400 mt-1">Zero circular debts</p>
@@ -664,11 +656,11 @@ export default function LandingPage() {
             <p className="font-mono text-xs text-neutral-400 mt-1">Integer paise precision</p>
           </div>
 
-          <div className="border-l-3 border-[#ff8800] pl-4">
+          <div className="border-l-3 border-[#ff7700] pl-4">
             <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
               Settlement Engine
             </p>
-            <p className="text-3xl sm:text-4xl font-display font-black text-[#ff8800]">
+            <p className="text-3xl sm:text-4xl font-display font-black text-[#ff7700]">
               INSTANT UPI
             </p>
             <p className="font-mono text-xs text-neutral-400 mt-1">1-click ledger clearance</p>
@@ -677,14 +669,14 @@ export default function LandingPage() {
       </section>
 
       {/* 
-        6. THE DEBT ENGINE COMPARISON (SURREAL WEB OF IOUs VS GREEDY FLOW)
+        6. THE DEBT ENGINE COMPARISON (GLASS CARDS)
       */}
-      <section id="engine" className="py-20 md:py-24 bg-white border-b-3 border-black">
+      <section id="engine" className="py-20 md:py-24 bg-white/60 backdrop-blur-xl border-b-3 border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Content */}
             <div className="lg:col-span-6 space-y-6">
-              <span className="px-3 py-1 bg-[#ccff00] border-2 border-black rounded-[3px] text-xs font-mono font-bold uppercase shadow-[2px_2px_0px_#000]">
+              <span className="px-3 py-1 bg-gradient-to-r from-[#d8ff26] to-[#b8f000] border-2 border-black rounded-[6px] text-xs font-mono font-bold uppercase shadow-[2px_3px_0px_#000]">
                 ★ GREEDY DEBT MINIMIZATION ALGORITHM
               </span>
 
@@ -699,8 +691,8 @@ export default function LandingPage() {
               </p>
 
               <div className="space-y-4 pt-2 font-mono">
-                <div className="flex items-start gap-3 p-3 bg-[#faf7ee] border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000]">
-                  <div className="w-7 h-7 bg-[#ccff00] border-2 border-black flex items-center justify-center font-bold text-xs shrink-0">
+                <div className="flex items-start gap-3 p-3.5 bg-white/80 backdrop-blur-md border-2 border-black rounded-[8px] shadow-[3px_4px_0px_#000]">
+                  <div className="w-7 h-7 bg-gradient-to-b from-[#d8ff26] to-[#b8f000] border-2 border-black rounded-[4px] flex items-center justify-center font-bold text-xs shrink-0">
                     1
                   </div>
                   <div>
@@ -709,8 +701,8 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 bg-[#faf7ee] border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000]">
-                  <div className="w-7 h-7 bg-[#ff529a] text-white border-2 border-black flex items-center justify-center font-bold text-xs shrink-0">
+                <div className="flex items-start gap-3 p-3.5 bg-white/80 backdrop-blur-md border-2 border-black rounded-[8px] shadow-[3px_4px_0px_#000]">
+                  <div className="w-7 h-7 bg-gradient-to-b from-[#ff4d8d] to-[#e62266] text-white border-2 border-black rounded-[4px] flex items-center justify-center font-bold text-xs shrink-0">
                     2
                   </div>
                   <div>
@@ -719,8 +711,8 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 bg-[#faf7ee] border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000]">
-                  <div className="w-7 h-7 bg-[#00f0ff] border-2 border-black flex items-center justify-center font-bold text-xs shrink-0">
+                <div className="flex items-start gap-3 p-3.5 bg-white/80 backdrop-blur-md border-2 border-black rounded-[8px] shadow-[3px_4px_0px_#000]">
+                  <div className="w-7 h-7 bg-gradient-to-b from-[#33f5ff] to-[#00d9e6] border-2 border-black rounded-[4px] flex items-center justify-center font-bold text-xs shrink-0">
                     3
                   </div>
                   <div>
@@ -732,15 +724,15 @@ export default function LandingPage() {
             </div>
 
             {/* Right Comparison Box */}
-            <div className="lg:col-span-6 bg-[#faf7ee] border-3 border-black rounded-[6px] p-6 sm:p-8 shadow-[6px_6px_0px_#000000]">
+            <div className="lg:col-span-6 bg-white/80 backdrop-blur-2xl border-3 border-black rounded-[12px] p-6 sm:p-8 shadow-[6px_7px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.95)]">
               <div className="space-y-6">
                 {/* Before: Chaotic */}
-                <div className="bg-white border-2 border-black rounded-[4px] p-4 shadow-[3px_3px_0px_#000]">
+                <div className="bg-white/90 border-2 border-black rounded-[8px] p-4 shadow-[3px_4px_0px_#000]">
                   <div className="flex items-center justify-between mb-3 border-b-2 border-black pb-2">
-                    <span className="font-mono text-xs font-bold text-[#ff3b30] uppercase flex items-center gap-1.5">
+                    <span className="font-mono text-xs font-bold text-[#ff3377] uppercase flex items-center gap-1.5">
                       <Repeat className="w-4 h-4" /> WITHOUT SPLITSIMPLE (6 TANGLED IOUs)
                     </span>
-                    <span className="px-2 py-0.5 bg-rose-100 text-[#ff3b30] font-mono text-[10px] font-bold border border-black">
+                    <span className="px-2 py-0.5 bg-rose-100 text-[#ff3377] font-mono text-[10px] font-bold border border-black rounded-[4px]">
                       HIGH FRICTION
                     </span>
                   </div>
@@ -754,21 +746,21 @@ export default function LandingPage() {
                 </div>
 
                 {/* After: Clean */}
-                <div className="bg-black text-white border-2 border-black rounded-[4px] p-4 shadow-[4px_4px_0px_#000]">
+                <div className="bg-[#0e0f17]/95 backdrop-blur-xl text-white border-2 border-black rounded-[8px] p-4 shadow-[4px_5px_0px_#000]">
                   <div className="flex items-center justify-between mb-3 border-b-2 border-white/20 pb-2">
                     <span className="font-mono text-xs font-bold text-[#ccff00] uppercase flex items-center gap-1.5">
                       <Sparkles className="w-4 h-4" /> WITH SPLITSIMPLE GREEDY ENGINE
                     </span>
-                    <span className="px-2 py-0.5 bg-[#ccff00] text-black font-mono text-[10px] font-bold border border-black">
+                    <span className="px-2 py-0.5 bg-gradient-to-r from-[#d8ff26] to-[#b8f000] text-black font-mono text-[10px] font-bold border border-black rounded-[4px]">
                       2 DIRECT PAYMENTS
                     </span>
                   </div>
                   <div className="space-y-2 font-mono text-xs">
-                    <div className="p-2.5 bg-neutral-900 border border-white/20 rounded-[3px] flex items-center justify-between">
+                    <div className="p-2.5 bg-white/10 border border-white/20 rounded-[6px] flex items-center justify-between">
                       <span>Chandan R pays Chiranjeevi S</span>
                       <span className="font-bold text-[#ccff00]">₹8,550.00</span>
                     </div>
-                    <div className="p-2.5 bg-neutral-900 border border-white/20 rounded-[3px] flex items-center justify-between">
+                    <div className="p-2.5 bg-white/10 border border-white/20 rounded-[6px] flex items-center justify-between">
                       <span>Gagan K pays Chiranjeevi S</span>
                       <span className="font-bold text-[#ccff00]">₹4,200.00</span>
                     </div>
@@ -785,12 +777,12 @@ export default function LandingPage() {
       </section>
 
       {/* 
-        7. THREE KEY PILLARS (BRUTALIST CARDS)
+        7. THREE PILLARS (SKEUO-GLASS CARDS)
       */}
-      <section id="features" className="py-20 md:py-24 bg-[#faf7ee]">
+      <section id="features" className="py-20 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-xl mx-auto mb-16 space-y-2">
-            <span className="px-3 py-1 bg-black text-white text-xs font-mono font-bold uppercase border-2 border-black shadow-[2px_2px_0px_#ccff00]">
+            <span className="px-3 py-1 bg-black text-white text-xs font-mono font-bold uppercase border-2 border-black rounded-[6px] shadow-[2px_3px_0px_#ccff00]">
               CORE ARCHITECTURE
             </span>
             <h2 className="text-3xl sm:text-5xl font-display font-black text-black uppercase tracking-tight">
@@ -802,10 +794,10 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Pillar 1 */}
-            <div className="bg-[#ccff00] border-3 border-black p-6 rounded-[4px] shadow-[6px_6px_0px_#000000] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#000000] transition-all">
+            {/* Card 1 */}
+            <div className="bg-gradient-to-br from-[#d8ff26]/85 to-[#b8f000]/85 backdrop-blur-xl border-3 border-black p-6 rounded-[12px] shadow-[6px_7px_0px_#000,inset_0_2px_1px_rgba(255,255,255,0.8)] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_9px_0px_#000] transition-all">
               <div>
-                <div className="w-12 h-12 bg-white border-2 border-black rounded-[4px] flex items-center justify-center text-black mb-6 shadow-[3px_3px_0px_#000]">
+                <div className="w-12 h-12 bg-white/90 border-2 border-black rounded-[8px] flex items-center justify-center text-black mb-6 shadow-[3px_4px_0px_#000]">
                   <Receipt className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-display font-black text-black uppercase">
@@ -821,10 +813,10 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Pillar 2 */}
-            <div className="bg-[#ff529a] text-white border-3 border-black p-6 rounded-[4px] shadow-[6px_6px_0px_#000000] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#000000] transition-all">
+            {/* Card 2 */}
+            <div className="bg-gradient-to-br from-[#ff4d8d]/85 to-[#e62266]/85 backdrop-blur-xl text-white border-3 border-black p-6 rounded-[12px] shadow-[6px_7px_0px_#000,inset_0_2px_1px_rgba(255,255,255,0.5)] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_9px_0px_#000] transition-all">
               <div>
-                <div className="w-12 h-12 bg-black border-2 border-white rounded-[4px] flex items-center justify-center text-[#ccff00] mb-6 shadow-[3px_3px_0px_#fff]">
+                <div className="w-12 h-12 bg-black border-2 border-white rounded-[8px] flex items-center justify-center text-[#ccff00] mb-6 shadow-[3px_4px_0px_#fff]">
                   <Handshake className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-display font-black text-white uppercase">
@@ -840,10 +832,10 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Pillar 3 */}
-            <div className="bg-[#00f0ff] border-3 border-black p-6 rounded-[4px] shadow-[6px_6px_0px_#000000] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#000000] transition-all">
+            {/* Card 3 */}
+            <div className="bg-gradient-to-br from-[#33f5ff]/85 to-[#00d9e6]/85 backdrop-blur-xl border-3 border-black p-6 rounded-[12px] shadow-[6px_7px_0px_#000,inset_0_2px_1px_rgba(255,255,255,0.8)] flex flex-col justify-between hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_9px_0px_#000] transition-all">
               <div>
-                <div className="w-12 h-12 bg-white border-2 border-black rounded-[4px] flex items-center justify-center text-black mb-6 shadow-[3px_3px_0px_#000]">
+                <div className="w-12 h-12 bg-white/90 border-2 border-black rounded-[8px] flex items-center justify-center text-black mb-6 shadow-[3px_4px_0px_#000]">
                   <PieChart className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-display font-black text-black uppercase">
@@ -863,12 +855,12 @@ export default function LandingPage() {
       </section>
 
       {/* 
-        8. FREQUENTLY ASKED QUESTIONS (ACCORDION)
+        8. FREQUENTLY ASKED QUESTIONS
       */}
-      <section id="faq" className="py-20 bg-white border-t-3 border-black">
+      <section id="faq" className="py-20 bg-white/70 backdrop-blur-xl border-t-3 border-black">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 space-y-2">
-            <span className="px-3 py-1 bg-[#ffb703] border-2 border-black text-xs font-mono font-bold uppercase shadow-[2px_2px_0px_#000]">
+            <span className="px-3 py-1 bg-gradient-to-r from-[#ffc837] to-[#ff9900] border-2 border-black text-xs font-mono font-bold uppercase rounded-[6px] shadow-[2px_3px_0px_#000]">
               QUESTIONS & ANSWERS
             </span>
             <h2 className="text-3xl sm:text-4xl font-display font-black text-black uppercase">
@@ -897,14 +889,14 @@ export default function LandingPage() {
             ].map((faq, idx) => (
               <div
                 key={idx}
-                className="border-2 sm:border-3 border-black rounded-[4px] overflow-hidden bg-[#faf7ee] shadow-[3px_3px_0px_#000]"
+                className="border-2 sm:border-3 border-black rounded-[8px] overflow-hidden bg-white/80 backdrop-blur-md shadow-[3px_4px_0px_#000]"
               >
                 <button
                   onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                  className="w-full p-4 text-left flex items-center justify-between text-sm sm:text-base font-display font-bold text-black hover:bg-[#fffef7] transition-colors cursor-pointer"
+                  className="w-full p-4 text-left flex items-center justify-between text-sm sm:text-base font-display font-bold text-black hover:bg-white transition-colors cursor-pointer"
                 >
                   <span>{faq.q}</span>
-                  <div className="w-6 h-6 rounded-[3px] bg-[#ccff00] border-2 border-black flex items-center justify-center font-mono font-bold text-sm shrink-0 ml-2">
+                  <div className="w-6 h-6 rounded-[6px] bg-gradient-to-b from-[#d8ff26] to-[#b8f000] border-2 border-black flex items-center justify-center font-mono font-bold text-sm shrink-0 ml-2 shadow-[1px_1px_0px_#000]">
                     {activeFaq === idx ? '−' : '+'}
                   </div>
                 </button>
@@ -915,7 +907,7 @@ export default function LandingPage() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="px-4 pb-4 font-mono text-xs text-neutral-800 leading-relaxed border-t-2 border-black pt-3 bg-white"
+                      className="px-4 pb-4 font-mono text-xs text-neutral-800 leading-relaxed border-t-2 border-black pt-3 bg-white/90"
                     >
                       {faq.a}
                     </motion.div>
@@ -928,11 +920,11 @@ export default function LandingPage() {
       </section>
 
       {/* 
-        9. BOTTOM SURREAL CTA DESK
+        9. BOTTOM SKEUO-GLASS CTA DESK
       */}
-      <section className="py-20 bg-[#ccff00] text-black border-t-3 border-black">
+      <section className="py-20 bg-gradient-to-r from-[#d8ff26] via-[#c6f800] to-[#b8f000] text-black border-t-3 border-black">
         <div className="max-w-4xl mx-auto px-4 text-center space-y-6">
-          <div className="inline-block px-4 py-1 bg-black text-white text-xs font-mono font-bold uppercase rounded-[3px] border-2 border-black shadow-[3px_3px_0px_#ffffff]">
+          <div className="inline-block px-4 py-1 bg-black text-white text-xs font-mono font-bold uppercase rounded-[6px] border-2 border-black shadow-[3px_4px_0px_#ffffff]">
             READY TO SIMPLIFY GROUP TABS?
           </div>
           <h2 className="text-3xl sm:text-5xl font-display font-black tracking-tight uppercase leading-tight">
@@ -947,12 +939,12 @@ export default function LandingPage() {
             <button
               onClick={handleExploreDemo}
               disabled={loadingDemo}
-              className="w-full sm:w-auto px-8 py-4 bg-black hover:bg-neutral-900 text-white font-display font-black text-xs uppercase tracking-wider border-3 border-black rounded-[4px] shadow-[4px_4px_0px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-8 py-4 bg-black hover:bg-neutral-900 text-white font-display font-black text-xs uppercase tracking-wider border-3 border-black rounded-[8px] shadow-[4px_5px_0px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               EXPLORE LIVE DEMO <ArrowRight className="w-4 h-4" />
             </button>
             <Link to="/register" className="w-full sm:w-auto">
-              <button className="w-full px-8 py-4 bg-white hover:bg-neutral-100 text-black border-3 border-black font-display font-black text-xs uppercase tracking-wider rounded-[4px] shadow-[4px_4px_0px_#000000] transition-all cursor-pointer">
+              <button className="w-full px-8 py-4 bg-white/90 hover:bg-white text-black border-3 border-black font-display font-black text-xs uppercase tracking-wider rounded-[8px] shadow-[4px_5px_0px_#000000] transition-all cursor-pointer">
                 CREATE FREE ACCOUNT
               </button>
             </Link>
@@ -961,18 +953,18 @@ export default function LandingPage() {
       </section>
 
       {/* 
-        10. NEO-BRUTALIST FOOTER
+        10. FOOTER
       */}
       <footer className="bg-black text-white py-12 border-t-3 border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 font-mono text-xs">
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-[4px] bg-[#ccff00] text-black border-2 border-black flex items-center justify-center font-display font-black text-sm">
+            <div className="w-7 h-7 rounded-[6px] bg-gradient-to-b from-[#d8ff26] to-[#b8f000] text-black border-2 border-black flex items-center justify-center font-display font-black text-sm">
               S
             </div>
             <div>
               <span className="font-display font-bold text-white text-sm">SplitSimple</span>
               <p className="text-[10px] text-neutral-400 uppercase tracking-wider mt-0.5">
-                Surreal Brutalist Expense Desk
+                Skeuo-Neu-Brutalist Glass Expense Desk
               </p>
             </div>
           </div>
@@ -981,16 +973,16 @@ export default function LandingPage() {
             <a href="#simulator" className="hover:text-[#ccff00] transition-colors">
               Demo Desk
             </a>
-            <a href="#engine" className="hover:text-[#ff529a] transition-colors">
+            <a href="#engine" className="hover:text-[#ff3377] transition-colors">
               Debt Engine
             </a>
             <a href="#features" className="hover:text-[#00f0ff] transition-colors">
               Features
             </a>
-            <Link to="/login" className="hover:text-[#ff8800] transition-colors">
+            <Link to="/login" className="hover:text-[#ff7700] transition-colors">
               Sign In
             </Link>
-            <Link to="/register" className="hover:text-[#b388ff] transition-colors">
+            <Link to="/register" className="hover:text-[#a855f7] transition-colors">
               Register
             </Link>
           </div>

@@ -22,7 +22,7 @@ export function Input({
           className="block font-mono text-xs font-bold uppercase tracking-wider text-black flex items-center justify-between"
         >
           <span>
-            {label} {required && <span className="text-[#ff529a]">*</span>}
+            {label} {required && <span className="text-[#ff3377]">*</span>}
           </span>
         </label>
       )}
@@ -40,9 +40,9 @@ export function Input({
           value={value}
           onChange={onChange}
           required={required}
-          className={`w-full bg-white text-black placeholder-neutral-400 font-mono text-xs sm:text-sm border-2 border-black rounded-[4px] px-3.5 py-2.5 shadow-[2px_2px_0px_#000000] focus:outline-none focus:shadow-[4px_4px_0px_#000000] focus:bg-[#fffef7] transition-all disabled:opacity-50 disabled:bg-neutral-100 ${
+          className={`w-full bg-white/85 backdrop-blur-md text-black placeholder-neutral-400 font-mono text-xs sm:text-sm border-2 border-black rounded-[8px] px-3.5 py-2.5 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05),2px_2px_0px_#000000] focus:outline-none focus:shadow-[inset_0_1px_2px_rgba(0,0,0,0.03),4px_4px_0px_#000000] focus:bg-white transition-all disabled:opacity-50 disabled:bg-neutral-100 ${
             Icon ? 'pl-10' : ''
-          } ${error ? 'border-[#ff3b30] bg-rose-50' : ''} ${className}`}
+          } ${error ? 'border-[#ff3377] bg-rose-50/90' : ''} ${className}`}
           {...props}
         />
       </div>
@@ -50,7 +50,7 @@ export function Input({
       {helperText && !error && (
         <p className="font-mono text-[11px] text-neutral-600">{helperText}</p>
       )}
-      {error && <p className="font-mono text-[11px] font-bold text-[#ff3b30]">{error}</p>}
+      {error && <p className="font-mono text-[11px] font-bold text-[#ff3377]">{error}</p>}
     </div>
   );
 }
@@ -73,7 +73,7 @@ export function Select({
           htmlFor={id}
           className="block font-mono text-xs font-bold uppercase tracking-wider text-black"
         >
-          {label} {required && <span className="text-[#ff529a]">*</span>}
+          {label} {required && <span className="text-[#ff3377]">*</span>}
         </label>
       )}
 
@@ -82,19 +82,19 @@ export function Select({
         value={value}
         onChange={onChange}
         required={required}
-        className={`w-full bg-white text-black font-mono text-xs sm:text-sm border-2 border-black rounded-[4px] px-3.5 py-2.5 shadow-[2px_2px_0px_#000000] focus:outline-none focus:shadow-[4px_4px_0px_#000000] focus:bg-[#fffef7] transition-all cursor-pointer ${
-          error ? 'border-[#ff3b30]' : ''
+        className={`w-full bg-white/85 backdrop-blur-md text-black font-mono text-xs sm:text-sm border-2 border-black rounded-[8px] px-3.5 py-2.5 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05),2px_2px_0px_#000000] focus:outline-none focus:shadow-[inset_0_1px_2px_rgba(0,0,0,0.03),4px_4px_0px_#000000] focus:bg-white transition-all cursor-pointer ${
+          error ? 'border-[#ff3377]' : ''
         } ${className}`}
         {...props}
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
+          <option key={opt.value} value={opt.value} className="bg-white text-black font-mono">
             {opt.label}
           </option>
         ))}
       </select>
 
-      {error && <p className="font-mono text-[11px] font-bold text-[#ff3b30]">{error}</p>}
+      {error && <p className="font-mono text-[11px] font-bold text-[#ff3377]">{error}</p>}
     </div>
   );
 }

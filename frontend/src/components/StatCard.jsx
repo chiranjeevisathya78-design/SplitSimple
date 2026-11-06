@@ -5,37 +5,44 @@ export function StatCard({
   value,
   subtext,
   icon: Icon,
-  variant = 'white', // 'white' | 'yellow' | 'pink' | 'cyan' | 'purple' | 'orange' | 'dark'
+  variant = 'glass', // 'glass' | 'lime' | 'pink' | 'cyan' | 'dark' | 'amber'
   className = '',
   trend,
   badge,
 }) {
   const variantStyles = {
-    white: 'bg-white text-black',
-    yellow: 'bg-[#ccff00] text-black',
-    pink: 'bg-[#ff529a] text-white',
-    cyan: 'bg-[#00f0ff] text-black',
-    purple: 'bg-[#b388ff] text-black',
-    orange: 'bg-[#ff8800] text-black',
-    dark: 'bg-[#000000] text-white',
-    wash: 'bg-[#fffdf8] text-black',
-    highlight: 'bg-[#ccff00] text-black',
-    peach: 'bg-[#ffb703] text-black',
-    mist: 'bg-[#e0f2fe] text-black',
+    glass:
+      'bg-white/80 backdrop-blur-xl text-black shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.95),4px_5px_0px_#000]',
+    lime:
+      'bg-gradient-to-br from-[#e0ff40]/90 to-[#b8f000]/90 backdrop-blur-xl text-black shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.8),4px_5px_0px_#000]',
+    yellow:
+      'bg-gradient-to-br from-[#e0ff40]/90 to-[#b8f000]/90 backdrop-blur-xl text-black shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.8),4px_5px_0px_#000]',
+    pink:
+      'bg-gradient-to-br from-[#ff4d8d]/90 to-[#e62266]/90 backdrop-blur-xl text-white shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.6),4px_5px_0px_#000]',
+    cyan:
+      'bg-gradient-to-br from-[#33f5ff]/90 to-[#00d9e6]/90 backdrop-blur-xl text-black shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.8),4px_5px_0px_#000]',
+    amber:
+      'bg-gradient-to-br from-[#ffc837]/90 to-[#ff9900]/90 backdrop-blur-xl text-black shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.8),4px_5px_0px_#000]',
+    dark:
+      'bg-[#0e0f17]/90 backdrop-blur-xl text-white shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.25),4px_5px_0px_#ccff00]',
+    wash:
+      'bg-white/70 backdrop-blur-lg text-black shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.9),4px_5px_0px_#000]',
+    white:
+      'bg-white/80 backdrop-blur-xl text-black shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.95),4px_5px_0px_#000]',
   };
 
   const isDark = variant === 'dark';
 
   return (
     <div
-      className={`relative border-2 sm:border-[3px] border-black rounded-[4px] p-5 sm:p-6 shadow-[4px_4px_0px_#000000] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#000000] ${
-        variantStyles[variant] || variantStyles.white
+      className={`relative border-2 sm:border-[2.5px] border-black rounded-[12px] p-5 sm:p-6 transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_7px_0px_#000] overflow-hidden ${
+        variantStyles[variant] || variantStyles.glass
       } ${className}`}
     >
-      {/* Decorative Washi Tape on top */}
-      <div className="absolute -top-2.5 left-6 w-12 h-3.5 bg-black/20 border border-black/40 rotate-1 pointer-events-none" />
+      {/* Specular gloss shine at top edge */}
+      <div className="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-[10px]" />
 
-      <div className="flex items-start justify-between gap-4">
+      <div className="relative z-10 flex items-start justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span
@@ -46,19 +53,19 @@ export function StatCard({
               {label}
             </span>
             {badge && (
-              <span className="px-1.5 py-0.2 bg-black text-[#ccff00] text-[9px] font-mono font-bold uppercase border border-black rounded-xs">
+              <span className="px-1.5 py-0.2 bg-black text-[#ccff00] text-[9px] font-mono font-bold uppercase border border-black rounded-[4px] shadow-[1px_1px_0px_#000]">
                 {badge}
               </span>
             )}
           </div>
-          <div className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold tracking-tight">
+          <div className="text-2xl sm:text-3xl lg:text-4xl font-display font-black tracking-tight">
             {value}
           </div>
         </div>
 
         {Icon && (
           <div
-            className={`w-10 h-10 rounded-[4px] border-2 border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000000] ${
+            className={`w-10 h-10 rounded-[8px] border-2 border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000] ${
               isDark ? 'bg-[#ccff00] text-black' : 'bg-black text-white'
             }`}
           >
@@ -68,7 +75,7 @@ export function StatCard({
       </div>
 
       {(subtext || trend) && (
-        <div className="mt-4 pt-3 border-t-2 border-black/15 flex items-center justify-between text-xs font-mono">
+        <div className="relative z-10 mt-4 pt-3 border-t-2 border-black/15 flex items-center justify-between text-xs font-mono">
           {subtext && (
             <span className={isDark ? 'text-neutral-400' : 'text-neutral-600'}>
               {subtext}
@@ -77,7 +84,7 @@ export function StatCard({
           {trend && (
             <span
               className={`font-bold uppercase ${
-                trend > 0 ? 'text-[#00c853]' : 'text-[#ff3b30]'
+                trend > 0 ? 'text-[#00c853]' : 'text-[#ff3377]'
               }`}
             >
               {trend > 0 ? `+${trend}%` : `${trend}%`}
@@ -97,22 +104,21 @@ export function MemberAvatar({ name = '', size = 'md', className = '' }) {
     xl: 'w-12 h-12 text-base font-bold',
   };
 
-  const colors = [
-    'bg-[#ccff00] text-black',
-    'bg-[#ff529a] text-white',
-    'bg-[#00f0ff] text-black',
-    'bg-[#ff8800] text-black',
-    'bg-[#b388ff] text-black',
+  const gradients = [
+    'bg-gradient-to-b from-[#e0ff40] to-[#b8f000] text-black',
+    'bg-gradient-to-b from-[#ff4d8d] to-[#e62266] text-white',
+    'bg-gradient-to-b from-[#33f5ff] to-[#00d9e6] text-black',
+    'bg-gradient-to-b from-[#ffc837] to-[#ff9900] text-black',
+    'bg-gradient-to-b from-[#c084fc] to-[#9333ea] text-white',
   ];
 
-  // Hash character code
   const charCode = name ? name.charCodeAt(0) : 0;
-  const color = colors[charCode % colors.length];
+  const color = gradients[charCode % gradients.length];
 
   return (
     <div
       title={name}
-      className={`inline-flex items-center justify-center border-2 border-black rounded-[4px] font-display font-bold shadow-[2px_2px_0px_#000000] shrink-0 select-none ${
+      className={`inline-flex items-center justify-center border-2 border-black rounded-[6px] font-display font-black shadow-[2px_2px_0px_#000000] shrink-0 select-none ${
         sizes[size] || sizes.md
       } ${color} ${className}`}
     >
@@ -123,7 +129,7 @@ export function MemberAvatar({ name = '', size = 'md', className = '' }) {
 
 export function DemoBadge({ label = 'DEMO DESK', active = true }) {
   return (
-    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black text-[#ccff00] border-2 border-black rounded-[4px] text-[10px] font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_#000000]">
+    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black text-[#ccff00] border-2 border-black rounded-[6px] text-[10px] font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_#000]">
       {active && <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />}
       <span>{label}</span>
     </div>

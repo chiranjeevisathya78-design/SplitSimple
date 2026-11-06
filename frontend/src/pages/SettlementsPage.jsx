@@ -148,7 +148,7 @@ export default function SettlementsPage() {
             value={selectedGroup}
             onChange={handleGroupSelect}
             disabled={loadingGroups}
-            className="w-full bg-white text-xs sm:text-sm font-bold uppercase text-black border-3 border-black rounded-[4px] p-2.5 shadow-[3px_3px_0px_#000] focus:outline-none focus:shadow-[5px_5px_0px_#000] cursor-pointer"
+            className="w-full bg-white/85 backdrop-blur-md text-xs sm:text-sm font-bold uppercase text-black border-[2.5px] border-black rounded-[8px] p-2.5 shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.9),3px_3px_0px_#000] focus:outline-none focus:shadow-[4px_4px_0px_#000] cursor-pointer"
           >
             {groups.map((g) => (
               <option key={g._id} value={g._id}>
@@ -167,11 +167,16 @@ export default function SettlementsPage() {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Column: Optimized Repayments (7 cols) */}
-          <div className="lg:col-span-7 bg-[#000000] text-white border-3 sm:border-4 border-black rounded-[4px] p-6 sm:p-8 shadow-[8px_8px_0px_#000000] flex flex-col justify-between relative overflow-hidden">
-            {/* Washi Tape */}
-            <div className="absolute -top-3 left-8 w-16 h-4 bg-[#ccff00] border border-black/40 rotate-1 pointer-events-none" />
+          <div className="lg:col-span-7 glass-brutal-dark p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+            {/* Top Specular Sheen */}
+            <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none rounded-t-[12px]" />
+            
+            {/* Neon Accent */}
+            <div className="absolute -top-1 left-8 px-3 py-0.5 bg-gradient-to-r from-[#ccff00] to-[#a8ff00] text-black font-mono text-[9px] font-black uppercase tracking-wider rounded-b-[4px] border-x border-b border-black shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+              MIN-FLOW ENGINE
+            </div>
 
-            <div>
+            <div className="relative z-10 pt-2">
               <div className="flex items-center justify-between pb-4 border-b-2 border-white/20 mb-6">
                 <div>
                   <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ccff00]">
@@ -181,7 +186,7 @@ export default function SettlementsPage() {
                     {currentGroupName}
                   </h3>
                 </div>
-                <span className="px-2.5 py-1 bg-[#ff529a] text-white font-mono text-xs font-bold uppercase border-2 border-white shadow-[2px_2px_0px_#fff]">
+                <span className="px-2.5 py-1 bg-gradient-to-b from-[#ff4d8d] to-[#e62266] text-white font-mono text-xs font-bold uppercase border-2 border-black rounded-[6px] shadow-[2px_2px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.6)]">
                   GREEDY FLOW
                 </span>
               </div>
@@ -197,7 +202,7 @@ export default function SettlementsPage() {
                     return (
                       <div
                         key={idx}
-                        className="p-4 sm:p-5 bg-neutral-900 border-2 border-white/20 hover:border-[#ccff00] rounded-[4px] shadow-[4px_4px_0px_#ccff00] transition-all"
+                        className="p-4 sm:p-5 bg-white/10 backdrop-blur-md border-2 border-white/20 hover:border-[#ccff00] rounded-[10px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),4px_4px_0px_#ccff00] transition-all"
                       >
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                           <div className="flex items-center gap-3">
@@ -210,20 +215,20 @@ export default function SettlementsPage() {
                           </div>
 
                           <div className="text-right sm:text-right">
-                            <span className="text-xl font-display font-black text-[#ccff00]">
+                            <span className="text-xl font-display font-black text-[#ccff00] drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
                               {formatCurrency(tx.amount)}
                             </span>
                           </div>
                         </div>
 
-                        <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
-                          <span className="font-mono text-[10px] text-neutral-400">
+                        <div className="mt-4 pt-3 border-t border-white/15 flex items-center justify-between">
+                          <span className="font-mono text-[10px] text-neutral-300">
                             Send via GPay / PhonePe / Paytm / UPI
                           </span>
                           <button
                             onClick={() => handleSettleTransaction(tx)}
                             disabled={isProcessing}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#ccff00] hover:bg-[#bbf000] active:translate-x-0.5 active:translate-y-0.5 text-black font-mono text-xs font-bold uppercase border-2 border-black rounded-[3px] shadow-[2px_2px_0px_#fff] cursor-pointer"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-gradient-to-b from-[#e0ff40] to-[#b8f000] hover:brightness-105 active:translate-x-0.5 active:translate-y-0.5 text-black font-mono text-xs font-bold uppercase border-2 border-black rounded-[6px] shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)] cursor-pointer transition-all"
                           >
                             {isProcessing ? (
                               <>
@@ -244,7 +249,7 @@ export default function SettlementsPage() {
                 </div>
               ) : (
                 <div className="py-16 text-center font-mono">
-                  <div className="w-12 h-12 bg-[#00c853] border-2 border-white rounded-full flex items-center justify-center text-black mx-auto mb-3 font-bold text-xl">
+                  <div className="w-12 h-12 bg-gradient-to-b from-[#33f5ff] to-[#00d9e6] border-2 border-black rounded-[10px] shadow-[3px_3px_0px_#000] flex items-center justify-center text-black mx-auto mb-3 font-bold text-xl">
                     ✓
                   </div>
                   <h4 className="font-display font-black text-2xl text-white uppercase">
@@ -258,7 +263,7 @@ export default function SettlementsPage() {
             </div>
 
             {/* Bottom Algorithm Guarantee */}
-            <div className="pt-6 mt-8 border-t-2 border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono text-xs">
+            <div className="relative z-10 pt-6 mt-8 border-t-2 border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono text-xs">
               <span className="text-neutral-400">Greedy Transfer Guarantee:</span>
               <span className="text-[#00f0ff] font-bold">
                 COLLAPSED INTO AT MOST N − 1 PAYMENTS
@@ -267,7 +272,7 @@ export default function SettlementsPage() {
           </div>
 
           {/* Right Column: Settlement History (5 cols) */}
-          <div className="lg:col-span-5 bg-white border-3 border-black rounded-[4px] p-6 sm:p-8 shadow-[6px_6px_0px_#000] flex flex-col justify-between">
+          <div className="lg:col-span-5 glass-brutal-card p-6 sm:p-8 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-4 border-b-2 border-black mb-4">
                 <div>

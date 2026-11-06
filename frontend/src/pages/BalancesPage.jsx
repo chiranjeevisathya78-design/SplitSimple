@@ -150,18 +150,23 @@ export default function BalancesPage() {
 
         {groups.map((group, idx) => {
           const balances = groupBalances[group._id] || [];
-          const colors = ['bg-[#ccff00]', 'bg-[#ff529a]', 'bg-[#00f0ff]', 'bg-[#ff8800]'];
+          const colors = [
+            'bg-gradient-to-r from-[#ccff00] to-[#b8f000]',
+            'bg-gradient-to-r from-[#ff3377] to-[#e62266] text-white',
+            'bg-gradient-to-r from-[#00f0ff] to-[#00d9e6]',
+            'bg-gradient-to-r from-[#ffb703] to-[#ff9900]',
+          ];
           const headerColor = colors[idx % colors.length];
 
           return (
             <div
               key={group._id}
-              className="bg-white border-3 border-black rounded-[4px] shadow-[6px_6px_0px_#000] overflow-hidden"
+              className="glass-brutal-card overflow-hidden"
             >
               {/* Group Header Strip */}
-              <div className={`p-4 sm:p-5 ${headerColor} border-b-3 border-black flex flex-wrap items-center justify-between gap-3`}>
+              <div className={`p-4 sm:p-5 ${headerColor} border-b-2 sm:border-b-[2.5px] border-black flex flex-wrap items-center justify-between gap-3 shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.8)]`}>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-[3px] bg-black text-white flex items-center justify-center font-display font-black text-sm">
+                  <div className="w-8 h-8 rounded-[6px] bg-black text-white flex items-center justify-center font-display font-black text-sm shadow-[2px_2px_0px_rgba(0,0,0,0.3)]">
                     {group.name.charAt(0)}
                   </div>
                   <div>
@@ -189,7 +194,7 @@ export default function BalancesPage() {
               </div>
 
               {/* Members Balances List */}
-              <div className="p-5 sm:p-6 bg-[#fffdf8]">
+              <div className="p-5 sm:p-6 bg-white/40 backdrop-blur-sm">
                 {balances.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {balances.map((b) => {
@@ -204,8 +209,8 @@ export default function BalancesPage() {
                       return (
                         <div
                           key={b.user?._id || b.userId || memberName}
-                          className={`p-4 border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000] flex items-center justify-between gap-3 ${
-                            isCurrentUser ? 'bg-[#faf7ee]' : 'bg-white'
+                          className={`p-4 border-2 border-black rounded-[8px] shadow-[3px_3px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.8)] flex items-center justify-between gap-3 ${
+                            isCurrentUser ? 'bg-gradient-to-br from-white/95 to-amber-50/90' : 'bg-white/80'
                           }`}
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
@@ -215,11 +220,11 @@ export default function BalancesPage() {
                                 {memberName} {isCurrentUser && '(YOU)'}
                               </p>
                               <span
-                                className={`inline-block font-mono text-[9px] font-bold uppercase px-1.5 py-0.2 rounded-[2px] border border-black ${
+                                className={`inline-block font-mono text-[9px] font-bold uppercase px-2 py-0.5 rounded-[4px] border border-black shadow-[1px_1px_0px_#000] ${
                                   isPositive
-                                    ? 'bg-[#00c853] text-black'
+                                    ? 'bg-[#33f5ff] text-black'
                                     : isNegative
-                                    ? 'bg-[#ff3b30] text-white'
+                                    ? 'bg-[#ff3377] text-white'
                                     : 'bg-neutral-200 text-black'
                                 }`}
                               >
@@ -238,7 +243,7 @@ export default function BalancesPage() {
                                 isPositive
                                   ? 'text-[#00c853]'
                                   : isNegative
-                                  ? 'text-[#ff3b30]'
+                                  ? 'text-[#ff3377]'
                                   : 'text-black'
                               }`}
                             >

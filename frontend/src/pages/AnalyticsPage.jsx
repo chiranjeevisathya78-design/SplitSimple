@@ -162,7 +162,7 @@ export default function AnalyticsPage() {
       {/* Charts Row 1: Monthly Trend & Category Distribution */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Monthly Trend Bar Chart (7 cols) */}
-        <div className="lg:col-span-7 bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000] flex flex-col justify-between">
+        <div className="lg:col-span-7 glass-brutal-card p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-6 pb-3 border-b-2 border-black">
               <div>
@@ -214,7 +214,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Category Breakdown Donut Chart (5 cols) */}
-        <div className="lg:col-span-5 bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000] flex flex-col justify-between">
+        <div className="lg:col-span-5 glass-brutal-card p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-6 pb-3 border-b-2 border-black">
               <div>
@@ -293,7 +293,7 @@ export default function AnalyticsPage() {
       {/* Charts Row 2: Group Spending Comparison & Individual Contributions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Group Spending Comparison Chart */}
-        <div className="bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000]">
+        <div className="glass-brutal-card p-6">
           <div className="flex items-center justify-between mb-6 pb-3 border-b-2 border-black">
             <div>
               <h2 className="text-2xl font-display font-black text-black uppercase">
@@ -346,7 +346,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Member Outlays (Who Paid What) */}
-        <div className="bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000]">
+        <div className="glass-brutal-card p-6">
           <div className="flex items-center justify-between mb-6 pb-3 border-b-2 border-black">
             <div>
               <h2 className="text-2xl font-display font-black text-black uppercase">

@@ -204,7 +204,7 @@ export default function CreateExpensePage() {
       {/* Main Expense Form Card */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white border-3 border-black rounded-[4px] p-6 sm:p-8 space-y-6 shadow-[6px_6px_0px_#000000]"
+        className="glass-brutal-card p-6 sm:p-8 space-y-6"
       >
         {/* Title and Amount */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -235,7 +235,7 @@ export default function CreateExpensePage() {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 required
-                className="w-full bg-white text-black placeholder-neutral-400 font-bold text-sm border-2 border-black rounded-[4px] py-2.5 pl-8 pr-3.5 shadow-[2px_2px_0px_#000] focus:outline-none focus:shadow-[4px_4px_0px_#000] focus:bg-[#fffef7]"
+                className="w-full bg-white/85 backdrop-blur-md text-black placeholder-neutral-400 font-bold text-sm border-2 border-black rounded-[8px] py-2.5 pl-8 pr-3.5 shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.9),2px_2px_0px_#000] focus:outline-none focus:shadow-[3px_3px_0px_#000] focus:bg-white transition-all"
               />
             </div>
           </div>
@@ -287,7 +287,7 @@ export default function CreateExpensePage() {
         </div>
 
         {/* Split Type Selector */}
-        <div className="pt-4 border-t-2 border-black">
+        <div className="pt-4 border-t-2 border-black/15">
           <span className="block font-mono text-xs font-bold uppercase tracking-wider text-black mb-2">
             Splitting Method
           </span>
@@ -295,10 +295,10 @@ export default function CreateExpensePage() {
             <button
               type="button"
               onClick={() => setSplitType('equal')}
-              className={`px-4 py-2 border-2 border-black rounded-[4px] font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
+              className={`px-4 py-2 border-2 border-black rounded-[8px] font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
                 splitType === 'equal'
-                  ? 'bg-[#ccff00] text-black shadow-[3px_3px_0px_#000] -translate-y-0.5'
-                  : 'bg-white text-black hover:bg-neutral-100'
+                  ? 'bg-gradient-to-b from-[#e0ff40] to-[#b8f000] text-black shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)] -translate-y-0.5'
+                  : 'bg-white/70 backdrop-blur-md text-black hover:bg-white shadow-[1px_2px_0px_#000]'
               }`}
             >
               Equal Split
@@ -306,10 +306,10 @@ export default function CreateExpensePage() {
             <button
               type="button"
               onClick={() => setSplitType('custom')}
-              className={`px-4 py-2 border-2 border-black rounded-[4px] font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
+              className={`px-4 py-2 border-2 border-black rounded-[8px] font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
                 splitType === 'custom'
-                  ? 'bg-[#ff529a] text-white shadow-[3px_3px_0px_#000] -translate-y-0.5'
-                  : 'bg-white text-black hover:bg-neutral-100'
+                  ? 'bg-gradient-to-b from-[#ff4d8d] to-[#e62266] text-white shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.6)] -translate-y-0.5'
+                  : 'bg-white/70 backdrop-blur-md text-black hover:bg-white shadow-[1px_2px_0px_#000]'
               }`}
             >
               Custom Amounts
@@ -318,19 +318,19 @@ export default function CreateExpensePage() {
         </div>
 
         {/* Participants Selection & Breakdown */}
-        <div className="bg-[#faf7ee] border-2 border-black rounded-[4px] p-5 space-y-3 shadow-[3px_3px_0px_#000]">
+        <div className="bg-white/60 backdrop-blur-md border-2 border-black rounded-[10px] p-5 space-y-3 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8),3px_3px_0px_#000]">
           <div className="flex items-center justify-between font-mono text-xs">
             <span className="font-bold uppercase text-black">
               Participants ({selectedParticipants.length} selected)
             </span>
             {splitType === 'equal' && parsedAmount > 0 && selectedParticipants.length > 0 && (
-              <span className="px-2 py-0.5 bg-[#ccff00] border border-black font-bold">
+              <span className="px-2 py-0.5 bg-gradient-to-r from-[#ccff00] to-[#b8f000] border border-black font-bold rounded-[4px] shadow-[1px_1px_0px_#000]">
                 ₹{(parsedAmount / selectedParticipants.length).toFixed(2)} / PERSON
               </span>
             )}
           </div>
 
-          <div className="divide-y-2 divide-black bg-white border-2 border-black rounded-[4px] px-3">
+          <div className="divide-y-2 divide-black/15 bg-white/80 border-2 border-black rounded-[8px] px-3 shadow-[inset_0_1px_1px_rgba(0,0,0,0.05)]">
             {groupMembers.map((member) => {
               const isSelected = selectedParticipants.includes(member._id);
               const customVal = customShares[member._id] || '';
@@ -345,7 +345,7 @@ export default function CreateExpensePage() {
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => toggleParticipant(member._id)}
-                      className="w-4 h-4 rounded-[2px] border-2 border-black text-black focus:ring-0 cursor-pointer"
+                      className="w-4 h-4 rounded-[4px] border-2 border-black text-black focus:ring-0 cursor-pointer"
                     />
                     <MemberAvatar name={member.name} size="sm" />
                     <div>
@@ -367,7 +367,7 @@ export default function CreateExpensePage() {
                         onChange={(e) =>
                           handleCustomShareChange(member._id, e.target.value)
                         }
-                        className="w-24 bg-[#faf7ee] text-right font-mono font-bold text-xs rounded-[3px] border-2 border-black py-1 px-2 focus:outline-none focus:bg-white"
+                        className="w-24 bg-white text-right font-mono font-bold text-xs rounded-[6px] border-2 border-black py-1 px-2 focus:outline-none shadow-[inset_0_1px_1px_rgba(0,0,0,0.05)]"
                       />
                     </div>
                   )}
@@ -383,10 +383,10 @@ export default function CreateExpensePage() {
                 ALLOCATED: ₹{customSum.toFixed(2)} / ₹{parsedAmount.toFixed(2)}
               </span>
               <span
-                className={`px-2 py-0.5 border border-black rounded-[2px] ${
+                className={`px-2 py-0.5 border border-black rounded-[4px] shadow-[1px_1px_0px_#000] ${
                   Math.abs(customDifference) <= 0.01
-                    ? 'bg-[#00c853] text-black'
-                    : 'bg-[#ff3b30] text-white'
+                    ? 'bg-[#33f5ff] text-black'
+                    : 'bg-[#ff3377] text-white'
                 }`}
               >
                 {Math.abs(customDifference) <= 0.01
@@ -407,12 +407,12 @@ export default function CreateExpensePage() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Add any extra notes, bill items, or restaurant breakdown..."
-            className="w-full bg-white text-black placeholder-neutral-400 font-mono text-xs sm:text-sm rounded-[4px] border-2 border-black p-3 shadow-[2px_2px_0px_#000] focus:outline-none focus:shadow-[4px_4px_0px_#000] focus:bg-[#fffef7]"
+            className="w-full bg-white/85 backdrop-blur-md text-black placeholder-neutral-400 font-mono text-xs sm:text-sm rounded-[8px] border-2 border-black p-3 shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.9),2px_2px_0px_#000] focus:outline-none focus:shadow-[3px_3px_0px_#000] focus:bg-white transition-all"
           />
         </div>
 
         {/* Submit Button */}
-        <div className="pt-4 flex items-center justify-end gap-3 border-t-2 border-black">
+        <div className="pt-4 flex items-center justify-end gap-3 border-t-2 border-black/15">
           <Link to="/expenses">
             <SecondaryButton>Cancel</SecondaryButton>
           </Link>

@@ -61,26 +61,33 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#faf7ee] px-4 py-12 antialiased">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 antialiased relative">
+      {/* Ambient glass refraction orbs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[10%] right-[8%] w-[300px] h-[300px] rounded-full bg-[#ff3377]/25 blur-[80px]" />
+        <div className="absolute bottom-[15%] left-[8%] w-[250px] h-[250px] rounded-full bg-[#ccff00]/25 blur-[80px]" />
+        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 w-[220px] h-[220px] rounded-full bg-[#00f0ff]/20 blur-[80px]" />
+      </div>
+
+      <div className="w-full max-w-md relative z-10">
         {/* Brand Logo */}
         <Link
           to="/"
           className="flex items-center justify-center gap-2.5 text-xl font-display font-black text-black mb-8 uppercase"
         >
-          <div className="w-8 h-8 rounded-[4px] bg-[#ccff00] text-black border-2 border-black flex items-center justify-center text-sm shadow-[2px_2px_0px_#000]">
+          <div className="w-8 h-8 rounded-[8px] bg-gradient-to-b from-[#ff4d8d] to-[#e62266] text-white border-2 border-black flex items-center justify-center text-sm shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)]">
             S
           </div>
           <span>SplitSimple</span>
         </Link>
 
-        {/* Neo-Brutalist Form Card */}
-        <div className="bg-white border-3 sm:border-4 border-black rounded-[4px] p-6 sm:p-8 shadow-[8px_8px_0px_#000000] relative">
-          {/* Washi Tape */}
-          <div className="absolute -top-3 left-10 w-20 h-5 bg-[#ff529a] border border-black/40 rotate-1 pointer-events-none" />
+        {/* Glassmorphic Form Card */}
+        <div className="glass-brutal-card p-6 sm:p-8 relative">
+          {/* Specular gloss */}
+          <div className="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-[10px]" />
 
-          <div className="text-left mb-6">
-            <span className="px-2 py-0.5 bg-[#ccff00] border-2 border-black font-mono text-[9px] font-bold uppercase shadow-[2px_2px_0px_#000] inline-block mb-1">
+          <div className="relative z-10 text-left mb-6">
+            <span className="px-2.5 py-0.5 bg-gradient-to-r from-[#ccff00] to-[#b8f000] border-2 border-black rounded-[6px] font-mono text-[9px] font-bold uppercase shadow-[2px_2px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.8)] inline-block mb-1">
               FREE ONBOARDING
             </span>
             <h2 className="text-2xl sm:text-3xl font-display font-black text-black uppercase tracking-tight">
@@ -91,7 +98,7 @@ export default function RegisterPage() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-4">
             <Input
               label="Full Name"
               id="name"

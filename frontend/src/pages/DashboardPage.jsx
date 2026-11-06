@@ -118,23 +118,28 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* 2. Surreal Neo-Brutalist Net Balance Hero Card */}
-      <div className="bg-[#000000] text-white border-3 sm:border-4 border-black rounded-[6px] p-6 sm:p-8 relative overflow-hidden shadow-[8px_8px_0px_#000000]">
-        {/* Washi Tape Accent */}
-        <div className="absolute -top-3 left-10 w-20 h-5 bg-[#ccff00] border border-black/40 rotate-1 pointer-events-none" />
+      {/* 2. Skeuo-Neu-Brutalist-Glassmorphic Net Balance Hero Card */}
+      <div className="glass-brutal-dark p-6 sm:p-8 relative overflow-hidden">
+        {/* Specular glass gloss highlight */}
+        <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none rounded-t-[12px]" />
+        
+        {/* Neon Accent Badge */}
+        <div className="absolute -top-1 left-8 px-3 py-0.5 bg-gradient-to-r from-[#ccff00] to-[#a8ff00] text-black font-mono text-[9px] font-black uppercase tracking-wider rounded-b-[4px] border-x border-b border-black shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+          PAISE-PRECISION ENGINE
+        </div>
 
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10 pt-2">
           <div>
             <div className="flex items-center gap-2.5 mb-2">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#ccff00]">
-                ★ GLOBAL NET BALANCE
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#ccff00] flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" /> GLOBAL NET BALANCE
               </span>
               <span
-                className={`px-2 py-0.5 rounded-[2px] font-mono text-[10px] font-bold uppercase border border-black ${
+                className={`px-2.5 py-0.5 rounded-[6px] font-mono text-[10px] font-black uppercase border-2 border-black shadow-[2px_2px_0px_#000] ${
                   netBalance > 0
-                    ? 'bg-[#00c853] text-black'
+                    ? 'bg-gradient-to-b from-[#33f5ff] to-[#00d9e6] text-black'
                     : netBalance < 0
-                    ? 'bg-[#ff3b30] text-white'
+                    ? 'bg-gradient-to-b from-[#ff4d8d] to-[#e62266] text-white'
                     : 'bg-white text-black'
                 }`}
               >
@@ -146,7 +151,7 @@ export default function DashboardPage() {
               </span>
             </div>
 
-            <div className="text-4xl sm:text-6xl font-display font-black tracking-tight text-white leading-none">
+            <div className="text-4xl sm:text-6xl font-display font-black tracking-tight text-white leading-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
               {netBalance >= 0 ? '+' : ''}
               {formatCurrency(Math.abs(netBalance))}
             </div>
@@ -160,8 +165,8 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          {/* Breakdown Box */}
-          <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 bg-[#1a1a1a] border-2 border-white/20 p-4 rounded-[4px] shadow-[4px_4px_0px_#ccff00]">
+          {/* Breakdown Glass Inset Box */}
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 bg-white/10 backdrop-blur-md border-2 border-white/20 p-4 rounded-[10px] shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.2),4px_4px_0px_#ccff00]">
             <div className="pr-6 sm:border-r-2 sm:border-white/20">
               <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#00f0ff]">
                 YOU ARE OWED
@@ -172,10 +177,10 @@ export default function DashboardPage() {
             </div>
 
             <div className="pl-1 sm:pl-4">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff529a]">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff3377]">
                 YOU OWE
               </span>
-              <p className="text-2xl sm:text-3xl font-display font-black text-[#ff529a] mt-1 leading-none">
+              <p className="text-2xl sm:text-3xl font-display font-black text-[#ff3377] mt-1 leading-none">
                 {formatCurrency(summary.youOwe)}
               </p>
             </div>
@@ -212,7 +217,7 @@ export default function DashboardPage() {
       {/* 4. Transactions & Groups Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Recent Activity (8 cols) */}
-        <div className="lg:col-span-8 bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000] flex flex-col justify-between">
+        <div className="lg:col-span-8 glass-brutal-card p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-4 mb-4 border-b-2 border-black">
               <div>
@@ -225,14 +230,14 @@ export default function DashboardPage() {
               </div>
               <Link
                 to="/expenses"
-                className="font-mono text-xs font-bold uppercase text-black hover:text-[#ff529a] flex items-center gap-1 underline"
+                className="font-mono text-xs font-bold uppercase text-black hover:text-[#ff3377] flex items-center gap-1 underline transition-colors"
               >
                 All Expenses <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
             {recentExpenses.length > 0 ? (
-              <div className="divide-y-2 divide-black">
+              <div className="divide-y-2 divide-black/15">
                 {recentExpenses.slice(0, 5).map((expense) => {
                   const groupName =
                     expense.groupId?.name || expense.group?.name || 'Group';
@@ -241,7 +246,7 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={expense._id}
-                      className="py-3.5 flex items-center justify-between gap-4 transition-colors hover:bg-[#fffef7] px-2 rounded-[2px]"
+                      className="py-3.5 flex items-center justify-between gap-4 transition-all hover:bg-white/60 px-3 rounded-[8px]"
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <MemberAvatar name={payerName} size="md" />
@@ -263,7 +268,7 @@ export default function DashboardPage() {
                         <p className="text-base font-mono font-bold text-black">
                           {formatCurrency(expense.amount)}
                         </p>
-                        <span className="inline-block px-1.5 py-0.2 bg-[#ccff00] border border-black text-[9px] font-mono font-bold uppercase rounded-[2px] mt-0.5">
+                        <span className="inline-block px-2 py-0.5 bg-gradient-to-r from-[#ccff00] to-[#b8f000] border border-black text-[9px] font-mono font-bold uppercase rounded-[4px] shadow-[1px_1px_0px_#000] mt-0.5">
                           {expense.category || 'general'}
                         </span>
                       </div>
@@ -278,7 +283,7 @@ export default function DashboardPage() {
             )}
           </div>
 
-          <div className="pt-4 mt-4 border-t-2 border-black text-right">
+          <div className="pt-4 mt-4 border-t-2 border-black/15 text-right">
             <Link to="/expenses/new">
               <Button size="sm" variant="yellow" icon={Plus}>
                 Record New Expense
@@ -288,7 +293,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Right Column: Active Groups (4 cols) */}
-        <div className="lg:col-span-4 bg-[#faf7ee] border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000] flex flex-col justify-between">
+        <div className="lg:col-span-4 glass-brutal-card p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-4 mb-4 border-b-2 border-black">
               <div>
@@ -301,7 +306,7 @@ export default function DashboardPage() {
               </div>
               <Link
                 to="/groups"
-                className="font-mono text-xs font-bold uppercase text-black hover:text-[#00f0ff] underline"
+                className="font-mono text-xs font-bold uppercase text-black hover:text-[#00f0ff] underline transition-colors"
               >
                 All Groups
               </Link>
@@ -309,20 +314,25 @@ export default function DashboardPage() {
 
             <div className="space-y-3">
               {groups.map((group, idx) => {
-                const colors = ['bg-[#ccff00]', 'bg-[#ff529a]', 'bg-[#00f0ff]', 'bg-[#ffb703]'];
-                const cardColor = colors[idx % colors.length];
+                const colors = [
+                  'bg-gradient-to-r from-[#ccff00] to-[#b8f000]',
+                  'bg-gradient-to-r from-[#ff3377] to-[#e62266] text-white',
+                  'bg-gradient-to-r from-[#00f0ff] to-[#00d9e6]',
+                  'bg-gradient-to-r from-[#ffb703] to-[#ff9900]',
+                ];
+                const cardBadge = colors[idx % colors.length];
 
                 return (
                   <Link
                     key={group._id}
                     to={`/groups/${group._id}`}
-                    className="block p-3.5 bg-white border-2 border-black rounded-[4px] shadow-[3px_3px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#000] transition-all"
+                    className="block p-3.5 glass-brutal-card-hover"
                   >
                     <div className="flex items-center justify-between">
                       <h4 className="font-display font-bold text-sm text-black uppercase">
                         {group.name}
                       </h4>
-                      <span className={`px-1.5 py-0.2 ${cardColor} border border-black font-mono text-[9px] font-bold uppercase rounded-[2px]`}>
+                      <span className={`px-2 py-0.5 ${cardBadge} border border-black font-mono text-[9px] font-bold uppercase rounded-[4px] shadow-[1px_1px_0px_#000]`}>
                         {group.memberCount || group.members?.length || 0} members
                       </span>
                     </div>
@@ -336,7 +346,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="pt-5 mt-5 border-t-2 border-black">
+          <div className="pt-5 mt-5 border-t-2 border-black/15">
             <Link to="/groups/new" className="block">
               <Button variant="white" className="w-full text-xs">
                 + Create New Group
@@ -348,7 +358,7 @@ export default function DashboardPage() {
 
       {/* 5. Monthly Spending Trend Recharts */}
       {monthlyChartData.length > 0 && (
-        <div className="bg-white border-3 border-black rounded-[4px] p-6 shadow-[6px_6px_0px_#000000]">
+        <div className="glass-brutal-card p-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
             <div>
               <h2 className="text-2xl font-display font-black text-black uppercase">
