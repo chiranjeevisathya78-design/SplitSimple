@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   Users,
@@ -209,6 +209,14 @@ export default function AppLayout() {
                 </NavLink>
               );
             })}
+
+            <Link
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] border-2 border-black font-mono text-xs font-bold uppercase bg-white/90 hover:bg-white text-black shadow-[2px_2px_0px_#000]"
+            >
+              <span>✦ Public Landing</span>
+            </Link>
 
             <div className="pt-3 border-t-2 border-black flex items-center justify-between">
               <button

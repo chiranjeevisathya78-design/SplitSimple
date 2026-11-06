@@ -45,7 +45,7 @@ body {
 
 /* SKEUOMORPHIC + NEUMORPHIC + BRUTALIST + GLASSMORPHISM HYBRID CARDS */
 .glass-brutal-card {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.80);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 2.5px solid #000000;
@@ -55,6 +55,19 @@ body {
     0 12px 28px -6px rgba(0, 0, 0, 0.08),
     inset 0 1.5px 1px rgba(255, 255, 255, 0.95),
     inset 0 -1.5px 1px rgba(0, 0, 0, 0.04);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.2s ease,
+              border-color 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+.glass-brutal-card:hover {
+  transform: translateY(-3px) scale(1.004);
+  box-shadow: 
+    7px 8px 0px #000000,
+    0 18px 30px -6px rgba(0, 0, 0, 0.12),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.98);
 }
 
 .glass-brutal-card-hover {
@@ -67,15 +80,19 @@ body {
     5px 5px 0px #000000,
     0 12px 28px -6px rgba(0, 0, 0, 0.08),
     inset 0 1.5px 1px rgba(255, 255, 255, 0.95);
-  transition: all 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.2s ease;
+  will-change: transform, box-shadow;
 }
+
 .glass-brutal-card-hover:hover {
-  transform: translate(-3px, -3px);
+  transform: translate(-3.5px, -4px) scale(1.012);
   box-shadow: 
-    8px 8px 0px #000000,
-    0 20px 35px -6px rgba(0, 0, 0, 0.15),
-    inset 0 1.5px 1px rgba(255, 255, 255, 0.95);
-  background: rgba(255, 255, 255, 0.92);
+    9px 10px 0px #000000,
+    0 22px 38px -6px rgba(0, 0, 0, 0.18),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.98);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .glass-brutal-dark {
@@ -89,6 +106,17 @@ body {
     0 18px 32px -8px rgba(0, 0, 0, 0.4),
     inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
   color: #ffffff;
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, box-shadow;
+}
+
+.glass-brutal-dark:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 
+    9px 9px 0px #ccff00,
+    0 22px 40px -8px rgba(204, 255, 0, 0.25),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.35);
 }
 
 /* SKEUOMORPHIC 3D TACTILE BUTTONS */
@@ -105,21 +133,53 @@ body {
   box-shadow: 
     3px 4px 0px #000000,
     inset 0 1.5px 1px rgba(255, 255, 255, 0.7);
-  transition: all 0.12s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.15s ease;
   cursor: pointer;
   user-select: none;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
 }
+
+.skeuo-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+
+.skeuo-btn:hover::before {
+  left: 150%;
+}
+
 .skeuo-btn:hover {
-  transform: translate(-1.5px, -1.5px);
+  transform: translate(-2.5px, -3px) scale(1.02);
   box-shadow: 
-    5px 6px 0px #000000,
-    inset 0 1.5px 1px rgba(255, 255, 255, 0.8);
+    6px 7px 0px #000000,
+    0 10px 20px -4px rgba(0, 0, 0, 0.2),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.9);
+  filter: brightness(1.03);
 }
+
 .skeuo-btn:active {
-  transform: translate(2px, 2px);
+  transform: translate(2px, 2px) scale(0.98);
   box-shadow: 
     1px 1px 0px #000000,
     inset 0 2px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
 }
 
 .skeuo-btn-lime {
@@ -200,4 +260,66 @@ body {
 }
 .animate-skeuo-marquee:hover {
   animation-play-state: paused;
+}
+
+/* UNIVERSAL INTERACTIVE HOVER MOTION FOR BUTTONS & BOXES */
+button:not(:disabled),
+a[role="button"],
+.interactive-hover {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.15s ease;
+  will-change: transform, box-shadow;
+}
+
+/* Micro-spring lift on all interactive buttons */
+button:not(:disabled):hover:not(.no-motion) {
+  transform: translateY(-2px);
+}
+
+button:not(:disabled):active:not(.no-motion) {
+  transform: translateY(2px) scale(0.98);
+}
+
+/* Hover icon animations inside buttons */
+button:not(:disabled):hover svg,
+a:hover svg {
+  transform: scale(1.1) rotate(-2deg);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Tactile bouncy badge/chip */
+.tactile-badge {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+.tactile-badge:hover {
+  transform: scale(1.06) rotate(-1deg);
+}
+
+/* Interactive Box Utility */
+.interactive-box,
+[class*="rounded-[8px]"][class*="border-2"][class*="shadow-"],
+[class*="rounded-[10px]"][class*="border-2"][class*="shadow-"],
+[class*="rounded-[12px]"][class*="border-2"][class*="shadow-"] {
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, box-shadow;
+}
+
+.interactive-box:hover {
+  transform: translateY(-4px) scale(1.008);
+  box-shadow: 6px 7px 0px #000000, 0 12px 24px -4px rgba(0, 0, 0, 0.15);
+}
+
+/* Neon glow pulse for live badges */
+@keyframes neon-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(204, 255, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(204, 255, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.95);
+  }
+}
+.pulse-neon {
+  animation: neon-glow-pulse 2.4s ease-in-out infinite;
 }

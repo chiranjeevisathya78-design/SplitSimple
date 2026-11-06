@@ -35,7 +35,7 @@ export function StatCard({
 
   return (
     <div
-      className={`relative border-2 sm:border-[2.5px] border-black rounded-[12px] p-5 sm:p-6 transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_7px_0px_#000] overflow-hidden ${
+      className={`relative border-2 sm:border-[2.5px] border-black rounded-[12px] p-5 sm:p-6 transition-all duration-200 hover:-translate-x-1 hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-[7px_8px_0px_#000] cursor-pointer overflow-hidden ${
         variantStyles[variant] || variantStyles.glass
       } ${className}`}
     >

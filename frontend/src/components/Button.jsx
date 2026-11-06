@@ -14,12 +14,12 @@ export function Button({
   ...props
 }) {
   const base =
-    'relative inline-flex items-center justify-center font-display font-bold uppercase tracking-wider border-2 border-black rounded-[8px] transition-all select-none focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer';
+    'relative inline-flex items-center justify-center font-display font-bold uppercase tracking-wider border-2 border-black rounded-[8px] transition-all duration-200 select-none focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden';
 
   const sizes = {
-    sm: 'text-xs px-3 py-1.5 gap-1.5 shadow-[2px_3px_0px_#000] hover:shadow-[4px_5px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000]',
-    md: 'text-xs sm:text-sm px-4 py-2 sm:px-5 sm:py-2.5 gap-2 shadow-[3px_4px_0px_#000] hover:shadow-[5px_6px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000]',
-    lg: 'text-sm sm:text-base px-6 py-3 sm:px-7 sm:py-3.5 gap-2.5 shadow-[4px_5px_0px_#000] hover:shadow-[6px_7px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000]',
+    sm: 'text-xs px-3 py-1.5 gap-1.5 shadow-[2px_3px_0px_#000] hover:shadow-[5px_6px_0px_#000] hover:-translate-x-1 hover:-translate-y-1 hover:scale-[1.02] active:translate-x-0.5 active:translate-y-0.5 active:scale-[0.98] active:shadow-[1px_1px_0px_#000]',
+    md: 'text-xs sm:text-sm px-4 py-2 sm:px-5 sm:py-2.5 gap-2 shadow-[3px_4px_0px_#000] hover:shadow-[6px_7px_0px_#000] hover:-translate-x-1 hover:-translate-y-1 hover:scale-[1.02] active:translate-x-0.5 active:translate-y-0.5 active:scale-[0.98] active:shadow-[1px_1px_0px_#000]',
+    lg: 'text-sm sm:text-base px-6 py-3 sm:px-7 sm:py-3.5 gap-2.5 shadow-[4px_5px_0px_#000] hover:shadow-[7px_8px_0px_#000] hover:-translate-x-1 hover:-translate-y-1.5 hover:scale-[1.02] active:translate-x-0.5 active:translate-y-0.5 active:scale-[0.98] active:shadow-[1px_1px_0px_#000]',
   };
 
   const variants = {
