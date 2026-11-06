@@ -35,6 +35,12 @@ const PREVIEW_DATA = {
     desc: 'Monthly rent, cook, utilities, and daily provisions',
     folderGradient: 'from-[#d8ff26] to-[#b8f000]',
     totalSpent: 4841500,
+    members: [
+      { name: 'Chiranjeevi S', role: 'Rent Lead' },
+      { name: 'Gagan K', role: 'Groceries' },
+      { name: 'Pranav M', role: 'BESCOM' },
+      { name: 'Chandan R', role: 'Airtel Fiber' },
+    ],
     expenses: [
       { title: 'Monthly House Rent', amount: 4000000, paidBy: 'Chiranjeevi S', category: 'Rent', date: '01 NOV' },
       { title: 'Nature Basket Groceries', amount: 480000, paidBy: 'Gagan K', category: 'Groceries', date: '02 NOV' },
@@ -57,6 +63,13 @@ const PREVIEW_DATA = {
     desc: 'Beach villa, scooter rentals, dining, and scuba expeditions',
     folderGradient: 'from-[#ff4d8d] to-[#e62266]',
     totalSpent: 8180000,
+    members: [
+      { name: 'Gagan K', role: 'Villa Host' },
+      { name: 'Chandan R', role: 'Scooters' },
+      { name: 'Rahul V', role: 'Scuba Dive' },
+      { name: 'Chiranjeevi S', role: 'Wharf Feast' },
+      { name: 'Pranav M', role: 'Member' },
+    ],
     expenses: [
       { title: 'Beachfront Villa (3 Nights)', amount: 4500000, paidBy: 'Gagan K', category: 'Stay', date: '28 OCT' },
       { title: 'Activa Rentals (5 Scooters)', amount: 750000, paidBy: 'Chandan R', category: 'Transport', date: '29 OCT' },
@@ -80,6 +93,12 @@ const PREVIEW_DATA = {
     desc: 'IMAX movies, burgers, turf football, and cafe catchups',
     folderGradient: 'from-[#33f5ff] to-[#00d9e6]',
     totalSpent: 1060000,
+    members: [
+      { name: 'Pranav M', role: 'IMAX Dune' },
+      { name: 'Chandan R', role: 'Truffles' },
+      { name: 'Rahul V', role: 'Play Arena' },
+      { name: 'Chiranjeevi S', role: 'Third Wave' },
+    ],
     expenses: [
       { title: 'Dune IMAX 3D Recliner', amount: 280000, paidBy: 'Pranav M', category: 'Movies', date: '02 NOV' },
       { title: 'Truffles Burgers & Shakes', amount: 360000, paidBy: 'Chandan R', category: 'Dining', date: '03 NOV' },
@@ -543,7 +562,7 @@ export default function LandingPage() {
                             Active Ledger Participants
                           </span>
                           <div className="flex flex-wrap gap-2">
-                            {preview.members.map((m) => (
+                            {(preview?.members || []).map((m) => (
                               <div
                                 key={m.name}
                                 className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border-2 border-black rounded-[6px] text-xs font-mono font-bold shadow-[2px_2px_0px_#000]"
@@ -560,10 +579,10 @@ export default function LandingPage() {
                       <div className="bg-white/90 backdrop-blur-xl border-3 border-black rounded-[10px] shadow-[4px_5px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.95)] overflow-hidden">
                         <div className="bg-gradient-to-r from-[#d8ff26] to-[#b8f000] px-4 py-2.5 border-b-2 border-black flex items-center justify-between font-mono text-xs font-bold uppercase">
                           <span>Group Transactions</span>
-                          <span>Total: {formatCurrency(preview.totalSpent)}</span>
+                          <span>Total: {formatCurrency(preview?.totalSpent || 0)}</span>
                         </div>
                         <div className="divide-y-2 divide-black">
-                          {preview.expenses.map((item, idx) => (
+                          {(preview?.expenses || []).map((item, idx) => (
                             <div
                               key={idx}
                               className="p-3.5 hover:bg-white transition-colors flex items-center justify-between"
@@ -616,7 +635,7 @@ export default function LandingPage() {
 
                         {/* Repayment List */}
                         <div className="space-y-3">
-                          {preview.settlementPlan.map((step, idx) => {
+                          {(preview?.settlementPlan || []).map((step, idx) => {
                             const isSettled = settledRows[`${activeTab}-${idx}`];
                             return (
                               <motion.div
