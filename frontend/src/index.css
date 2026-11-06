@@ -272,19 +272,9 @@ a[role="button"],
   will-change: transform, box-shadow;
 }
 
-/* Micro-spring lift on all interactive buttons */
-button:not(:disabled):hover:not(.no-motion) {
-  transform: translateY(-2px);
-}
-
-button:not(:disabled):active:not(.no-motion) {
-  transform: translateY(2px) scale(0.98);
-}
-
 /* Hover icon animations inside buttons */
 button:not(:disabled):hover svg,
 a:hover svg {
-  transform: scale(1.1) rotate(-2deg);
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -296,11 +286,8 @@ a:hover svg {
   transform: scale(1.06) rotate(-1deg);
 }
 
-/* Interactive Box Utility */
-.interactive-box,
-[class*="rounded-[8px]"][class*="border-2"][class*="shadow-"],
-[class*="rounded-[10px]"][class*="border-2"][class*="shadow-"],
-[class*="rounded-[12px]"][class*="border-2"][class*="shadow-"] {
+/* Interactive Box Utility — only applied explicitly */
+.interactive-box {
   transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
   will-change: transform, box-shadow;

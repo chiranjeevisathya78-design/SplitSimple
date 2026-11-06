@@ -55,7 +55,7 @@ export default function AppLayout() {
   };
 
   return (
-    <div className="min-h-screen text-black flex flex-col antialiased">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden text-black flex flex-col antialiased">
       {/* 
         1. SKEUO-NEU-BRUTALIST TICKER
       */}
@@ -83,11 +83,11 @@ export default function AppLayout() {
         {/* Subtle top specular sheen */}
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/60 pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="h-16 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 overflow-x-hidden">
+          <div className="h-14 flex items-center justify-between gap-2 min-w-0">
             {/* Left: Brand + Navigation */}
-            <div className="flex items-center gap-6 lg:gap-8 shrink-0">
-              <NavLink to="/dashboard" className="flex items-center gap-2.5 group">
+            <div className="flex items-center gap-3 lg:gap-5 min-w-0 shrink-1 overflow-hidden">
+              <NavLink to="/dashboard" className="flex items-center gap-2 group shrink-0">
                 <div className="w-8 h-8 rounded-[8px] bg-gradient-to-b from-[#e0ff40] to-[#b8f000] text-black border-2 border-black flex items-center justify-center font-display font-black text-base shadow-[2px_3px_0px_#000,inset_0_1.5px_1px_rgba(255,255,255,0.8)] group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[4px_5px_0px_#000] transition-all">
                   S
                 </div>
@@ -107,7 +107,7 @@ export default function AppLayout() {
               </NavLink>
 
               {/* Desktop Horizontal Navigation Links */}
-              <nav className="hidden lg:flex items-center gap-2">
+              <nav className="hidden xl:flex items-center gap-1.5">
                 {navItems.map(({ to, label, icon: Icon }) => {
                   const active =
                     location.pathname === to ||
@@ -116,13 +116,13 @@ export default function AppLayout() {
                     <NavLink
                       key={to}
                       to={to}
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-bold uppercase tracking-wide border-2 transition-all ${
+                      className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-[6px] text-[11px] font-mono font-bold uppercase tracking-wide border-2 transition-all ${
                         active
                           ? 'bg-gradient-to-b from-[#e0ff40] to-[#b8f000] text-black border-black shadow-[2px_3px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.8)]'
                           : 'border-transparent text-neutral-800 hover:border-black hover:bg-white/80 hover:shadow-[2px_2px_0px_#000]'
                       }`}
                     >
-                      <Icon size={14} className={active ? 'text-black' : 'text-neutral-600'} />
+                      <Icon size={13} className={active ? 'text-black' : 'text-neutral-600'} />
                       <span>{label}</span>
                     </NavLink>
                   );
@@ -131,57 +131,57 @@ export default function AppLayout() {
             </div>
 
             {/* Right: Demo Reset & Profile Controls */}
-            <div className="hidden sm:flex items-center gap-3 shrink-0">
-              {/* Link to Public Landing */}
+            <div className="flex items-center gap-2 shrink-0">
+              {/* Link to Public Landing - hidden on small screens */}
               <Link
                 to="/"
                 title="View Public Landing Page"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/85 hover:bg-white text-black border-2 border-black rounded-[6px] font-mono text-xs font-bold uppercase tracking-wider shadow-[2px_3px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.7)] hover:shadow-[3px_4px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
+                className="hidden md:inline-flex items-center gap-1 px-2.5 py-1.5 bg-white/85 hover:bg-white text-black border-2 border-black rounded-[6px] font-mono text-[11px] font-bold uppercase tracking-wide shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
               >
-                <span>✦ Public Landing</span>
+                <span>✦ Home</span>
               </Link>
 
-              {/* Reset Demo Button */}
+              {/* Reset Demo Button - hidden on small screens */}
               <button
                 onClick={handleResetDemo}
                 disabled={resettingDemo}
                 title="Reset sample data to initial state"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-b from-[#33f5ff] to-[#00d9e6] active:translate-x-0.5 active:translate-y-0.5 text-black border-2 border-black rounded-[6px] font-mono text-xs font-bold uppercase tracking-wider shadow-[2px_3px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.7)] hover:shadow-[3px_4px_0px_#000] transition-all disabled:opacity-50 cursor-pointer"
+                className="hidden md:inline-flex items-center gap-1 px-2.5 py-1.5 bg-gradient-to-b from-[#33f5ff] to-[#00d9e6] active:translate-x-0.5 active:translate-y-0.5 text-black border-2 border-black rounded-[6px] font-mono text-[11px] font-bold uppercase tracking-wide shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all disabled:opacity-50 cursor-pointer"
               >
-                <RotateCcw size={12} className={resettingDemo ? 'animate-spin' : ''} />
-                <span>{resettingDemo ? 'Resetting…' : 'Reset Demo'}</span>
+                <RotateCcw size={11} className={resettingDemo ? 'animate-spin' : ''} />
+                <span className="hidden lg:inline">{resettingDemo ? 'Resetting…' : 'Reset'}</span>
               </button>
 
               {/* User Avatar & Logout */}
-              <div className="flex items-center gap-2 pl-3 border-l-2 border-black">
-                <div className="w-8 h-8 rounded-[6px] bg-gradient-to-b from-[#ffc837] to-[#ff9900] text-black border-2 border-black flex items-center justify-center text-xs font-display font-black shadow-[2px_2px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.8)] shrink-0">
+              <div className="flex items-center gap-1.5 pl-2 border-l-2 border-black">
+                <div className="w-7 h-7 rounded-[6px] bg-gradient-to-b from-[#ffc837] to-[#ff9900] text-black border-2 border-black flex items-center justify-center text-xs font-display font-black shadow-[2px_2px_0px_#000] shrink-0">
                   {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
                 <div className="hidden xl:flex flex-col text-left">
-                  <span className="text-xs font-display font-bold text-black leading-tight truncate max-w-[110px]">
-                    {user?.name || 'Chiranjeevi S'}
+                  <span className="text-xs font-display font-bold text-black leading-tight truncate max-w-[90px]">
+                    {user?.name || 'User'}
                   </span>
-                  <span className="text-[10px] font-mono text-neutral-600 leading-tight truncate max-w-[110px]">
-                    {user?.email || 'chiranjeevi@example.com'}
+                  <span className="text-[10px] font-mono text-neutral-600 leading-tight truncate max-w-[90px]">
+                    {user?.email || ''}
                   </span>
                 </div>
                 <button
                   onClick={handleLogout}
                   title="Sign out"
-                  className="p-1.5 bg-white/80 text-black hover:bg-[#ff3377] hover:text-white border-2 border-black rounded-[6px] shadow-[2px_2px_0px_#000,inset_0_1px_1px_rgba(255,255,255,0.8)] hover:shadow-[3px_3px_0px_#000] transition-all cursor-pointer ml-1"
+                  className="p-1.5 bg-white/80 text-black hover:bg-[#ff3377] hover:text-white border-2 border-black rounded-[6px] shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all cursor-pointer"
                 >
-                  <LogOut size={14} />
+                  <LogOut size={13} />
                 </button>
               </div>
             </div>
 
-            {/* Mobile Hamburger Button */}
+            {/* Mobile/Tablet Hamburger Button — shown below xl */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 bg-gradient-to-b from-[#e0ff40] to-[#b8f000] text-black border-2 border-black rounded-[6px] shadow-[2px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition"
+              className="xl:hidden p-2 bg-gradient-to-b from-[#e0ff40] to-[#b8f000] text-black border-2 border-black rounded-[6px] shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition shrink-0"
               aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </div>
